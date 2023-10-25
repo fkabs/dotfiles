@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+
+# General aliases
+alias la="ls -la"
+alias ll="ls -l"
+
+# Shortcuts for easier navigation
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+# Use bat (https://github.com/sharkdp/bat) instead of cat
+alias cat="bat"
+
+# Get global IP address
+alias getip="curl -s ipinfo.io/ip | cut -c 1-"
+
+# Shortcut for podman machine
+# alias podmachine="podman machine"
+
+# Make and change directory
+alias mkcd='(){mkdir -p "$1"; cd "$1"}'
+
+# Shortcut for colima nerdctl
+alias nerdctl="nerdctl.lima"

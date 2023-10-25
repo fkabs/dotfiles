@@ -1,0 +1,7 @@
+[user]
+	name = FKabs
+	email = fkabs@pm.me
+[diff]
+	tool = bc
+[core]
+	excludesfile = /Users/fkabs/.gitignore_global

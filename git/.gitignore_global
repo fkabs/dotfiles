@@ -1,0 +1,26 @@
+# asdf
+.tool-versions
+
+# Environments
+.env
+.envrc
+.direnv
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jetbrains
+.idea
+
+# MacOS .DS_Store
+**/*.DS_Store
+
+# pyenv
+.python-version
+
+# Visual Studios Code
+.vscode
+.vscode-server
