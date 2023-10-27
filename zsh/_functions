@@ -6,7 +6,7 @@ brewup() {
     mas upgrade
     brew upgrade --greedy
     brew autoremove
-    brew cleanup
+    brew cleanup -s
     brew bundle dump --force --file=$DOTFILES/brew/Brewfile
     defaults import com.apple.dock /tmp/dock-layout.plist
     killall Dock
@@ -18,7 +18,7 @@ brewup() {
 brewzap() {
     brew uninstall --zap $@
     brew autoremove
-    brew cleanup
+    brew cleanup -s
     brew bundle dump --force --file=$DOTFILES/brew/Brewfile
     brew doctor
 }
