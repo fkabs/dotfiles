@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 
+# Runs the backup script
+backup() {
+    $DOTFILES/scripts/backup.zsh
+}
+
 # Update mas and brew apps and cleanup while keeping the dock layout
 brewup() {
     defaults export com.apple.dock /tmp/dock-layout.plist
