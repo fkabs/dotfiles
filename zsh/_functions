@@ -7,26 +7,40 @@ backup() {
 
 # Update asdf plugins, mas and brew apps and cleanup while keeping the dock layout
 brewup() {
+    echo "# Exporting dock layout to /tmp/dock-layout.plist"
     defaults export com.apple.dock /tmp/dock-layout.plist
+    echo "Done"
+    echo "\n# Updating asdf plugins"
     asdf plugin update --all
+    echo "\n# Updating mas apps"
     mas upgrade
+    echo "\n# Updating brew apps"
     brew upgrade --greedy
+    echo "\n# Cleaning up"
     brew autoremove
     brew cleanup -s
+    brew doctor
+    echo "\n# Dumping Brewfile"
     brew bundle dump --force --file=$DOTFILES/brew/Brewfile
+    echo "Dumped file to $DOTFILES/brew/Brewfile"
+    echo "\n# Importing saved dock layout from /tmp/dock-layout.plist"
     defaults import com.apple.dock /tmp/dock-layout.plist
     killall Dock
     rm -f /tmp/dock-layout.plist
-    brew doctor
+    echo "Done"
 }
 
 # Uninstall a brew app (with zap) and cleanup
 brewzap() {
+    echo "# Uninstalling $@"
     brew uninstall --zap $@
+    echo "\n# Cleaning up"
     brew autoremove
     brew cleanup -s
-    brew bundle dump --force --file=$DOTFILES/brew/Brewfile
     brew doctor
+    echo "\n# Dumping Brewfile"
+    brew bundle dump --force --file=$DOTFILES/brew/Brewfile
+    echo "Dumped file to $DOTFILES/brew/Brewfile"‚
 }
 
 # Run pip with no virtualenv active
