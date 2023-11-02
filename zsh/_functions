@@ -5,9 +5,10 @@ backup() {
     $DOTFILES/scripts/backup.zsh
 }
 
-# Update mas and brew apps and cleanup while keeping the dock layout
+# Update asdf plugins, mas and brew apps and cleanup while keeping the dock layout
 brewup() {
     defaults export com.apple.dock /tmp/dock-layout.plist
+    asdf plugin update --all
     mas upgrade
     brew upgrade --greedy
     brew autoremove
@@ -33,32 +34,17 @@ gpip() {
     PIP_REQUIRE_VIRTUALENV="" pip "$@"
 }
 
-# Run command assumingno virtualenv is active
-# nopip() {
-#     PIP_REQUIRE_VIRTUALENV="" "$@"
-# }
+# Run command assuming no virtualenv is active
+nopip() {
+    PIP_REQUIRE_VIRTUALENV="" "$@"
+}
 
 # Open container volume using docker/nerdctl/podman in busybox shell
-# dockervol_sh() {
-#     docker run --rm -it -v $1:/data busybox sh
-# }
 nerdctlvol_sh() {
     nerdctl run --rm -it -v $1:/data busybox sh
 }
-# podmanvol_sh() {
-#     podman run --rm -it -v $1:/data busybox sh
-# }
 
 # Copy contents of container volume using docker/nerdctl/podman to vol_$RAND_DIR in current directory
-# dockervol_cp() {
-#     RAND_DIR=$(cat /dev/urandom | base64 | tr -dc '0-9a-zA-Z' | head -c8)
-#     mkdir $(pwd)/vol_"$RAND_DIR"
-#     docker run --rm -it -v $1:/data -v $(pwd)/vol_"$RAND_DIR":/mnt busybox sh -c "cp -r /data/* /mnt"
-#     echo ">> Copied contents to '$(pwd)/vol_$RAND_DIR'"
-#     echo "$(pwd)/vol_$RAND_DIR" | pbcopy
-#     cd "$(pwd)/vol_$RAND_DIR"
-#     unset RAND_DIR
-# }
 nerdctlvol_cp() {
     RAND_DIR=$(cat /dev/urandom | base64 | tr -dc '0-9a-zA-Z' | head -c8)
     mkdir $(pwd)/vol_"$RAND_DIR"
@@ -68,12 +54,3 @@ nerdctlvol_cp() {
     cd "$(pwd)/vol_$RAND_DIR"
     unset RAND_DIR
 }
-# podmanvol_cp() {
-#     RAND_DIR=$(cat /dev/urandom | base64 | tr -dc '0-9a-zA-Z' | head -c8)
-#     mkdir $(pwd)/vol_"$RAND_DIR"
-#     podman run --rm -it -v $1:/data -v $(pwd)/vol_"$RAND_DIR":/mnt busybox sh -c "cp -r /data/* /mnt"
-#     echo ">> Copied contents to '$(pwd)/vol_$RAND_DIR'"
-#     echo "$(pwd)/vol_$RAND_DIR" | pbcopy
-#     cd "$(pwd)/vol_$RAND_DIR"
-#     unset RAND_DIR
-# }

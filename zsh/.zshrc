@@ -37,10 +37,11 @@ fpath=("/opt/homebrew/share/zsh-completions" $fpath)
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Load aliases, exports, functions and oh-my-zsh settings
-[[ -f "$ZDOTDIR/_aliases" ]] && source "$ZDOTDIR/_aliases"
-[[ -f "$ZDOTDIR/_functions" ]] && source "$ZDOTDIR/_functions"
+# Load oh-my-zsh, aliases, configs and functions
 [[ -f "$ZDOTDIR/_oh-my-zsh" ]] && source "$ZDOTDIR/_oh-my-zsh"
+[[ -f "$ZDOTDIR/_aliases" ]] && source "$ZDOTDIR/_aliases"
+[[ -f "$ZDOTDIR/_config" ]] && source "$ZDOTDIR/_config"
+[[ -f "$ZDOTDIR/_functions" ]] && source "$ZDOTDIR/_functions"
 
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/_p10k
 [[ -f "$ZDOTDIR/_p10k" ]] && source "$ZDOTDIR/_p10k"
