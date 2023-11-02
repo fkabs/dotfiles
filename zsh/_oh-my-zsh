@@ -75,6 +75,7 @@ export ZSHZ_DATA="$HOME/.cache/z/.zdb"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     asdf
+    direnv
     git
     jsontools
     macos

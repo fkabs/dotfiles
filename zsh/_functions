@@ -54,3 +54,13 @@ nerdctlvol_cp() {
     cd "$(pwd)/vol_$RAND_DIR"
     unset RAND_DIR
 }
+
+# Create .envrc file in current directory with virtualenvwrapper layout for direnv and allow it
+local_env() {
+    if [ -n "$1" ]; then
+        echo "layout virtualenvwrapper $1" > .envrc
+        direnv allow
+    else
+        echo "direnv: No virtualenv passed"
+    fi
+}
