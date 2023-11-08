@@ -1,9 +1,6 @@
 # powerlevel10k theme
 romkatv/powerlevel10k kind:fpath
 
-# syntax highlighting
-zdharma-continuum/fast-syntax-highlighting kind:defer
-
 # z plugin
 agkozak/zsh-z
 
@@ -11,3 +8,4 @@ agkozak/zsh-z
 zsh-users/zsh-autosuggestions kind:defer
 zsh-users/zsh-completions path:src kind:fpath
 zsh-users/zsh-history-substring-search kind:defer
+zsh-users/zsh-syntax-highlighting kind:defer
