@@ -1,0 +1,18 @@
+# oh-my-zsh plugins
+ohmyzsh/ohmyzsh path:lib
+ohmyzsh/ohmyzsh path:plugins/asdf
+ohmyzsh/ohmyzsh path:plugins/direnv
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/jsontools
+ohmyzsh/ohmyzsh path:plugins/macos
+ohmyzsh/ohmyzsh path:plugins/pip
+ohmyzsh/ohmyzsh path:plugins/z
+
+# powerlevel10k theme
+romkatv/powerlevel10k kind:fpath
+
+# zsh-users plugins
+zsh-users/zsh-autosuggestions kind:defer
+zsh-users/zsh-completions path:src kind:fpath
+zsh-users/zsh-history-substring-search
+zsh-users/zsh-syntax-highlighting kind:defer

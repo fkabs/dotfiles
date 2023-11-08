@@ -1,3 +1,11 @@
+#!/bin/zsh
+#
+# .zshrc - Zsh file loaded on interactive shell sessions.
+#
+
+# Zsh options
+setopt extended_glob
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -8,40 +16,31 @@ fi
 # Add brew zsh-completions to fpath
 fpath=("/opt/homebrew/share/zsh-completions" $fpath)
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Autoload functions you might want to use with antidote.
+ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
+fpath=($ZFUNCDIR $fpath)
+autoload -Uz $fpath[1]/*(.:t)
 
-# User configuration
+# Compinit
+autoload -Uz compinit
+compinit -d ${ZSH_COMPDUMP:-$ZDOTDIR/.zcompdump}
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# Clone antidote if necessary.
+[[ -d $HOME/.antidote ]] ||
+  git clone --depth=1 https://github.com/mattmc3/antidote.git $HOME/.antidote
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# Load aliases, configs, functions and styles
+# [[ -f "$ZDOTDIR/_oh-my-zsh" ]] && source "$ZDOTDIR/_oh-my-zsh"
+[[ -e ${ZDOTDIR:-$HOME}/.aliases ]] && source ${ZDOTDIR:-$HOME}/.aliases
+[[ -e ${ZDOTDIR:-$HOME}/.zconfig ]] && source ${ZDOTDIR:-$HOME}/.zconfig
+[[ -e ${ZDOTDIR:-$HOME}/.zstyles ]] && source ${ZDOTDIR:-$HOME}/.zstyles
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# To customize prompt, run `p10k configure` or edit ~/.dotfiles/.p10k
+[[ -e ${ZDOTDIR:-$HOME}/.p10k ]] && source ${ZDOTDIR:-$HOME}/.p10k
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# Load antidote
+source $ANTIDOTE_HOME/antidote.zsh
+antidote load
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Load oh-my-zsh, aliases, configs and functions
-[[ -f "$ZDOTDIR/_oh-my-zsh" ]] && source "$ZDOTDIR/_oh-my-zsh"
-[[ -f "$ZDOTDIR/_aliases" ]] && source "$ZDOTDIR/_aliases"
-[[ -f "$ZDOTDIR/_config" ]] && source "$ZDOTDIR/_config"
-[[ -f "$ZDOTDIR/_functions" ]] && source "$ZDOTDIR/_functions"
-
-# To customize prompt, run `p10k configure` or edit ~/.dotfiles/_p10k
-[[ -f "$ZDOTDIR/_p10k" ]] && source "$ZDOTDIR/_p10k"
+# Prompts
+autoload -Uz promptinit && promptinit && prompt powerlevel10k
