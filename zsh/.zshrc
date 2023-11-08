@@ -1,10 +1,9 @@
 #!/bin/zsh
 #
-# .zshrc - Zsh file loaded on interactive shell sessions.
+# .zshenv - Zsh environment file, loaded always.
 #
-
-# Zsh options
-setopt extended_glob
+# NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
+#
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -16,7 +15,7 @@ fi
 # Add brew zsh-completions to fpath
 fpath=("/opt/homebrew/share/zsh-completions" $fpath)
 
-# Autoload functions you might want to use with antidote.
+# Autoload functions
 ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
 fpath=($ZFUNCDIR $fpath)
 autoload -Uz $fpath[1]/*(.:t)
@@ -39,14 +38,13 @@ fi
 [[ -d $HOME/.antidote ]] ||
   git clone --depth=1 https://github.com/mattmc3/antidote.git $HOME/.antidote
 
-# Load aliases, configs, functions and styles
-# [[ -f "$ZDOTDIR/_oh-my-zsh" ]] && source "$ZDOTDIR/_oh-my-zsh"
+# Load aliases, zconfigs, and zstyles
 [[ -e ${ZDOTDIR:-$HOME}/.aliases ]] && source ${ZDOTDIR:-$HOME}/.aliases
 [[ -e ${ZDOTDIR:-$HOME}/.zconfig ]] && source ${ZDOTDIR:-$HOME}/.zconfig
 [[ -e ${ZDOTDIR:-$HOME}/.zstyles ]] && source ${ZDOTDIR:-$HOME}/.zstyles
 
-# To customize prompt, run `p10k configure` or edit ~/.dotfiles/.p10k
-[[ -e ${ZDOTDIR:-$HOME}/.p10k ]] && source ${ZDOTDIR:-$HOME}/.p10k
+# To customize prompt, run `p10k configure` or edit ~/.dotfiles/p10k/.p10k
+[[ -e ${DOTFILES:-$HOME}/p10k/.p10k ]] && source ${DOTFILES:-$HOME}/p10k/.p10k
 
 # Load antidote
 source $ANTIDOTE_HOME/antidote.zsh
