@@ -30,6 +30,11 @@ export PAGER=less
 # Require pip to be run within a virtualenv (can be bypassed with gpip or nopip)
 export PIP_REQUIRE_VIRTUALENV=true
 
+# Virtualenvwrapper
+export WORKON_HOME="$HOME/.virtualenvs"
+export PROJECT_HOME="$HOME/work"
+export VIRTUALENVWRAPPER_PYTHON="$(asdf which python)"
+
 # Path of zsh dumps
 export ZSH_COMPDUMP="$HOME/.cache/zsh/.zcompdump-${HOST/.*/}-${ZSH_VERSION}"
 
