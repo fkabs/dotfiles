@@ -1,15 +1,8 @@
-# oh-my-zsh plugins
-ohmyzsh/ohmyzsh path:lib
-ohmyzsh/ohmyzsh path:plugins/asdf
-ohmyzsh/ohmyzsh path:plugins/direnv
-ohmyzsh/ohmyzsh path:plugins/git
-ohmyzsh/ohmyzsh path:plugins/jsontools
-ohmyzsh/ohmyzsh path:plugins/macos
-ohmyzsh/ohmyzsh path:plugins/pip
-ohmyzsh/ohmyzsh path:plugins/z
-
 # powerlevel10k theme
 romkatv/powerlevel10k kind:fpath
+
+# z plugin
+agkozak/zsh-z
 
 # zsh-users plugins
 zsh-users/zsh-autosuggestions kind:defer
