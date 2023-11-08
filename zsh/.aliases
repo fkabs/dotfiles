@@ -1,4 +1,7 @@
-#!/usr/bin/env zsh
+#!/bin/zsh
+#
+# .aliases - Set whatever shell aliases you want.
+#
 
 # General aliases
 alias la="ls -la"
@@ -16,11 +19,11 @@ alias cat="bat"
 # Get global IP address
 alias getip="curl -s ipinfo.io/ip | cut -c 1-"
 
-# Shortcut for podman machine
-# alias podmachine="podman machine"
-
 # Make and change directory
 alias mkcd='(){mkdir -p "$1"; cd "$1"}'
 
 # Shortcut for colima nerdctl
 alias nerdctl="nerdctl.lima"
+
+# Please = sudo
+alias please="sudo"
