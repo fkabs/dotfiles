@@ -2,13 +2,19 @@
 #
 # .zshenv - Zsh environment file, loaded always.
 #
-
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
+#
 
-# Antidote HOME
+# DOTFILES directory
+export DOTFILES="$HOME/.dotfiles"
+
+# ZDOTDIR for zsh config
+export ZDOTDIR="$DOTFILES/zsh"
+
+# Antidote
 export ANTIDOTE_HOME=$HOME/.antidote
 
-# BAT config file
+# BAT
 export BAT_CONFIG_PATH=$DOTFILES/bat/.batrc
 
 # Browser
