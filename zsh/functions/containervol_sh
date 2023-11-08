@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+nerdctl run --rm -it -v $1:/data busybox sh

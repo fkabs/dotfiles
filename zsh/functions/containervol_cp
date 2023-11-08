@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+RAND_DIR=$(cat /dev/urandom | base64 | tr -dc '0-9a-zA-Z' | head -c8)
+mkdir $(pwd)/vol_"$RAND_DIR"
+nerdctl run --rm -it -v $1:/data -v $(pwd)/vol_"$RAND_DIR":/mnt busybox sh -c "cp -r /data/* /mnt"
+echo ">> Copied contents to '$(pwd)/vol_$RAND_DIR'"
+echo "$(pwd)/vol_$RAND_DIR" | pbcopy
+cd "$(pwd)/vol_$RAND_DIR"
+unset RAND_DIR

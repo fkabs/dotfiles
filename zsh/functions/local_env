@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+if [ -n "$1" ]; then
+    echo "layout virtualenvwrapper $1" > .envrc
+    direnv allow
+else
+    echo "direnv: No virtualenv passed"
+fi
