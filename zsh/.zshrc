@@ -38,9 +38,10 @@ fi
 [[ -d $HOME/.antidote ]] ||
   git clone --depth=1 https://github.com/mattmc3/antidote.git $HOME/.antidote
 
-# Load aliases, zconfigs, and zstyles
+# Load aliases, zconfigs, zopts and zstyles
 [[ -e ${ZDOTDIR:-$HOME}/.aliases ]] && source ${ZDOTDIR:-$HOME}/.aliases
 [[ -e ${ZDOTDIR:-$HOME}/.zconfig ]] && source ${ZDOTDIR:-$HOME}/.zconfig
+[[ -e ${ZDOTDIR:-$HOME}/.zopts ]] && source ${ZDOTDIR:-$HOME}/.zopts
 [[ -e ${ZDOTDIR:-$HOME}/.zstyles ]] && source ${ZDOTDIR:-$HOME}/.zstyles
 
 # Load antidote
