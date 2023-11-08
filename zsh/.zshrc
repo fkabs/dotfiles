@@ -48,5 +48,5 @@ fi
 source $ANTIDOTE_HOME/antidote.zsh
 antidote load
 
-# Prompts
+# Prompts (powerlevel10k)
 autoload -Uz promptinit && promptinit && prompt powerlevel10k
