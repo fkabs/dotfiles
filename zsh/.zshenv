@@ -9,7 +9,7 @@
 export ANTIDOTE_HOME=$HOME/.antidote
 
 # BAT config file
-export BAT_CONFIG_PATH=$ZDOTDIR/.batrc
+export BAT_CONFIG_PATH=$DOTFILES/bat/.batrc
 
 # Browser
 if [[ "$OSTYPE" == darwin* ]]; then
