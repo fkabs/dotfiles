@@ -3,28 +3,23 @@
 # .zconfig - Zsh config file for custom configs.
 #
 
-# Direnv config
+# Asdf (load)
+. $(brew --prefix asdf)/libexec/asdf.sh
+
+# Direnv (load)
 source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 
-# History
+# History config
 export HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zsh_history
 export HISTSIZE=1000000
-export SAVEHIST=1000000
-setopt EXTENDED_HISTORY
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_DUPS 
-setopt HIST_IGNORE_SPACE
-setopt HIST_REDUCE_BLANKS
-setopt HIST_SAVE_NO_DUPS
-setopt INC_APPEND_HISTORY_TIME
-
-# General options
-setopt EXTENDED_GLOB  
+export SAVEHIST=1000000 
 
 # Virtualenvwrapper config
-. $(asdf where python)/bin/virtualenvwrapper.sh
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/work
+export VIRTUALENVWRAPPER_SCRIPT=$(asdf where python)/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_PYTHON=$(asdf which python)
+. $(asdf where python)/bin/virtualenvwrapper_lazy.sh
 
 # Set default virtualenv
 workon base
