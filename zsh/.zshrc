@@ -43,9 +43,6 @@ fi
 [[ -e ${ZDOTDIR:-$HOME}/.zconfig ]] && source ${ZDOTDIR:-$HOME}/.zconfig
 [[ -e ${ZDOTDIR:-$HOME}/.zstyles ]] && source ${ZDOTDIR:-$HOME}/.zstyles
 
-# To customize prompt, run `p10k configure` or edit ~/.dotfiles/p10k/.p10k
-[[ -e ${DOTFILES:-$HOME}/p10k/.p10k ]] && source ${DOTFILES:-$HOME}/p10k/.p10k
-
 # Load antidote
 source $ANTIDOTE_HOME/antidote.zsh
 antidote load

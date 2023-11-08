@@ -31,3 +31,7 @@ export VIRTUALENVWRAPPER_PYTHON="$(asdf which python)"
 
 # Set default virtualenv
 workon base
+
+# Powerlevel10k config
+# To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh/p10k/.p10k
+[[ -e ${ZDOTDIR:-$HOME}/p10k/.p10k ]] && source ${ZDOTDIR:-$HOME}/p10k/.p10k
