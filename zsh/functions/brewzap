@@ -11,5 +11,3 @@ brew doctor
 echo "\n# Dumping Brewfile"
 brew bundle dump --force --file=$DOTFILES/brew/Brewfile
 echo "Dumped file to $DOTFILES/brew/Brewfile"
-
-echo "Done"
