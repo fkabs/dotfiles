@@ -24,9 +24,6 @@ setopt INC_APPEND_HISTORY_TIME
 setopt EXTENDED_GLOB  
 
 # Virtualenvwrapper config
-export WORKON_HOME="$HOME/.virtualenvs"
-export PROJECT_HOME="$HOME/work"
-export VIRTUALENVWRAPPER_PYTHON="$(asdf which python)"
 . $(asdf where python)/bin/virtualenvwrapper.sh
 
 # Set default virtualenv
