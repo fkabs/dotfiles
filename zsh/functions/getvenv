@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+if [ -d "$VIRTUALENV_DIR/$1" ]; then
+    source "$VIRTUALENV_DIR/$1/bin/activate"
+    python_version=$(python --version 2>&1 | awk '{print $2}')
+    deactivate
+
+    echo "($python_version) $1"
+else
+    return 1
+fi

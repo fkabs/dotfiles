@@ -1,21 +1,17 @@
 #!/bin/zsh
 
-# check if $WORKON_HOME exists
-if [ -s "$WORKON_HOME" ]; then
-    if [ -n "$1" ]; then
-         # if it does, use it
-        venv_path="${WORKON_HOME}/$1"
-        echo $venv_path
-        
-        # Create venv
-        $(asdf which python) -m venv $venv_path
+if [ -z "$1" ]; then
+    echo "Usage: mkvenv <venv_name>"
+    return 1
+fi
 
-        # Activate venv
-        workon $1
-    else
-        echo "No venv passed"
-    fi
+local venv_path="$VIRTUALENV_DIR/$1"
+
+# Check if the virtual environment already exists
+if [ -d "$venv_path" ]; then
+    echo "Virtual environment '$(getvenv $1)' already exists"
+    return 1
 else
-    # WORKON_HOME not set
-    echo "WORKON_HOME not set"
+    $(asdf which python) -m venv "$venv_path"
+    echo "Virtual environment '$(getvenv $1)' created in '$venv_path'"
 fi

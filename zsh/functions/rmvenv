@@ -1,20 +1,26 @@
 #!/bin/zsh
 
-# check if $WORKON_HOME exists
-if [ -s "$WORKON_HOME" ]; then
-    if [ -n "$1" ]; then
-        venv_path="${WORKON_HOME}/$1"
-        
-        if [[ "$venv_path" == "$VIRTUAL_ENV" ]]; then
-            deactivate
-        fi
+if [ -z "$1" ]; then
+    echo "Usage: rmvenv <venv_name>"
+    return 1
+fi
 
-        rm -rf $venv_path
-    else
-        echo "No venv passed:"
-        lsvenv
+local venv_path="$VIRTUALENV_DIR/$1"
+
+# Check if the virtual environment already exists
+if [ -d "$venv_path" ]; then
+    # Get the name of the currently activated environment
+    local current_env=$(basename "$VIRTUAL_ENV" 2>/dev/null)
+
+    # Deactivate the environment if activated
+    if [[ "$current_env" == "$1" ]]; then
+        deactivate
+        echo "Virtual environment '$(getvenv $1)' deactivated"
     fi
+
+    echo "Virtual environment '$(getvenv $1)' removed"
+    rm -rf "$VIRTUALENV_DIR/$1"
 else
-    # WORKON_HOME not set
-    echo "WORKON_HOME not set"
+    echo "Virtual environment '$1' not found"
+    return 1
 fi

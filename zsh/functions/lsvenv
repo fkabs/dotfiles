@@ -1,9 +1,11 @@
 #!/bin/zsh
 
-# check if $WORKON_HOME exists
-if [ -s "$WORKON_HOME" ]; then
-    ls $WORKON_HOME
-else
-    # WORKON_HOME not set
-    echo "WORKON_HOME not set"
+if [ -z "$(ls -A $VIRTUALENV_DIR 2>/dev/null)" ]; then
+    echo "No virtual environments found in '$VIRTUALENV_DIR'"
+    return 0
 fi
+
+echo "Available virtual environments:"
+for venv in "$VIRTUALENV_DIR"/*; do
+    echo "\t-  $(getvenv $(basename "$venv"))"
+done

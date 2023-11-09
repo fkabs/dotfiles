@@ -1,15 +1,18 @@
 #!/bin/zsh
 
-# check if $WORKON_HOME exists
-if [ -s "$WORKON_HOME" ]; then
-    if [ -n "$1" ]; then
-        venv_path="${WORKON_HOME}/$1" 
-        
-        . $venv_path/bin/activate
-    else
-        lsvenv
-    fi
+if [ -z "$1" ]; then
+    echo "Usage: workon <venv_name>\n"
+    lsvenv
+    return 1
+fi
+
+local venv_path="$VIRTUALENV_DIR/$1"
+
+# Check if the virtual environment exists
+if [ -d "$venv_path" ]; then
+    source "$venv_path/bin/activate"
+    echo "Virtual environment '$(getvenv $1)' activated"
 else
-    # WORKON_HOME not set
-    echo "WORKON_HOME not set"
+    echo "Virtual environment '$1' not found"
+    return 1
 fi
