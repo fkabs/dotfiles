@@ -25,5 +25,5 @@ export VIRTUALENVWRAPPER_PYTHON=$(asdf which python)
 workon base
 
 # Powerlevel10k config
-# To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh/p10k/.p10k
-[[ -e ${ZDOTDIR:-$HOME}/p10k/.p10k ]] && source ${ZDOTDIR:-$HOME}/p10k/.p10k
+# To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh/prompt/.p10k
+[[ -e ${ZDOTDIR:-$HOME}/prompt/.p10k ]] && source ${ZDOTDIR:-$HOME}/prompt/.p10k

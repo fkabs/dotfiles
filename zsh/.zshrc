@@ -39,13 +39,13 @@ fi
   git clone --depth=1 https://github.com/mattmc3/antidote.git $HOME/.antidote
 
 # Load aliases, zconfigs, zopts and zstyles
-[[ -e ${ZDOTDIR:-$HOME}/.aliases ]] && source ${ZDOTDIR:-$HOME}/.aliases
-[[ -e ${ZDOTDIR:-$HOME}/.zconfig ]] && source ${ZDOTDIR:-$HOME}/.zconfig
-[[ -e ${ZDOTDIR:-$HOME}/.zopts ]] && source ${ZDOTDIR:-$HOME}/.zopts
-[[ -e ${ZDOTDIR:-$HOME}/.zstyles ]] && source ${ZDOTDIR:-$HOME}/.zstyles
+[[ -e ${ZDOTDIR:-$HOME}/.szh_aliases ]] && source ${ZDOTDIR:-$HOME}/.zsh_aliases
+[[ -e ${ZDOTDIR:-$HOME}/.zsh_config ]] && source ${ZDOTDIR:-$HOME}/.zsh_config
+[[ -e ${ZDOTDIR:-$HOME}/.zsh_opts ]] && source ${ZDOTDIR:-$HOME}/.zsh_opts
+[[ -e ${ZDOTDIR:-$HOME}/.zsh_styles ]] && source ${ZDOTDIR:-$HOME}/.zsh_styles
 
 # Load antidote
-source $ANTIDOTE_HOME/antidote.zsh
+source $HOME/.antidote/antidote.zsh
 antidote load
 
 # Prompts (powerlevel10k)

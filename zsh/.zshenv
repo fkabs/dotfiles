@@ -12,8 +12,8 @@ export DOTFILES="$HOME/.dotfiles"
 # ZDOTDIR for zsh config
 export ZDOTDIR="$DOTFILES/zsh"
 
-# Antidote
-export ANTIDOTE_HOME=$HOME/.antidote
+# Antidote plugin directory
+export ANTIDOTE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}/antidote
 
 # BAT
 export BAT_CONFIG_PATH=$DOTFILES/bat/.batrc
