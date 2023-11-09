@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+# check if $WORKON_HOME exists
+if [ -s "$WORKON_HOME" ]; then
+    if [ -n "$1" ]; then
+        venv_path="${WORKON_HOME}/$1" 
+        
+        . $venv_path/bin/activate
+    else
+        lsvenv
+    fi
+else
+    # WORKON_HOME not set
+    echo "WORKON_HOME not set"
+fi

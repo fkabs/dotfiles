@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+# check if $WORKON_HOME exists
+if [ -s "$WORKON_HOME" ]; then
+    ls $WORKON_HOME
+else
+    # WORKON_HOME not set
+    echo "WORKON_HOME not set"
+fi

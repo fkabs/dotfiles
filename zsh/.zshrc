@@ -12,14 +12,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Add brew zsh-completions to fpath
-fpath=("/opt/homebrew/share/zsh-completions" $fpath)
-
-# Autoload functions
-ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
-fpath=($ZFUNCDIR $fpath)
-autoload -Uz $fpath[1]/*(.:t)
-
 # Compinit (cache .zcompdump for about a day)
 autoload -Uz compinit
 
@@ -34,15 +26,23 @@ fi
   fi
 } &!
 
-# Clone antidote if necessary.
-[[ -d $HOME/.antidote ]] ||
-  git clone --depth=1 https://github.com/mattmc3/antidote.git $HOME/.antidote
+# Add brew zsh-completions to fpath
+fpath=("/opt/homebrew/share/zsh-completions" $fpath)
+
+# Autoload functions
+ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
+fpath=($ZFUNCDIR $fpath)
+autoload -Uz $fpath[1]/*(.:t)
 
 # Load aliases, zconfigs, zopts and zstyles
-[[ -e ${ZDOTDIR:-$HOME}/.szh_aliases ]] && source ${ZDOTDIR:-$HOME}/.zsh_aliases
+[[ -e ${ZDOTDIR:-$HOME}/.zsh_aliases ]] && source ${ZDOTDIR:-$HOME}/.zsh_aliases
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_config ]] && source ${ZDOTDIR:-$HOME}/.zsh_config
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_opts ]] && source ${ZDOTDIR:-$HOME}/.zsh_opts
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_styles ]] && source ${ZDOTDIR:-$HOME}/.zsh_styles
+
+# Clone antidote if necessary.
+[[ -d $HOME/.antidote ]] ||
+  git clone --depth=1 https://github.com/mattmc3/antidote.git $HOME/.antidote
 
 # Load antidote
 source $HOME/.antidote/antidote.zsh

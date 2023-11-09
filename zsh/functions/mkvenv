@@ -1,0 +1,21 @@
+#!/bin/zsh
+
+# check if $WORKON_HOME exists
+if [ -s "$WORKON_HOME" ]; then
+    if [ -n "$1" ]; then
+         # if it does, use it
+        venv_path="${WORKON_HOME}/$1"
+        echo $venv_path
+        
+        # Create venv
+        $(asdf which python) -m venv $venv_path
+
+        # Activate venv
+        workon $1
+    else
+        echo "No venv passed"
+    fi
+else
+    # WORKON_HOME not set
+    echo "WORKON_HOME not set"
+fi

@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+# check if $WORKON_HOME exists
+if [ -s "$WORKON_HOME" ]; then
+    if [ -n "$1" ]; then
+        venv_path="${WORKON_HOME}/$1"
+        
+        if [[ "$venv_path" == "$VIRTUAL_ENV" ]]; then
+            deactivate
+        fi
+
+        rm -rf $venv_path
+    else
+        echo "No venv passed:"
+        lsvenv
+    fi
+else
+    # WORKON_HOME not set
+    echo "WORKON_HOME not set"
+fi
