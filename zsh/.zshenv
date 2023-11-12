@@ -15,6 +15,10 @@ export ZDOTDIR="$DOTFILES/zsh"
 # Antidote plugin directory
 export ANTIDOTE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}/antidote
 
+# ASDF .asdfrf location
+export ASDF_CONFIG_FILE="$DOTFILES/asdf/.asdfrc"
+
+
 # BAT
 export BAT_CONFIG_PATH=$DOTFILES/bat/.batrc
 
