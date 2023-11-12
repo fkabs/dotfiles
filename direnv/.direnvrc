@@ -1,10 +1,22 @@
 layout_venv() {
     local venv_path="$1"
     
-    if [ -s "$VIRTUALENV_DIR" ]; then
+    # check if $VIRTUALENV_DIR is not empty
+    if [ -n "$VIRTUALENV_DIR" ]; then
         venv_path="${VIRTUALENV_DIR}/$1"
     fi
     
+    # # check if $VIRTUAL_ENV is not empty
+    # if [ -n "$VIRTUAL_ENV" ]; then
+    #     # check if $VIRTUAL_ENV is not equal to $venv_path
+    #     if [ "$VIRTUAL_ENV" != "$venv_path" ]; then
+    #         # deactivate current virtualenv
+    #         echo "asd"
+    #         deactivate
+    #     fi
+    # fi
+    
+    # activate virtualenv
     source ${venv_path}/bin/activate
     
     # https://github.com/direnv/direnv/wiki/PS1
