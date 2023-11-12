@@ -1,11 +1,22 @@
 #!/bin/zsh
 
+# Set verbose mode for "log" function if it is not set
+if [ -z "$_VERBOSE" ]; then
+    _VERBOSE=1
+fi
+
 if [ -z "$(ls -A $VIRTUALENV_DIR 2>/dev/null)" ]; then
-    echo "No virtual environments found in '$VIRTUALENV_DIR'"
+    log "No virtual environments found in '$VIRTUALENV_DIR'"
     return 0
 fi
 
-echo "Available virtual environments:"
+log "Available virtual environments:"
 for venv in "$VIRTUALENV_DIR"/*; do
-    echo "\t-  $(getvenv $(basename "$venv"))"
+    prefix='-'
+    
+    if [[ "$venv" == "$VIRTUAL_ENV" ]]; then
+        prefix='*'
+    fi
+    
+    log "\t$prefix $(getvenv $(basename "$venv"))"
 done

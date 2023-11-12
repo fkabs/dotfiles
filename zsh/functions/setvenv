@@ -1,8 +1,17 @@
 #!/bin/zsh
 
-if [ -n "$1" ]; then
+if [ -z "$1" ]; then
+    echo "Usage: setvenv <venv_name>"
+    return 1
+fi
+
+local venv_path="$VIRTUALENV_DIR/$1"
+
+# Check if the virtual environment already exists
+if [ -d "$venv_path" ]; then
     echo "layout venv $1" > .envrc
     direnv allow
 else
-    echo "direnv: No virtualenv passed"
+    echo "Virtual environment '$1' not found"
+    return 1
 fi

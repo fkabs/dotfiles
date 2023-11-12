@@ -1,5 +1,10 @@
 #!/bin/zsh
 
+# Set verbose mode for "log" function if it is not set
+if [ -z "$_VERBOSE" ]; then
+    _VERBOSE=1
+fi
+
 if [ -z "$1" ]; then
     echo "Usage: rmvenv <venv_name>"
     return 1
@@ -15,10 +20,10 @@ if [ -d "$venv_path" ]; then
     # Deactivate the environment if activated
     if [[ "$current_env" == "$1" ]]; then
         deactivate
-        echo "Virtual environment '$(getvenv $1)' deactivated"
+        log "Virtual environment '$(getvenv $1)' deactivated"
     fi
 
-    echo "Virtual environment '$(getvenv $1)' removed"
+    log "Virtual environment '$(getvenv $1)' removed"
     rm -rf "$VIRTUALENV_DIR/$1"
 else
     echo "Virtual environment '$1' not found"

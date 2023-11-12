@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+if [[ $_VERBOSE -eq 1 ]]; then
+    echo "$@"
+fi
