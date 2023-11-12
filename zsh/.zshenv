@@ -25,7 +25,7 @@ fi
 
 # Editors
 export EDITOR=vim
-export VISUAL=code
+export VISUAL=vim
 export PAGER=less
 
 # Require pip to be run within a virtualenv (can be bypassed with gpip or nopip)
