@@ -1,6 +1,6 @@
 #!/bin/zsh
 #
-# .zconfig - Zsh config file for custom configs.
+# .zsh_config - Zsh config file for custom configs.
 #
 
 # Asdf (load)

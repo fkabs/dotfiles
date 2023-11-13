@@ -1,6 +1,6 @@
 #!/bin/zsh
 #
-# .opts - Zsh options file for custom configs.
+# .zsh_opts - Zsh options file for custom configs.
 #
 
 # General
