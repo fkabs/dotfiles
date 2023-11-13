@@ -27,10 +27,13 @@ if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
 fi
 
-# Editors
+# Editors for shell
 export EDITOR=vim
 export VISUAL=vim
+
+# Pagers
 export PAGER=less
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Require pip to be run within a virtualenv (can be bypassed with gpip or nopip)
 export PIP_REQUIRE_VIRTUALENV=true
