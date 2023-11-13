@@ -1,6 +1,6 @@
 #!/bin/zsh
 #
-# .aliases - Set whatever shell aliases you want.
+# .zsh_aliases - Set whatever shell aliases you want.
 #
 
 # General aliases
@@ -15,6 +15,7 @@ alias .....="cd ../../../.."
 
 # Use bat (https://github.com/sharkdp/bat) instead of cat
 alias cat="bat"
+alias rcat='\cat'
 
 # Get global IP address
 alias getip="curl -s ipinfo.io/ip | cut -c 1-"
