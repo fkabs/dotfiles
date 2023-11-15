@@ -3,7 +3,7 @@ SHELL = /bin/zsh
 DOTFILES = $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 .DEFAULT_GOAL := all
-.PHONY: all cleanup install asdf direnv git zsh
+.PHONY: all cleanup install asdf direnv git kitty zsh
 
 
 all:
@@ -25,6 +25,12 @@ cleanup:
 	@echo "- [git] Removing '$(HOME)/.gitignore_global'"
 	@rm -f "$(HOME)/.gitignore_global"
 	
+	@echo "- [kitty] Removing '$(HOME)/.config/kitty/kitty.conf'"
+	@rm -f "$(HOME)/.config/kitty/kitty.conf"
+	
+	@echo "- [kitty] Removing '$(HOME)/.config/kitty/current-theme.conf'"
+	@rm -f "$(HOME)/.config/kitty/current-theme.conf"
+	
 	@echo "- [zsh] Removing '$(HOME)/.zshenv'"
 	@rm -f "$(HOME)/.zshenv"
 
@@ -33,6 +39,7 @@ install:
 	@$(MAKE) asdf
 	@$(MAKE) direnv
 	@$(MAKE) git
+	@$(MAKE) kitty
 	@$(MAKE) zsh
 
 
@@ -50,6 +57,13 @@ git:
 	
 	@echo "- [git] Linking '$(DOTFILES)/git/.gitignore_global' to '$(HOME)/.gitignore_global'"
 	@ln -fs "$(DOTFILES)/git/.gitignore_global" "$(HOME)/.gitignore_global"
+
+kitty:
+	@echo "- [kitty] Linking '$(DOTFILES)/kitty/kitty.conf' to '$(HOME)/.config/kitty/kitty.conf'"
+	@ln -fs "$(DOTFILES)/kitty/kitty.conf" "$(HOME)/.config/kitty/kitty.conf"
+	
+	@echo "- [kitty] Linking '$(DOTFILES)/kitty/current-theme.conf' to '$(HOME)/.config/kitty/current-theme.conf'"
+	@ln -fs "$(DOTFILES)/kitty/current-theme.conf" "$(HOME)/.config/kitty/current-theme.conf"
 
 zsh:
 	@echo "- [zsh] Linking '$(DOTFILES)/zsh/.zshenv' to '$(HOME)/.zshenv'"
