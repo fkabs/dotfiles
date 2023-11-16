@@ -3,7 +3,7 @@ SHELL = /bin/zsh
 DOTFILES = $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 .DEFAULT_GOAL := all
-.PHONY: all cleanup install asdf direnv git kitty zsh
+.PHONY: all cleanup install asdf direnv dock git kitty zsh
 
 
 all:
@@ -50,6 +50,11 @@ asdf:
 direnv:
 	@echo "- [direnv] Linking '$(DOTFILES)/direnv/.direnvrc' to '$(HOME)/.direnvrc'"
 	@ln -fs "$(DOTFILES)/direnv/.direnvrc" "$(HOME)/.direnvrc"
+
+dock:
+	@echo "- [dock] Importing com.apple.dock from '$(DOTFILES)/dock/dock-layout.plist'"
+	@defaults import com.apple.dock "$(DOTFILES)/dock/dock-layout.plist"
+	@killall Dock
 
 git:
 	@echo "- [git] Linking '$(DOTFILES)/git/.gitconfig' to '$(HOME)/.gitconfig'"
