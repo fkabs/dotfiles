@@ -39,7 +39,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export PIP_REQUIRE_VIRTUALENV=true
 
 # Path of zsh dumps
-export ZSH_COMPDUMP="$HOME/.cache/zsh/.zcompdump-${HOST/.*/}-${ZSH_VERSION}"
+export ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump-${HOST/.*/}-${ZSH_VERSION}"
 
 # Path to the zsh-z database file
-export ZSHZ_DATA="$HOME/.cache/z/.zdb"
+export ZSHZ_DATA="${XDG_CACHE_HOME:-$HOME/.cache}/z/.zdb"
