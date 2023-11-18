@@ -32,11 +32,14 @@ export EDITOR=vim
 export VISUAL=vim
 
 # Pagers
-export PAGER=less
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export PAGER=less
 
 # Require pip to be run within a virtualenv (can be bypassed with gpip or nopip)
 export PIP_REQUIRE_VIRTUALENV=true
+
+# Virtualenv (venv) config
+export VIRTUALENV_DIR=$HOME/.virtualenvs
 
 # Path of zsh dumps
 export ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump-${HOST/.*/}-${ZSH_VERSION}"

@@ -14,12 +14,6 @@ export HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zsh_history
 export HISTSIZE=1000000
 export SAVEHIST=1000000 
 
-# Virtualenv (venv) config
-export VIRTUALENV_DIR=$HOME/.virtualenvs
-
-# Set default virtualenv (venv)
-# _VERBOSE=0 workon base
-
 # Powerlevel10k config
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh/prompt/.p10k
 [[ -e ${ZDOTDIR:-$HOME}/prompt/.p10k ]] && source ${ZDOTDIR:-$HOME}/prompt/.p10k
