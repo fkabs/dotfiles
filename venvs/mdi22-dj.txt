@@ -1,4 +1,4 @@
-# (3.11.6) ws23-dj
+# (3.11.6) mdi22-dj
 altair==5.1.2
 anyio==4.0.0
 appnope==0.1.3
