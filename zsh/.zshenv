@@ -18,7 +18,6 @@ export ANTIDOTE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}/antidote
 # ASDF .asdfrf location
 export ASDF_CONFIG_FILE="$DOTFILES/asdf/.asdfrc"
 
-
 # BAT
 export BAT_CONFIG_PATH=$DOTFILES/bat/.batrc
 
@@ -30,6 +29,9 @@ fi
 # Editors for shell
 export EDITOR=vim
 export VISUAL=vim
+
+# Homebrew
+export HOMEBREW_NO_ANALYTICS=1
 
 # Pagers
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
