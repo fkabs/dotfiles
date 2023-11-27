@@ -12,6 +12,13 @@ export DOTFILES="$HOME/.dotfiles"
 # ZDOTDIR for zsh config
 export ZDOTDIR="$DOTFILES/zsh"
 
+# XDG Base Directory Specification
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
+# ----------------------------------------------------------------
+
 # Antidote plugin directory
 export ANTIDOTE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}/antidote
 
