@@ -6,29 +6,10 @@ DOTFILES = $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 .PHONY: _battery _dock all cleanup install asdf direnv git kitty zsh
 
 
-_battery_on:
-	@echo "[battery] Optimizing battery settings..."
-	
-	@echo "- Disabling TCP keepalive"
-	@sudo pmset -a tcpkeepalive 0
-	
-	@echo "- Disabling Power Nap"
-	@sudo pmset -a powernap 0
-
-_battery_off:
-	@echo "[battery] Reverting battery settings..."
-	
-	@echo "- Enabling TCP keepalive"
-	@sudo pmset -a tcpkeepalive 1
-	
-	@echo "- Enabling Power Nap"
-	@sudo pmset -a powernap 1
-
 _dock:
 	@echo "- [dock] Importing com.apple.dock from '$(DOTFILES)/dock/dock-layout.plist'"
 	@defaults import com.apple.dock "$(DOTFILES)/dock/dock-layout.plist"
 	@killall Dock
-
 
 
 all:
