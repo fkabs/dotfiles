@@ -22,8 +22,11 @@ export XDG_DATA_HOME="$HOME/.local/share"
 # Antidote plugin directory
 export ANTIDOTE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}/antidote
 
-# ASDF .asdfrf location
+# ASDF .asdfrc location
 export ASDF_CONFIG_FILE="$DOTFILES/asdf/.asdfrc"
+
+# BACKUP directory
+export BACKUP_HOME=$HOME/.backup
 
 # BAT
 export BAT_CONFIG_PATH=$DOTFILES/bat/.batrc

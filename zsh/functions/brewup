@@ -1,31 +1,37 @@
 #!/bin/zsh
 
-DOTFILES=$HOME/.dotfiles
-
+# Exporting dock layout
 echo "# Exporting dock layout to /tmp/dock-layout.plist"
 defaults export com.apple.dock /tmp/dock-layout.plist
 
+# Antidote
 echo "\n# Updating antidote plugins"
 antidote update
 
+# ASDF
 echo "\n# Updating asdf plugins"
 asdf plugin update --all
 
+# MAS
 echo "\n# Updating mas apps"
 mas upgrade
 
+# Brew
 echo "\n# Updating brew apps"
 brew upgrade --greedy
 
+# Clean up
 echo "\n# Cleaning up"
 brew autoremove
 brew cleanup -s
 brew doctor
 
+# Dump Brewfile
 echo "\n# Dumping Brewfile"
-brew bundle dump --force --file=$DOTFILES/brew/Brewfile
-echo "Dumped file to $DOTFILES/brew/Brewfile"
+brew bundle dump --force --file=$BACKUP_HOME/brew/Brewfile
+echo "Dumped file to $BACKUP_HOME/brew/Brewfile"
 
+# Importing dock layout
 echo "\n# Importing saved dock layout from /tmp/dock-layout.plist"
 defaults import com.apple.dock /tmp/dock-layout.plist
 rm -f /tmp/dock-layout.plist
