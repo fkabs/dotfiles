@@ -37,8 +37,8 @@ if [[ "$OSTYPE" == darwin* ]]; then
 fi
 
 # Editors for shell
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=emcas
+export VISUAL=emacs
 
 # Homebrew
 export HOMEBREW_NO_ANALYTICS=1
