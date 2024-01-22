@@ -3,11 +3,33 @@
 # .zsh_config - Zsh config file for custom configs.
 #
 
+# Export existing paths
+typeset -gxU path PATH
+typeset -gxU fpath FPATH
+typeset -gxU manpath MANPATH
+
+# Create and export new paths
+typeset -gxU infopath INFOPATH
+
+# Tie the new paths
+typeset -gxTU INFOPATH infopath
+
+# ----------------------------------------------------------------
+
 # Asdf (load)
 . $(brew --prefix asdf)/libexec/asdf.sh
 
 # Direnv (load)
 source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+
+# # GNU coreutils
+# path=("$(brew --prefix)/opt/coreutils/libexec/gnubin" $path)
+
+# # GNU findutils
+# path=("$(brew --prefix)/opt/findutils/libexec/gnubin" $path)
+
+# # GNU grep
+# path=("$(brew --prefix)/opt/grep/libexec/gnubin" $path)
 
 # History config
 export HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zsh_history
@@ -17,3 +39,15 @@ export SAVEHIST=1000000
 # Powerlevel10k config
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh/prompt/.p10k
 [[ -e ${ZDOTDIR:-$HOME}/prompt/.p10k ]] && source ${ZDOTDIR:-$HOME}/prompt/.p10k
+
+# Tex Live
+path+=("/usr/local/texlive/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH")
+manpath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/man")
+infopath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/info")
+
+# ----------------------------------------------------------------
+
+# Update paths
+path=($^path(N-/))
+infopath=($^infopath(N-/))
+manpath=($^manpath(N-/))

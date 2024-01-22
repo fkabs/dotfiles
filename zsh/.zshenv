@@ -8,19 +8,6 @@
 
 # ----------------------------------------------------------------
 
-# Export existing paths
-typeset -gxU path PATH
-typeset -gxU fpath FPATH
-typeset -gxU manpath MANPATH
-
-# Create and export new paths
-typeset -gxU infopath INFOPATH
-
-# Tie the new paths
-typeset -gxTU INFOPATH infopath
-
-# ----------------------------------------------------------------
-
 # DOTFILES directory
 export DOTFILES="$HOME/.dotfiles"
 
@@ -70,10 +57,6 @@ export PIP_REQUIRE_VIRTUALENV=true
 export TEXLIVE_RELEASE=2023
 export TEXLIVE_ARCH=universal-darwin
 
-path+=("/usr/local/texlive/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH")
-manpath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/man")
-infopath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/info")
-
 # Virtualenv (venv) config
 export VIRTUALENV_DIR=$HOME/.virtualenvs
 
@@ -82,10 +65,3 @@ export ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump-${HOST/.*/}-
 
 # Path to the zsh-z database file
 export ZSHZ_DATA="${XDG_CACHE_HOME:-$HOME/.cache}/z/.zdb"
-
-# ----------------------------------------------------------------
-
-# Update paths
-path=($^path(N-/))
-infopath=($^infopath(N-/))
-manpath=($^manpath(N-/))
