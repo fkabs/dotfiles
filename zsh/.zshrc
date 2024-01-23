@@ -1,8 +1,6 @@
 #!/bin/zsh
 #
-# .zshenv - Zsh environment file, loaded always.
-#
-# NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
+# .zshrc - Sourced by zsh on startup
 #
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -12,15 +10,16 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Add brew zsh-completions to fpath
-fpath=("/opt/homebrew/share/zsh-completions" $fpath)
+# Add Brew zsh-completions and site-functions to fpath
+if type brew &>/dev/null; then
+    fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
+fi
 
-# Autoload functions
-ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
+# Add custom zsh functions
 fpath=($ZFUNCDIR $fpath)
-autoload -Uz $fpath[1]/*(.:t)
+autoload -Uz $ZFUNCDIR/*(.:t)
 
-# Load aliases, zconfigs, zopts and zstyles
+# Load aliases, binds, config, opts and styles
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_aliases ]] && source ${ZDOTDIR:-$HOME}/.zsh_aliases
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_binds ]] && source ${ZDOTDIR:-$HOME}/.zsh_binds
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_config ]] && source ${ZDOTDIR:-$HOME}/.zsh_config
@@ -35,9 +34,6 @@ autoload -Uz $fpath[1]/*(.:t)
 source $HOME/.antidote/antidote.zsh
 antidote load
 
-# Prompts (powerlevel10k)
-autoload -Uz promptinit && promptinit && prompt powerlevel10k
-
 # Compinit (cache .zcompdump for about a day)
 autoload -Uz compinit
 
@@ -51,3 +47,6 @@ fi
     zcompile "$ZSH_COMPDUMP"
   fi
 } &!
+
+# Prompts (powerlevel10k)
+autoload -Uz promptinit && promptinit && prompt powerlevel10k
