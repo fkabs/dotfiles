@@ -16,8 +16,8 @@ local venv_path="$VIRTUALENV_DIR/$1"
 # Check if the virtual environment exists
 if [ -d "$venv_path" ]; then
     source "$venv_path/bin/activate"
-    log "Virtual environment '$(getvenv $1)' activated"
+    _log "Virtual environment '$(getvenv $1)' activated"
 else
-    echo "Virtual environment '$1' not found"
+    _log "Virtual environment '$1' not found"
     return 1
 fi
