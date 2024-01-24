@@ -4,4 +4,4 @@
 [diff]
 	tool = bc
 [core]
-	excludesfile = /Users/fkabs/.gitignore_global
+	excludesfile = ~/.gitignore_global
