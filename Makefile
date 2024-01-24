@@ -1,6 +1,13 @@
 # Makefile for managing dotfile symlinks
 SHELL = /bin/zsh
+UNAME := $(shell uname)
 DOTFILES = $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+
+ifeq ($(UNAME), Darwin)
+	KITTY_CONF = $(DOTFILES)/kitty/kitty_mac.conf
+else
+	KITTY_CONF = $(DOTFILES)/kitty/kitty_linux.conf
+endif
 
 .DEFAULT_GOAL := all
 .PHONY: _battery _dock all cleanup install asdf direnv git kitty zsh
@@ -66,13 +73,8 @@ git:
 
 kitty:
 	@mkdir -p "$(HOME)/.config/kitty"
-	@if [[ "$(OSTYPE)" == darwin* ]]; then \
-		echo "- [kitty] Linking '$(DOTFILES)/kitty/kitty_mac.conf' to '$(HOME)/.config/kitty/kitty.conf'"; \
-		ln -fs "$(DOTFILES)/kitty/kitty_mac.conf" "$(HOME)/.config/kitty/kitty.conf"; \
-	else \
-		echo "- [kitty] Linking '$(DOTFILES)/kitty/kitty_linux.conf' to '$(HOME)/.config/kitty/kitty.conf'"; \
-		ln -fs "$(DOTFILES)/kitty/kitty_linux.conf" "$(HOME)/.config/kitty/kitty.conf"; \
-	fi
+	@echo "- [kitty] Linking '$(KITTY_CONF)' to '$(HOME)/.config/kitty/kitty.conf'"
+	@ln -fs "$(KITTY_CONF)" "$(HOME)/.config/kitty/kitty.conf"
 	@ln -fs "$(DOTFILES)/kitty/current-theme.conf" "$(HOME)/.config/kitty/current-theme.conf"
 
 zsh:
