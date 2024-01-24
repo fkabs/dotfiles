@@ -65,10 +65,14 @@ git:
 	@ln -fs "$(DOTFILES)/git/.gitignore_global" "$(HOME)/.gitignore_global"
 
 kitty:
-	@echo "- [kitty] Linking '$(DOTFILES)/kitty/kitty.conf' to '$(HOME)/.config/kitty/kitty.conf'"
-	@ln -fs "$(DOTFILES)/kitty/kitty.conf" "$(HOME)/.config/kitty/kitty.conf"
-	
-	@echo "- [kitty] Linking '$(DOTFILES)/kitty/current-theme.conf' to '$(HOME)/.config/kitty/current-theme.conf'"
+	@mkdir -p "$(HOME)/.config/kitty"
+	@if [[ "$(OSTYPE)" == darwin* ]]; then \
+		echo "- [kitty] Linking '$(DOTFILES)/kitty/kitty_mac.conf' to '$(HOME)/.config/kitty/kitty.conf'"; \
+		ln -fs "$(DOTFILES)/kitty/kitty_mac.conf" "$(HOME)/.config/kitty/kitty.conf"; \
+	else \
+		echo "- [kitty] Linking '$(DOTFILES)/kitty/kitty_linux.conf' to '$(HOME)/.config/kitty/kitty.conf'"; \
+		ln -fs "$(DOTFILES)/kitty/kitty_linux.conf" "$(HOME)/.config/kitty/kitty.conf"; \
+	fi
 	@ln -fs "$(DOTFILES)/kitty/current-theme.conf" "$(HOME)/.config/kitty/current-theme.conf"
 
 zsh:
