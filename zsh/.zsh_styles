@@ -5,6 +5,7 @@
 
 # Antidote
 zstyle ':antidote:bundle' file ${ZDOTDIR:-~}/plugins/.zsh_plugins.txt
+zstyle ':antidote:static' file ${ANTIDOTE_HOME:-~/.cache/antidote}/.zsh_plugins.zsh
 zstyle ':antidote:bundle' use-friendly-names 'yes'
 
 # z
