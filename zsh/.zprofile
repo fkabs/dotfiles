@@ -4,6 +4,6 @@
 #
 
 # init brew if system is macos
-if [[ "$OSTYPE" == darwin* ]]; then
+if [[ $(UNAME) == Darwin ]]; then
     eval $(/opt/homebrew/bin/brew shellenv)
 fi

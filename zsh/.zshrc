@@ -11,7 +11,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Add Brew zsh-completions and site-functions to fpath
-if type brew &>/dev/null; then
+if [[ $(UNAME) == Darwin ]]; then
     fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
 fi
 

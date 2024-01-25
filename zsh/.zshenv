@@ -33,13 +33,13 @@ export BACKUP_HOME=$HOME/.backup
 # BAT
 export BAT_CONFIG_PATH=$DOTFILES/bat/.batrc
 
-# Browser
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
+# BROWSER
+if [[ $(UNAME) == Darwin ]]; then
+    export BROWSER="open"
 fi
 
 # Editors for shell
-export EDITOR=emcas
+export EDITOR=emacs
 export VISUAL=emacs
 
 # Homebrew
@@ -54,8 +54,16 @@ export PIP_REQUIRE_VIRTUALENV=true
 
 # Tex Live release and architecture
 # install dir: /usr/local/texlive/2023/bin/universal-darwin
+export TEXLIVE_DIR=/usr/local/texlive
 export TEXLIVE_RELEASE=2023
-export TEXLIVE_ARCH=universal-darwin
+
+if [[ $(UNAME) == Darwin ]]; then
+    export TEXLIVE_ARCH=universal-darwin
+else
+    export TEXLIVE_ARCH=linux
+fi
+
+export TEXLIVE_PATH="$TEXLIVE_DIR/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH"
 
 # Virtualenv (venv) config
 export VIRTUALENV_DIR=$HOME/.virtualenvs

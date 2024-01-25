@@ -4,9 +4,9 @@ UNAME := $(shell uname)
 DOTFILES = $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 ifeq ($(UNAME), Darwin)
-	KITTY_CONF = $(DOTFILES)/kitty/kitty_mac.conf
+	OS_SUFFIX = darwin
 else
-	KITTY_CONF = $(DOTFILES)/kitty/kitty_linux.conf
+	OS_SUFFIX = linux
 endif
 
 .DEFAULT_GOAL := all
@@ -73,8 +73,8 @@ git:
 
 kitty:
 	@mkdir -p "$(HOME)/.config/kitty"
-	@echo "- [kitty] Linking '$(KITTY_CONF)' to '$(HOME)/.config/kitty/kitty.conf'"
-	@ln -fs "$(KITTY_CONF)" "$(HOME)/.config/kitty/kitty.conf"
+	@echo "- [kitty] Linking '$(DOTFILES)/kitty/kitty_$(OS_SUFFIX).conf' to '$(HOME)/.config/kitty/kitty.conf'"
+	@ln -fs "$(DOTFILES)/kitty/kitty_$(OS_SUFFIX).conf" "$(HOME)/.config/kitty/kitty.conf"
 	@ln -fs "$(DOTFILES)/kitty/current-theme.conf" "$(HOME)/.config/kitty/current-theme.conf"
 
 zsh:
