@@ -1,16 +1,16 @@
 #!/bin/zsh
 
 venv_get() {
-    local venv_name=$1
-    local venv_path="$VIRTUALENV_DIR/$venv_name"
+    local _venv_name=$1
+    local _venv_path="$VIRTUALENV_DIR/$_venv_name"    
     
-    if [ -d "$venv_path" ]; then        
+    if [ -d "$_venv_path" ]; then        
         if [ -z "$_NO_VERSION" ]; then
-            source "$venv_path/bin/activate"
-            echo "($(python --version 2>&1 | awk '{print $2}')) $venv_name"
+            source "$_venv_path/bin/activate"
+            echo "($(python --version 2>&1 | awk '{print $2}')) $_venv_name"
             deactivate
         else
-            echo "$venv_name"
+            echo "$_venv_name"
         fi
     else
         return 1
@@ -38,7 +38,7 @@ venv_mk() {
         _log "Virtual environment '$(venv_get $venv_name)' already exists"
         return 1
     else
-        command -v python -m venv "$venv_path"
+        $(asdf which python ) -m venv "$venv_path"
         _log "Virtual environment '$(venv_get $venv_name)' created in '$venv_path'"
     fi
 }
@@ -76,20 +76,25 @@ if [ -z "$_VERBOSE" ]; then
     _VERBOSE=1
 fi
 
+# Set command as $1
+command=$1
+
 # Check if virtual environment name was passed as an argument
 if [ -n "$2" ]; then
     venv_name=$2
     venv_path="$VIRTUALENV_DIR/$venv_name"
 fi
 
-case $1 in
-    get|mk|rm|set)
+case $command in
+    get) venv_get $venv_name ;;
+    mk|rm|set)
         if [ -z "$venv_name" ]; then
             echo "Usage: venv $1 <venv_name>\n"
-            _NO_VERSION=1 venv_ls ; return 1
+            _NO_VERSION=1 venv_ls
+            return 1
         else
-            venv_$command ; return 0
+            venv_$command
         fi ;;
-    ls) venv_ls ; return 0 ;;
+    ls) venv_ls ;;
     *) echo "Usage: venv {get|ls|mk|rm|set}" ; return 1 ;;
 esac
