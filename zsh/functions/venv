@@ -86,8 +86,7 @@ if [ -n "$2" ]; then
 fi
 
 case $command in
-    get) venv_get $venv_name ;;
-    mk|rm|set)
+    get|mk|rm|set)
         if [ -z "$venv_name" ]; then
             echo "Usage: venv $command <venv_name>\n"
             _NO_VERSION=1 venv_ls
