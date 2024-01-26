@@ -92,7 +92,11 @@ case $command in
             _NO_VERSION=1 venv_ls
             return 1
         else
-            venv_$command
+            if [ "$command" = "get" ]; then
+                venv_get $venv_name
+            else
+                venv_$command
+            fi
         fi ;;
     ls) venv_ls ;;
     *) echo "Usage: venv {get|ls|mk|rm|set}" ; return 1 ;;
