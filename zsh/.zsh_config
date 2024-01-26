@@ -17,7 +17,7 @@ typeset -gxTU INFOPATH infopath
 # ----------------------------------------------------------------
 
 # Asdf (load)
-if [[ $(UNAME) == Darwin ]]; then
+if [[ $(uname) == Darwin ]]; then
     . $(brew --prefix asdf)/libexec/asdf.sh
 else
     . /opt/asdf-vm/asdf.sh

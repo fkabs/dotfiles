@@ -3,7 +3,7 @@ SHELL = /bin/zsh
 UNAME := $(shell uname)
 DOTFILES = $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-ifeq ($(UNAME), Darwin)
+ifeq ($(uname), Darwin)
 	OS_SUFFIX = darwin
 else
 	OS_SUFFIX = linux

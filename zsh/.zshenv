@@ -34,7 +34,7 @@ export BACKUP_HOME=$HOME/.backup
 export BAT_CONFIG_PATH=$DOTFILES/bat/.batrc
 
 # BROWSER
-if [[ $(UNAME) == Darwin ]]; then
+if [[ $(uname) == Darwin ]]; then
     export BROWSER="open"
 fi
 
@@ -57,7 +57,7 @@ export PIP_REQUIRE_VIRTUALENV=true
 export TEXLIVE_DIR=/usr/local/texlive
 export TEXLIVE_RELEASE=2023
 
-if [[ $(UNAME) == Darwin ]]; then
+if [[ $(uname) == Darwin ]]; then
     export TEXLIVE_ARCH=universal-darwin
 else
     export TEXLIVE_ARCH=linux
