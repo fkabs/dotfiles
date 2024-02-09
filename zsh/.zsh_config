@@ -17,14 +17,18 @@ typeset -gxTU INFOPATH infopath
 # ----------------------------------------------------------------
 
 # Asdf (load)
-if [[ $(uname) == Darwin ]]; then
-    . $(brew --prefix asdf)/libexec/asdf.sh
-else
-    . /opt/asdf-vm/asdf.sh
+if type "asdf" > /dev/null; then
+    if [[ $(uname) == Darwin ]]; then
+        . $(brew --prefix asdf)/libexec/asdf.sh
+    else
+        . /opt/asdf-vm/asdf.sh
+    fi
 fi
 
 # Direnv (load)
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+if type "asdf" > /dev/null; then
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+fi
 
 # # GNU coreutils
 # path=("$(brew --prefix)/opt/coreutils/libexec/gnubin" $path)

@@ -19,7 +19,7 @@ alias dt="cd ~/Desktop"
 
 # Use bat (https://github.com/sharkdp/bat) instead of cat
 alias cat="bat"
-alias rcat='\cat'
+alias rcat='\bat --paging=never'
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -41,7 +41,9 @@ alias map="xargs -n1"
 alias mkcd='(){mkdir -p "$1"; cd "$1"}'
 
 # Shortcut for colima nerdctl
-alias nerdctl="nerdctl.lima"
+if [[ $(uname) == Darwin ]]; then
+    alias nerdctl="nerdctl.lima"
+fi
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
