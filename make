@@ -1,5 +1,69 @@
 #!/bin/zsh
 
+_asdf() {
+    echo "- [asdf] Linking '$DOTFILES/asdf/.tool-versions' to '$HOME/.tool-versions'"
+    ln -fs "$DOTFILES/asdf/.tool-versions" "$HOME/.tool-versions"
+}
+
+_direnv() {
+    echo "- [direnv] Linking '$DOTFILES/direnv/.direnvrc' to '$HOME/.direnvrc'"
+    ln -fs "$DOTFILES/direnv/.direnvrc" "$HOME/.direnvrc"
+}
+
+_git() {
+    echo "- [git] Linking '$DOTFILES/git/.gitconfig' to '$HOME/.gitconfig'"
+    ln -fs "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
+    
+    echo "- [git] Linking '$DOTFILES/git/.gitignore_global' to '$HOME/.gitignore_global'"
+    ln -fs "$DOTFILES/git/.gitignore_global" "$HOME/.gitignore_global"
+}
+
+_gtk3() {
+    echo "- [gtk-3.0] Linking '$DOTFILES/gtk-3.0' to '$HOME/.config/gtk-3.0'"
+    ln -fs "$DOTFILES/gtk-3.0" "$HOME/.config/gtk-3.0"
+}
+
+_kitty() {
+    mkdir -p "$HOME/.config/kitty"
+    
+    echo "- [kitty] Linking '$DOTFILES/kitty/kitty_$OS_SUFFIX.conf' to '$HOME/.config/kitty/kitty.conf'"
+    ln -fs "$DOTFILES/kitty/kitty_$OS_SUFFIX.conf" "$HOME/.config/kitty/kitty.conf"
+    
+    echo "- [kitty] Linking '$DOTFILES/kitty/current-theme.conf' to '$HOME/.config/kitty/current-theme.conf'"
+    ln -fs "$DOTFILES/kitty/current-theme.conf" "$HOME/.config/kitty/current-theme.conf"
+}
+
+_mako() {
+    echo "- [mako] Linking '$DOTFILES/mako' to '$HOME/.config/mako'"
+    ln -fs "$DOTFILES/mako" "$HOME/.config/mako"
+}
+
+_sway() {
+    echo "- [sway] Linking '$DOTFILES/sway' to '$HOME/.config/sway'"
+    ln -fs "$DOTFILES/sway" "$HOME/.config/sway"
+}
+
+_swaylock() {
+    echo "- [swaylock] Linking '$DOTFILES/swaylock' to '$HOME/.config/swaylock'"
+    ln -fs "$DOTFILES/swaylock" "$HOME/.config/swaylock"
+}
+
+_waybar() {
+    echo "- [waybar] Linking '$DOTFILES/waybar' to '$HOME/.config/waybar'"
+    ln -fs "$DOTFILES/waybar" "$HOME/.config/waybar"
+}
+
+_wofi() {
+    echo "- [wofi] Linking '$DOTFILES/wofi' to '$HOME/.config/wofi'"
+    ln -fs "$DOTFILES/wofi" "$HOME/.config/wofi"
+}
+
+_zsh() {
+    echo "- [zsh] Linking '$DOTFILES/zsh/.zshenv' to '$HOME/.zshenv'"
+    ln -fs "$DOTFILES/zsh/.zshenv" "$HOME/.zshenv"
+}
+
+
 make_cleanup() {
     echo "[cleanup] Removing existing symlinks..."
     
@@ -67,77 +131,6 @@ make_dock() {
         defaults import com.apple.dock "$DOTFILES/dock/dock-layout.plist"
         killall Dock
     fi
-}
-
-# Function to create symlink for asdf
-_asdf() {
-    echo "- [asdf] Linking '$DOTFILES/asdf/.tool-versions' to '$HOME/.tool-versions'"
-    ln -fs "$DOTFILES/asdf/.tool-versions" "$HOME/.tool-versions"
-}
-
-# Function to create symlink for direnv
-_direnv() {
-    echo "- [direnv] Linking '$DOTFILES/direnv/.direnvrc' to '$HOME/.direnvrc'"
-    ln -fs "$DOTFILES/direnv/.direnvrc" "$HOME/.direnvrc"
-}
-
-# Function to create symlinks for git
-_git() {
-    echo "- [git] Linking '$DOTFILES/git/.gitconfig' to '$HOME/.gitconfig'"
-    ln -fs "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
-    
-    echo "- [git] Linking '$DOTFILES/git/.gitignore_global' to '$HOME/.gitignore_global'"
-    ln -fs "$DOTFILES/git/.gitignore_global" "$HOME/.gitignore_global"
-}
-
-# Function to create symlinks for gtk-3.0
-_gtk3() {
-    echo "- [gtk-3.0] Linking '$DOTFILES/gtk-3.0' to '$HOME/.config/gtk-3.0'"
-    ln -fs "$DOTFILES/gtk-3.0" "$HOME/.config/gtk-3.0"
-}
-
-# Function to create symlinks for kitty
-_kitty() {
-    mkdir -p "$HOME/.config/kitty"
-    echo "- [kitty] Linking '$DOTFILES/kitty/kitty_$OS_SUFFIX.conf' to '$HOME/.config/kitty/kitty.conf'"
-    ln -fs "$DOTFILES/kitty/kitty_$OS_SUFFIX.conf" "$HOME/.config/kitty/kitty.conf"
-    ln -fs "$DOTFILES/kitty/current-theme.conf" "$HOME/.config/kitty/current-theme.conf"
-}
-
-# Function to create symlinks for mako
-_mako() {
-    echo "- [mako] Linking '$DOTFILES/mako' to '$HOME/.config/mako'"
-    ln -fs "$DOTFILES/mako" "$HOME/.config/mako"
-}
-
-# Function to create symlinks for sway
-_sway() {
-    echo "- [sway] Linking '$DOTFILES/sway' to '$HOME/.config/sway'"
-    ln -fs "$DOTFILES/sway" "$HOME/.config/sway"
-}
-
-# Function to create symlinks for swaylock
-_swaylock() {
-    echo "- [swaylock] Linking '$DOTFILES/swaylock' to '$HOME/.config/swaylock'"
-    ln -fs "$DOTFILES/swaylock" "$HOME/.config/swaylock"
-}
-
-# Function to create symlinks for waybar
-_waybar() {
-    echo "- [waybar] Linking '$DOTFILES/waybar' to '$HOME/.config/waybar'"
-    ln -fs "$DOTFILES/waybar" "$HOME/.config/waybar"
-}
-
-# Function to create symlinks for wofi
-_wofi() {
-    echo "- [wofi] Linking '$DOTFILES/wofi' to '$HOME/.config/wofi'"
-    ln -fs "$DOTFILES/wofi" "$HOME/.config/wofi"
-}
-
-# Function to create symlink for zsh
-_zsh() {
-    echo "- [zsh] Linking '$DOTFILES/zsh/.zshenv' to '$HOME/.zshenv'"
-    ln -fs "$DOTFILES/zsh/.zshenv" "$HOME/.zshenv"
 }
 
 
