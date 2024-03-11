@@ -154,7 +154,7 @@ fi
 command=$1
 
 case $command in
-    dock|cleanup|install)
+    cleanup|install|dock)
         make_$command ;;
     *) echo "Usage: make {cleanup|install|dock}" ; return 1 ;;
 esac
