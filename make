@@ -38,6 +38,11 @@ _mako() {
     ln -fs "$DOTFILES/mako" "$HOME/.config/mako"
 }
 
+_p10k() {
+    echo "- [p10k] Linking '$DOTFILES/p10k' to '$HOME/.config/p10k'"
+    ln -fs "$DOTFILES/p10k" "$HOME/.config/p10k"
+}
+
 _sway() {
     echo "- [sway] Linking '$DOTFILES/sway' to '$HOME/.config/sway'"
     ln -fs "$DOTFILES/sway" "$HOME/.config/sway"
@@ -91,6 +96,9 @@ make_cleanup() {
     echo "- [mako] Removing '$HOME/.config/mako'"
     rm -rf "$HOME/.config/mako"
     
+    echo "- [p10k] Removing '$HOME/.config/p10k'"
+    rm -rf "$HOME/.config/p10k"
+    
     echo "- [sway] Removing '$HOME/.config/sway'"
     rm -rf "$HOME/.config/sway"
     
@@ -113,6 +121,7 @@ make_install() {
     _direnv
     _git
     _kitty
+    _p10k
     _zsh
     
     if [[ $(uname) == Linux ]]; then
