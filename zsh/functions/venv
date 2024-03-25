@@ -62,8 +62,7 @@ venv_rm() {
 
 venv_set() {
     if [ -d "$venv_path" ]; then
-        echo "use asdf" > .envrc
-        echo "export VIRTUAL_ENV=${venv_path}" >> .envrc
+        echo "export VIRTUAL_ENV=${venv_path}" > .envrc
         echo "layout python" >> .envrc
         direnv allow
     else
