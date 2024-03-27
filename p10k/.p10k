@@ -668,6 +668,21 @@
   typeset -g POWERLEVEL9K_ASDF_PYTHON_BACKGROUND=4
   # typeset -g POWERLEVEL9K_ASDF_PYTHON_VISUAL_IDENTIFIER_EXPANSION='⭐'
   # typeset -g POWERLEVEL9K_ASDF_PYTHON_SHOW_ON_UPGLOB='*.foo|*.bar'
+  
+  # See: https://github.com/romkatv/powerlevel10k/issues/481#issuecomment-727567290
+  # Disable asdf segment when virtualenv is active
+  # function p10k-on-pre-prompt() {
+  #   if [[ -n ${VIRTUAL_ENV-} ]]; then
+  #     p10k display '*/asdf'=hide
+  #   else
+  #     p10k display '*/asdf'=show
+  #   fi
+  # }
+  
+  # See: https://github.com/romkatv/powerlevel10k/issues/2619
+  # Overrides
+  typeset -g POWERLEVEL9K_ASDF_PYTHON_CONTENT_EXPANSION='${${${+VIRTUAL_ENV}/1}/0/$P9K_CONTENT}'
+  typeset -g POWERLEVEL9K_ASDF_PYTHON_VISUAL_IDENTIFIER_EXPANSION='${${${+VIRTUAL_ENV}/1}/0/$P9K_VISUAL_IDENTIFIER}'
 
   # Go version from asdf.
   typeset -g POWERLEVEL9K_ASDF_GOLANG_FOREGROUND=0
@@ -752,16 +767,6 @@
   typeset -g POWERLEVEL9K_ASDF_JULIA_BACKGROUND=2
   # typeset -g POWERLEVEL9K_ASDF_JULIA_VISUAL_IDENTIFIER_EXPANSION='⭐'
   # typeset -g POWERLEVEL9K_ASDF_JULIA_SHOW_ON_UPGLOB='*.foo|*.bar'
-  
-  # See: https://github.com/romkatv/powerlevel10k/issues/481#issuecomment-727567290
-  # Update asdf python when virtualenv is active
-  # function p10k-on-pre-prompt() {
-  #   if [[ -n ${VIRTUAL_ENV-} ]]; then
-  #     p10k display '*/asdf'=hide
-  #   else
-  #     p10k display '*/asdf'=show
-  #   fi
-  # }
 
   ##########[ nordvpn: nordvpn connection status, linux only (https://nordvpn.com/) ]###########
   # NordVPN connection indicator color.
