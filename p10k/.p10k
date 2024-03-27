@@ -680,7 +680,7 @@
   # }
   
   # See: https://github.com/romkatv/powerlevel10k/issues/2619
-  # Overrides
+  # Overrides python part of the asdf segment with the virtualenv (if activated)
   typeset -g POWERLEVEL9K_ASDF_PYTHON_CONTENT_EXPANSION='${${${+VIRTUAL_ENV}/1}/0/$P9K_CONTENT}'
   typeset -g POWERLEVEL9K_ASDF_PYTHON_VISUAL_IDENTIFIER_EXPANSION='${${${+VIRTUAL_ENV}/1}/0/$P9K_VISUAL_IDENTIFIER}'
 
