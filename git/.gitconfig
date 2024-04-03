@@ -1,7 +1,22 @@
+[alias]
+    dft = difftool
+    dlog = "!f() { : git log ; GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
+
+[core]
+	excludesfile = ~/.gitignore_global
+
+[diff]
+    tool = difftastic
+
+[difftool]
+    prompt = false
+
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+
+[pager]
+    difftool = true
+
 [user]
 	name = Fabian Kovac
 	email = fkabs@pm.me
-[diff]
-	tool = bc
-[core]
-	excludesfile = ~/.gitignore_global
