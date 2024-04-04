@@ -17,7 +17,8 @@ typeset -gxTU INFOPATH infopath
 # ----------------------------------------------------------------
 
 # Asdf (load)
-if type "asdf" > /dev/null; then
+# check if asdf exists
+if [[ -d $HOME/.asdf ]]; then
     if [[ $(uname) == Darwin ]]; then
         . $(brew --prefix asdf)/libexec/asdf.sh
     else
@@ -26,7 +27,7 @@ if type "asdf" > /dev/null; then
 fi
 
 # Direnv (load)
-if type "asdf" > /dev/null; then
+if type "asdf" > /dev/null && type "direnv" > /dev/null; then
     source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 fi
 
