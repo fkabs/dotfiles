@@ -54,6 +54,7 @@ exec swayidle -w\
     bindsym $mod+q kill
 
     # Start your launcher
+    bindsym $mod+d exec $menu
     bindsym $mod+space exec $menu
 
     # Activities
