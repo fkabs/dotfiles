@@ -124,14 +124,14 @@ make_install() {
     _p10k
     _zsh
     
-    if [[ $(uname) == Linux ]]; then
-        _gtk3
-        _mako
-        _sway
-        _swaylock
-        _waybar
-        _wofi
-    fi
+    # if [[ $(uname) == Linux ]]; then
+    #     _gtk3
+    #     _mako
+    #     _sway
+    #     _swaylock
+    #     _waybar
+    #     _wofi
+    # fi
 }
 
 make_dock() {
