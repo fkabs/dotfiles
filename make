@@ -1,5 +1,15 @@
 #!/bin/zsh
 
+_alacritty() {
+    mkdir -p "$HOME/.config/alacritty"
+    
+    echo "- [alacritty] Linking '$DOTFILES/alacritty/alacritty_$OS_SUFFIX.toml' to '$HOME/.config/alacritty/alacritty.toml'"
+    ln -fs "$DOTFILES/alacritty/alacritty_$OS_SUFFIX.toml" "$HOME/.config/alacritty/alacritty.toml"
+    
+    echo "- [alacritty] Linking '$DOTFILES/alacritty/onehalf_dark.toml' to '$HOME/.config/alacritty/onehalf_dark.toml'"
+    ln -fs "$DOTFILES/alacritty/onehalf_dark.toml" "$HOME/.config/alacritty/onehalf_dark.toml"
+}
+
 _asdf() {
     echo "- [asdf] Linking '$DOTFILES/asdf/.tool-versions' to '$HOME/.tool-versions'"
     ln -fs "$DOTFILES/asdf/.tool-versions" "$HOME/.tool-versions"
@@ -29,8 +39,8 @@ _kitty() {
     echo "- [kitty] Linking '$DOTFILES/kitty/kitty_$OS_SUFFIX.conf' to '$HOME/.config/kitty/kitty.conf'"
     ln -fs "$DOTFILES/kitty/kitty_$OS_SUFFIX.conf" "$HOME/.config/kitty/kitty.conf"
     
-    echo "- [kitty] Linking '$DOTFILES/kitty/current-theme.conf' to '$HOME/.config/kitty/current-theme.conf'"
-    ln -fs "$DOTFILES/kitty/current-theme.conf" "$HOME/.config/kitty/current-theme.conf"
+    echo "- [kitty] Linking '$DOTFILES/kitty/onehalf_dark.conf' to '$HOME/.config/kitty/onehalf_dark.conf'"
+    ln -fs "$DOTFILES/kitty/onehalf_dark.conf" "$HOME/.config/kitty/onehalf_dark.conf"
 }
 
 _mako() {
@@ -72,6 +82,9 @@ _zsh() {
 make_cleanup() {
     echo "[cleanup] Removing existing symlinks..."
     
+    echo "- [alacritty] Removing '$HOME/.config/alacritty'"
+    rm -rff "$HOME/.config/alacritty"
+    
     echo "- [asdf] Removing '$HOME/.tool-versions'"
     rm -f "$HOME/.tool-versions"
     
@@ -84,11 +97,8 @@ make_cleanup() {
     echo "- [git] Removing '$HOME/.gitignore_global'"
     rm -f "$HOME/.gitignore_global"
     
-    echo "- [kitty] Removing '$HOME/.config/kitty/kitty.conf'"
-    rm -f "$HOME/.config/kitty/kitty.conf"
-    
-    echo "- [kitty] Removing '$HOME/.config/kitty/current-theme.conf'"
-    rm -f "$HOME/.config/kitty/current-theme.conf"
+    echo "- [kitty] Removing '$HOME/.config/kitty'"
+    rm -rf "$HOME/.config/kitty"
     
     echo "- [p10k] Removing '$HOME/.config/p10k'"
     rm -rf "$HOME/.config/p10k"
@@ -99,6 +109,7 @@ make_cleanup() {
 
 make_install() {
     echo "[install] Creating symlinks..."
+    _alacritty
     _asdf
     _direnv
     _git

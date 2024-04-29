@@ -1,0 +1,24 @@
+import = ["~/.config/alacritty/onehalf_dark.toml"]
+
+# Cursor
+[cursor]
+blink_interval = 500
+
+[cursor.style]
+shape = "Underline"
+blinking = "On"
+
+# Font config
+[font]
+size = 14.0
+normal = { family = "FiraCode Nerd Font Mono", style = "Retina" }
+bold = { family = "FiraCode Nerd Font Mono", style = "SemiBold" }
+italic = { family = "FiraCode Nerd Font Mono", style = "Light" }
+bold_italic = { family = "FiraCode Nerd Font Mono", style = "Medium" }
+
+# Window config
+[window]
+dimensions = {columns = 125, lines = 35}
+padding = {x = 5, y = 35}
+dynamic_padding = true
+decorations = "Transparent"
