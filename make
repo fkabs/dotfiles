@@ -105,6 +105,26 @@ make_cleanup() {
     
     echo "- [zsh] Removing '$HOME/.zshenv'"
     rm -f "$HOME/.zshenv"
+    
+    if [[ $(uname) == Linux ]]; then
+        echo "- [gtk-3.0] Removing '$HOME/.config/gtk-3.0'"
+        rm -rf "$HOME/.config/gtk-3.0"
+        
+        echo "- [mako] Removing '$HOME/.config/mako'"
+        rm -rf "$HOME/.config/mako"
+        
+        echo "- [sway] Removing '$HOME/.config/sway'"
+        rm -rf "$HOME/.config/sway"
+        
+        echo "- [swaylock] Removing '$HOME/.config/swaylock'"
+        rm -rf "$HOME/.config/swaylock"
+        
+        echo "- [waybar] Removing '$HOME/.config/waybar'"
+        rm -rf "$HOME/.config/waybar"
+        
+        echo "- [wofi] Removing '$HOME/.config/wofi'"
+        rm -rf "$HOME/.config/wofi"
+    fi
 }
 
 make_install() {
@@ -117,14 +137,14 @@ make_install() {
     _p10k
     _zsh
     
-    # if [[ $(uname) == Linux ]]; then
-    #     _gtk3
-    #     _mako
-    #     _sway
-    #     _swaylock
-    #     _waybar
-    #     _wofi
-    # fi
+    if [[ $(uname) == Linux ]]; then
+        _gtk3
+        _mako
+        _sway
+        _swaylock
+        _waybar
+        _wofi
+    fi
 }
 
 make_dock() {
