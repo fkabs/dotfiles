@@ -52,6 +52,11 @@ export PAGER=less
 # Require pip to be run within a virtualenv (can be bypassed with gpip or nopip)
 export PIP_REQUIRE_VIRTUALENV=true
 
+# SSH authetication socket
+if [[ $(uname) == Linux && -z "${SSH_CONNECTION}" ]]; then
+    export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+fi
+
 # Tex Live release and architecture
 # install dir: /usr/local/texlive/2023/bin/universal-darwin
 export TEXLIVE_DIR=/usr/local/texlive
