@@ -19,7 +19,7 @@ bold_italic = { family = "FiraCode Nerd Font Mono", style = "Medium" }
 # Window config
 [window]
 dimensions = {columns = 125, lines = 35}
-padding = {x = 5, y = 5}
+padding = {x = 5, y = 10}
 dynamic_padding = true
 dynamic_title = true
 decorations = "Buttonless"
