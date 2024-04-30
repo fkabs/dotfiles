@@ -16,8 +16,10 @@ _asdf() {
 }
 
 _direnv() {
-    echo "- [direnv] Linking '$DOTFILES/direnv/.direnvrc' to '$HOME/.direnvrc'"
-    ln -fs "$DOTFILES/direnv/.direnvrc" "$HOME/.direnvrc"
+    mkdir -p "$HOME/.config/direnv"
+    
+    echo "- [direnv] Linking '$DOTFILES/direnv/.direnvrc' to '$HOME/.config/direnv/direnvrc'"
+    ln -fs "$DOTFILES/direnv/.direnvrc" "$HOME/.config/direnv/direnvrc"
 }
 
 _git() {
@@ -88,8 +90,8 @@ make_cleanup() {
     echo "- [asdf] Removing '$HOME/.tool-versions'"
     rm -f "$HOME/.tool-versions"
     
-    echo "- [direnv] Removing '$HOME/.direnvrc'"
-    rm -f "$HOME/.direnvrc"
+    echo "- [direnv] Removing '$HOME/.config/direnv/direnvrc'"
+    rm -f "$HOME/.config/direnv/direnvrc"
     
     echo "- [git] Removing '$HOME/.gitconfig'"
     rm -f "$HOME/.gitconfig"
