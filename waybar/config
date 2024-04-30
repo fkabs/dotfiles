@@ -86,7 +86,8 @@
         "format-wifi": " {essid} ({signalStrength}%)",
         "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
         "format-disconnected": "Disconnected ⚠",
-        "interval" : 7
+        "interval" : 7,
+        "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
         //"scroll-step": 1,
