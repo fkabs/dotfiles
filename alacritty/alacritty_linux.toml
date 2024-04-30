@@ -10,8 +10,8 @@ blinking = "On"
 
 # Font config
 [font]
-size = 11.0
-normal = { family = "FiraCode Nerd Font Mono", style = "Retina" }
+size = 12.0
+normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
 bold = { family = "FiraCode Nerd Font Mono", style = "SemiBold" }
 italic = { family = "FiraCode Nerd Font Mono", style = "Light" }
 bold_italic = { family = "FiraCode Nerd Font Mono", style = "Medium" }
