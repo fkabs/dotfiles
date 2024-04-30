@@ -1,13 +1,13 @@
 #!/bin/zsh
 
 _alacritty() {
-    mkdir -p "$HOME/.config/alacritty"
+    mkdir -p "$XDG_CONFIG_HOME/alacritty"
     
-    echo "- [alacritty] Linking '$DOTFILES/alacritty/alacritty_$OS_SUFFIX.toml' to '$HOME/.config/alacritty/alacritty.toml'"
-    ln -fs "$DOTFILES/alacritty/alacritty_$OS_SUFFIX.toml" "$HOME/.config/alacritty/alacritty.toml"
+    echo "- [alacritty] Linking '$DOTFILES/alacritty/alacritty_$OS_SUFFIX.toml' to '$XDG_CONFIG_HOME/alacritty/alacritty.toml'"
+    ln -fs "$DOTFILES/alacritty/alacritty_$OS_SUFFIX.toml" "$XDG_CONFIG_HOME/alacritty/alacritty.toml"
     
-    echo "- [alacritty] Linking '$DOTFILES/alacritty/onehalf_dark.toml' to '$HOME/.config/alacritty/onehalf_dark.toml'"
-    ln -fs "$DOTFILES/alacritty/onehalf_dark.toml" "$HOME/.config/alacritty/onehalf_dark.toml"
+    echo "- [alacritty] Linking '$DOTFILES/alacritty/onehalf_dark.toml' to '$XDG_CONFIG_HOME/alacritty/onehalf_dark.toml'"
+    ln -fs "$DOTFILES/alacritty/onehalf_dark.toml" "$XDG_CONFIG_HOME/alacritty/onehalf_dark.toml"
 }
 
 _asdf() {
@@ -15,11 +15,18 @@ _asdf() {
     ln -fs "$DOTFILES/asdf/.tool-versions" "$HOME/.tool-versions"
 }
 
-_direnv() {
-    mkdir -p "$HOME/.config/direnv"
+_bat() {
+    mkdir -p "$XDG_CONFIG_HOME/bat"
     
-    echo "- [direnv] Linking '$DOTFILES/direnv/.direnvrc' to '$HOME/.config/direnv/direnvrc'"
-    ln -fs "$DOTFILES/direnv/.direnvrc" "$HOME/.config/direnv/direnvrc"
+    echo "- [bat] Linking '$DOTFILES/bat' to '$XDG_CONFIG_HOME/bat'"
+    ln -fs "$DOTFILES/bat" "$XDG_CONFIG_HOME/bat"
+}
+
+_direnv() {
+    mkdir -p "$XDG_CONFIG_HOME/direnv"
+    
+    echo "- [direnv] Linking '$DOTFILES/direnv/.direnvrc' to '$XDG_CONFIG_HOME/direnv/direnvrc'"
+    ln -fs "$DOTFILES/direnv/.direnvrc" "$XDG_CONFIG_HOME/direnv/direnvrc"
 }
 
 _git() {
@@ -31,48 +38,53 @@ _git() {
 }
 
 _gtk3() {
-    echo "- [gtk-3.0] Linking '$DOTFILES/gtk-3.0' to '$HOME/.config/gtk-3.0'"
-    ln -fs "$DOTFILES/gtk-3.0" "$HOME/.config/gtk-3.0"
+    echo "- [gtk-3.0] Linking '$DOTFILES/gtk-3.0' to '$XDG_CONFIG_HOME/gtk-3.0'"
+    ln -fs "$DOTFILES/gtk-3.0" "$XDG_CONFIG_HOME/gtk-3.0"
 }
 
 _kitty() {
-    mkdir -p "$HOME/.config/kitty"
+    mkdir -p "$XDG_CONFIG_HOME/kitty"
     
-    echo "- [kitty] Linking '$DOTFILES/kitty/kitty_$OS_SUFFIX.conf' to '$HOME/.config/kitty/kitty.conf'"
-    ln -fs "$DOTFILES/kitty/kitty_$OS_SUFFIX.conf" "$HOME/.config/kitty/kitty.conf"
+    echo "- [kitty] Linking '$DOTFILES/kitty/kitty_$OS_SUFFIX.conf' to '$XDG_CONFIG_HOME/kitty/kitty.conf'"
+    ln -fs "$DOTFILES/kitty/kitty_$OS_SUFFIX.conf" "$XDG_CONFIG_HOME/kitty/kitty.conf"
     
-    echo "- [kitty] Linking '$DOTFILES/kitty/onehalf_dark.conf' to '$HOME/.config/kitty/onehalf_dark.conf'"
-    ln -fs "$DOTFILES/kitty/onehalf_dark.conf" "$HOME/.config/kitty/onehalf_dark.conf"
+    echo "- [kitty] Linking '$DOTFILES/kitty/onehalf_dark.conf' to '$XDG_CONFIG_HOME/kitty/onehalf_dark.conf'"
+    ln -fs "$DOTFILES/kitty/onehalf_dark.conf" "$XDG_CONFIG_HOME/kitty/onehalf_dark.conf"
 }
 
 _mako() {
-    echo "- [mako] Linking '$DOTFILES/mako' to '$HOME/.config/mako'"
-    ln -fs "$DOTFILES/mako" "$HOME/.config/mako"
+    echo "- [mako] Linking '$DOTFILES/mako' to '$XDG_CONFIG_HOME/mako'"
+    ln -fs "$DOTFILES/mako" "$XDG_CONFIG_HOME/mako"
 }
 
 _p10k() {
-    echo "- [p10k] Linking '$DOTFILES/p10k' to '$HOME/.config/p10k'"
-    ln -fs "$DOTFILES/p10k" "$HOME/.config/p10k"
+    echo "- [p10k] Linking '$DOTFILES/p10k' to '$XDG_CONFIG_HOME/p10k'"
+    ln -fs "$DOTFILES/p10k" "$XDG_CONFIG_HOME/p10k"
 }
 
 _sway() {
-    echo "- [sway] Linking '$DOTFILES/sway' to '$HOME/.config/sway'"
-    ln -fs "$DOTFILES/sway" "$HOME/.config/sway"
+    echo "- [sway] Linking '$DOTFILES/sway' to '$XDG_CONFIG_HOME/sway'"
+    ln -fs "$DOTFILES/sway" "$XDG_CONFIG_HOME/sway"
 }
 
 _swaylock() {
-    echo "- [swaylock] Linking '$DOTFILES/swaylock' to '$HOME/.config/swaylock'"
-    ln -fs "$DOTFILES/swaylock" "$HOME/.config/swaylock"
+    echo "- [swaylock] Linking '$DOTFILES/swaylock' to '$XDG_CONFIG_HOME/swaylock'"
+    ln -fs "$DOTFILES/swaylock" "$XDG_CONFIG_HOME/swaylock"
+}
+
+_tmux() {
+    echo "- [tmux] Linking '$DOTFILES/tmux' to '$XDG_CONFIG_HOME/tmux'"
+    ln -fs "$DOTFILES/tmux" "$XDG_CONFIG_HOME/tmux"
 }
 
 _waybar() {
-    echo "- [waybar] Linking '$DOTFILES/waybar' to '$HOME/.config/waybar'"
-    ln -fs "$DOTFILES/waybar" "$HOME/.config/waybar"
+    echo "- [waybar] Linking '$DOTFILES/waybar' to '$XDG_CONFIG_HOME/waybar'"
+    ln -fs "$DOTFILES/waybar" "$XDG_CONFIG_HOME/waybar"
 }
 
 _wofi() {
-    echo "- [wofi] Linking '$DOTFILES/wofi' to '$HOME/.config/wofi'"
-    ln -fs "$DOTFILES/wofi" "$HOME/.config/wofi"
+    echo "- [wofi] Linking '$DOTFILES/wofi' to '$XDG_CONFIG_HOME/wofi'"
+    ln -fs "$DOTFILES/wofi" "$XDG_CONFIG_HOME/wofi"
 }
 
 _zsh() {
@@ -84,14 +96,17 @@ _zsh() {
 make_cleanup() {
     echo "[cleanup] Removing existing symlinks..."
     
-    echo "- [alacritty] Removing '$HOME/.config/alacritty'"
-    rm -rff "$HOME/.config/alacritty"
+    echo "- [alacritty] Removing '$XDG_CONFIG_HOME/alacritty'"
+    rm -rff "$XDG_CONFIG_HOME/alacritty"
     
     echo "- [asdf] Removing '$HOME/.tool-versions'"
     rm -f "$HOME/.tool-versions"
     
-    echo "- [direnv] Removing '$HOME/.config/direnv/direnvrc'"
-    rm -f "$HOME/.config/direnv/direnvrc"
+    echo "- [bat] Removing '$XDG_CONFIG_HOME/bat'"
+    rm -rf "$XDG_CONFIG_HOME/bat"
+    
+    echo "- [direnv] Removing '$XDG_CONFIG_HOME/direnv/direnvrc'"
+    rm -f "$XDG_CONFIG_HOME/direnv/direnvrc"
     
     echo "- [git] Removing '$HOME/.gitconfig'"
     rm -f "$HOME/.gitconfig"
@@ -99,33 +114,36 @@ make_cleanup() {
     echo "- [git] Removing '$HOME/.gitignore_global'"
     rm -f "$HOME/.gitignore_global"
     
-    echo "- [kitty] Removing '$HOME/.config/kitty'"
-    rm -rf "$HOME/.config/kitty"
+    echo "- [kitty] Removing '$XDG_CONFIG_HOME/kitty'"
+    rm -rf "$XDG_CONFIG_HOME/kitty"
     
-    echo "- [p10k] Removing '$HOME/.config/p10k'"
-    rm -rf "$HOME/.config/p10k"
+    echo "- [p10k] Removing '$XDG_CONFIG_HOME/p10k'"
+    rm -rf "$XDG_CONFIG_HOME/p10k"
     
+    echo "- [tmux] Removing '$XDG_CONFIG_HOME/tmux'"
+    rm -f "$XDG_CONFIG_HOME/tmux"
+        
     echo "- [zsh] Removing '$HOME/.zshenv'"
     rm -f "$HOME/.zshenv"
     
     if [[ $(uname) == Linux ]]; then
-        echo "- [gtk-3.0] Removing '$HOME/.config/gtk-3.0'"
-        rm -rf "$HOME/.config/gtk-3.0"
+        echo "- [gtk-3.0] Removing '$XDG_CONFIG_HOME/gtk-3.0'"
+        rm -rf "$XDG_CONFIG_HOME/gtk-3.0"
         
-        echo "- [mako] Removing '$HOME/.config/mako'"
-        rm -rf "$HOME/.config/mako"
+        echo "- [mako] Removing '$XDG_CONFIG_HOME/mako'"
+        rm -rf "$XDG_CONFIG_HOME/mako"
         
-        echo "- [sway] Removing '$HOME/.config/sway'"
-        rm -rf "$HOME/.config/sway"
+        echo "- [sway] Removing '$XDG_CONFIG_HOME/sway'"
+        rm -rf "$XDG_CONFIG_HOME/sway"
         
-        echo "- [swaylock] Removing '$HOME/.config/swaylock'"
-        rm -rf "$HOME/.config/swaylock"
+        echo "- [swaylock] Removing '$XDG_CONFIG_HOME/swaylock'"
+        rm -rf "$XDG_CONFIG_HOME/swaylock"
         
-        echo "- [waybar] Removing '$HOME/.config/waybar'"
-        rm -rf "$HOME/.config/waybar"
+        echo "- [waybar] Removing '$XDG_CONFIG_HOME/waybar'"
+        rm -rf "$XDG_CONFIG_HOME/waybar"
         
-        echo "- [wofi] Removing '$HOME/.config/wofi'"
-        rm -rf "$HOME/.config/wofi"
+        echo "- [wofi] Removing '$XDG_CONFIG_HOME/wofi'"
+        rm -rf "$XDG_CONFIG_HOME/wofi"
     fi
 }
 
@@ -133,10 +151,12 @@ make_install() {
     echo "[install] Creating symlinks..."
     _alacritty
     _asdf
+    _bat
     _direnv
     _git
     _kitty
     _p10k
+    _tmux
     _zsh
     
     if [[ $(uname) == Linux ]]; then
