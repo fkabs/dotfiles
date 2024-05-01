@@ -15,9 +15,7 @@ _asdf() {
     ln -fs "$DOTFILES/asdf/.tool-versions" "$HOME/.tool-versions"
 }
 
-_bat() {
-    mkdir -p "$XDG_CONFIG_HOME/bat"
-    
+_bat() {    
     echo "- [bat] Linking '$DOTFILES/bat' to '$XDG_CONFIG_HOME/bat'"
     ln -fs "$DOTFILES/bat" "$XDG_CONFIG_HOME/bat"
 }
@@ -57,6 +55,11 @@ _mako() {
     ln -fs "$DOTFILES/mako" "$XDG_CONFIG_HOME/mako"
 }
 
+_nvim() {
+    echo "- [nvim] Linking '$DOTFILES/nvim' to '$XDG_CONFIG_HOME/nvim'"
+    ln -fs "$DOTFILES/nvim" "$XDG_CONFIG_HOME/nvim"
+}
+
 _p10k() {
     echo "- [p10k] Linking '$DOTFILES/p10k' to '$XDG_CONFIG_HOME/p10k'"
     ln -fs "$DOTFILES/p10k" "$XDG_CONFIG_HOME/p10k"
@@ -90,6 +93,9 @@ _wofi() {
 _zsh() {
     echo "- [zsh] Linking '$DOTFILES/zsh/.zshenv' to '$HOME/.zshenv'"
     ln -fs "$DOTFILES/zsh/.zshenv" "$HOME/.zshenv"
+    
+    echo "- [zsh] Linking '$DOTFILES/zsh' to '$XDG_CONFIG_HOME/zsh'"
+    ln -fs "$DOTFILES/zsh" "$XDG_CONFIG_HOME/zsh"
 }
 
 
@@ -117,6 +123,9 @@ make_cleanup() {
     echo "- [kitty] Removing '$XDG_CONFIG_HOME/kitty'"
     rm -rf "$XDG_CONFIG_HOME/kitty"
     
+    echo "- [nvim] Removing '$XDG_CONFIG_HOME/nvim'"
+    rm -rf "$XDG_CONFIG_HOME/nvim"
+    
     echo "- [p10k] Removing '$XDG_CONFIG_HOME/p10k'"
     rm -rf "$XDG_CONFIG_HOME/p10k"
     
@@ -125,6 +134,9 @@ make_cleanup() {
         
     echo "- [zsh] Removing '$HOME/.zshenv'"
     rm -f "$HOME/.zshenv"
+    
+    echo "- [zsh] Removing '$XDG_CONFIG_HOME/zsh'"
+    rm -rf "$XDG_CONFIG_HOME/zsh"
     
     if [[ $(uname) == Linux ]]; then
         echo "- [gtk-3.0] Removing '$XDG_CONFIG_HOME/gtk-3.0'"
@@ -178,8 +190,9 @@ make_dock() {
 }
 
 
-# Set DOTFILES variable
-DOTFILES="$(dirname $(realpath $0))"
+# Set XDG_CONFIG_HOME and DOTFILES variables
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
 
 # Determine OS suffix
 uname_result="$(uname)"

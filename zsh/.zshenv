@@ -12,7 +12,7 @@
 export DOTFILES="$HOME/.dotfiles"
 
 # ZDOTDIR for zsh config
-export ZDOTDIR="$DOTFILES/zsh"
+export ZDOTDIR="$HOME/.config/zsh"
 
 # XDG Base Directory Specification
 export XDG_CONFIG_HOME="$HOME/.config"
