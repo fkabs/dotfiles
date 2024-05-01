@@ -55,11 +55,6 @@ _mako() {
     ln -fs "$DOTFILES/mako" "$XDG_CONFIG_HOME/mako"
 }
 
-_nvim() {
-    echo "- [nvim] Linking '$DOTFILES/nvim' to '$XDG_CONFIG_HOME/nvim'"
-    ln -fs "$DOTFILES/nvim" "$XDG_CONFIG_HOME/nvim"
-}
-
 _p10k() {
     echo "- [p10k] Linking '$DOTFILES/p10k' to '$XDG_CONFIG_HOME/p10k'"
     ln -fs "$DOTFILES/p10k" "$XDG_CONFIG_HOME/p10k"
@@ -122,9 +117,6 @@ make_cleanup() {
     
     echo "- [kitty] Removing '$XDG_CONFIG_HOME/kitty'"
     rm -rf "$XDG_CONFIG_HOME/kitty"
-    
-    echo "- [nvim] Removing '$XDG_CONFIG_HOME/nvim'"
-    rm -rf "$XDG_CONFIG_HOME/nvim"
     
     echo "- [p10k] Removing '$XDG_CONFIG_HOME/p10k'"
     rm -rf "$XDG_CONFIG_HOME/p10k"
