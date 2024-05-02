@@ -70,6 +70,9 @@ fi
 
 export TEXLIVE_PATH="$TEXLIVE_DIR/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH"
 
+# TMUX plugins directory
+export TMUX_PLUGIN_MANAGER_PATH=$XDG_CACHE_HOME/tmux/plugins
+
 # Virtualenv (venv) config
 export VIRTUALENV_DIR=$HOME/.virtualenvs
 
