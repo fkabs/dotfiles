@@ -6,8 +6,8 @@ _alacritty() {
     echo "- [alacritty] Linking '$DOTFILES/alacritty/alacritty_$OS_SUFFIX.toml' to '$XDG_CONFIG_HOME/alacritty/alacritty.toml'"
     ln -fs "$DOTFILES/alacritty/alacritty_$OS_SUFFIX.toml" "$XDG_CONFIG_HOME/alacritty/alacritty.toml"
     
-    echo "- [alacritty] Linking '$DOTFILES/alacritty/onehalf_dark.toml' to '$XDG_CONFIG_HOME/alacritty/onehalf_dark.toml'"
-    ln -fs "$DOTFILES/alacritty/onehalf_dark.toml" "$XDG_CONFIG_HOME/alacritty/onehalf_dark.toml"
+    echo "- [alacritty] Linking '$DOTFILES/alacritty/themes' to '$XDG_CONFIG_HOME/alacritty/themes'"
+    ln -fs "$DOTFILES/alacritty/themes" "$XDG_CONFIG_HOME/alacritty/themes"
 }
 
 _asdf() {
@@ -46,8 +46,8 @@ _kitty() {
     echo "- [kitty] Linking '$DOTFILES/kitty/kitty_$OS_SUFFIX.conf' to '$XDG_CONFIG_HOME/kitty/kitty.conf'"
     ln -fs "$DOTFILES/kitty/kitty_$OS_SUFFIX.conf" "$XDG_CONFIG_HOME/kitty/kitty.conf"
     
-    echo "- [kitty] Linking '$DOTFILES/kitty/onehalf_dark.conf' to '$XDG_CONFIG_HOME/kitty/onehalf_dark.conf'"
-    ln -fs "$DOTFILES/kitty/onehalf_dark.conf" "$XDG_CONFIG_HOME/kitty/onehalf_dark.conf"
+    echo "- [kitty] Linking '$DOTFILES/kitty/themes' to '$XDG_CONFIG_HOME/kitty/themes'"
+    ln -fs "$DOTFILES/kitty/themes" "$XDG_CONFIG_HOME/kitty/themes"
 }
 
 _mako() {

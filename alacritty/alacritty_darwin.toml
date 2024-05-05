@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/onehalf_dark.toml"]
+import = ["~/.config/alacritty/themes/onehalf_dark.toml"]
 
 # Cursor
 [cursor]
@@ -7,6 +7,10 @@ blink_interval = 500
 [cursor.style]
 shape = "Underline"
 blinking = "On"
+
+# Environment config
+[env]
+TERM = "xterm-256color"
 
 # Font config
 [font]
