@@ -76,11 +76,11 @@ export TMUX_PLUGIN_MANAGER_PATH=$XDG_CACHE_HOME/tmux/plugins
 # Virtualenv (venv) config
 export VIRTUALENV_DIR=$HOME/.virtualenvs
 
+# Path to zoxide database
+export _ZO_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zoxide"
+
 # Path of zsh dumps
 export ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump-${HOST/.*/}-${ZSH_VERSION}"
-
-# Path to the zsh-z database file
-export ZSHZ_DATA="${XDG_CACHE_HOME:-$HOME/.cache}/z/.zdb"
 
 # Path to custom zsh functions
 export ZFUNCDIR=$ZDOTDIR/functions

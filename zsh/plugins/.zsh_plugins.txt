@@ -1,11 +1,14 @@
+# fzf
+Aloxaf/fzf-tab
+
 # powerlevel10k theme
 romkatv/powerlevel10k kind:fpath
 
 # vi mode
 # jeffreytse/zsh-vi-mode
 
-# z plugin
-agkozak/zsh-z
+# zoxide plugin
+ajeetdsouza/zoxide
 
 # zsh-users plugins
 zsh-users/zsh-autosuggestions kind:defer
