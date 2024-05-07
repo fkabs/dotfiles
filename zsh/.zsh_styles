@@ -3,7 +3,7 @@
 # .zsh_styles - Set zstyle settings for plugins that need them.
 #
 
-# Antidote
+# antidote
 zstyle ':antidote:bundle' file ${ZDOTDIR:-~}/plugins/.zsh_plugins.txt
 zstyle ':antidote:static' file ${ANTIDOTE_HOME:-~/.cache/antidote}/.zsh_plugins.zsh
 zstyle ':antidote:bundle' use-friendly-names 'yes'
@@ -12,3 +12,22 @@ zstyle ':antidote:bundle' use-friendly-names 'yes'
 zstyle ':autocomplete:*' insert-unambiguous yes
 zstyle ':autocomplete:*' fzf-completion yes
 zstyle ':autocomplete:*' widget-style menu-select
+
+# completion
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+
+# fzf-tab
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+#use ftb-tmux-popup to make full use of it's "popup" feature
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
