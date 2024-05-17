@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/onehalf_dark.toml"]
+import = ["~/.config/alacritty/themes/onehalf_dark.toml"]
 
 # Cursor
 [cursor]
