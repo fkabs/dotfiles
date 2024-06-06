@@ -4,7 +4,7 @@
 
 # Specify desired highlighting theme (e.g. "TwoDark"). Run `bat --list-themes`
 # for a list of all available themes
---theme="Visual Studio Dark+"
+--theme="rose-pine"
 
 # Show line numbers, Git modifications, file header and grid
 --style="numbers,changes,grid"
