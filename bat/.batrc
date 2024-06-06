@@ -6,8 +6,8 @@
 # for a list of all available themes
 --theme="rose-pine"
 
-# Show line numbers, Git modifications, file header and grid
---style="numbers,changes,grid"
+# Show line numbers, Git modifications, (file header) and grid
+--style="numbers,changes,grid,header"
 
 # Set the tab width to T spaces. Use a width of 0 to pass tabs through directly
 --tabs 0

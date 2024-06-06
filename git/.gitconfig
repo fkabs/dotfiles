@@ -36,7 +36,7 @@
     # diff {{{
     d = diff --word-diff
     dc = diff --cached
-    dft = "!f() { GIT_EXTERNAL_DIFF=difft git "$1"; }; f"
+    dft = difftool
     diff-all = !"for name in $(git diff --name-only $1); do git difftool -y $1 $name & done"
     diff-changes = diff --name-status -r
     diff-staged = diff --cached
