@@ -5,7 +5,7 @@ Aloxaf/fzf-tab
 romkatv/powerlevel10k kind:fpath
 
 # vi mode
-# jeffreytse/zsh-vi-mode
+jeffreytse/zsh-vi-mode
 
 # zoxide plugin
 ajeetdsouza/zoxide

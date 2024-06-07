@@ -39,8 +39,8 @@ if [[ $(uname) == Darwin ]]; then
 fi
 
 # Editors for shell
-export EDITOR=emacs
-export VISUAL=emacs
+export EDITOR=vim
+export VISUAL=vim
 
 # FZF
 # catppuccin-macchiato theme
