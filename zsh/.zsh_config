@@ -59,6 +59,9 @@ path+=("/usr/local/texlive/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH")
 manpath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/man")
 infopath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/info")
 
+# Zsh syntax highlighting
+source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/catppuccin_macchiato-zsh-syntax-highlighting.zsh"
+
 # ----------------------------------------------------------------
 
 # Update paths
