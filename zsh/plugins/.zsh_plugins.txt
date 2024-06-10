@@ -1,9 +1,6 @@
 # fzf autocomplete
 Aloxaf/fzf-tab
 
-# powerlevel10k theme
-romkatv/powerlevel10k kind:fpath
-
 # vi mode
 jeffreytse/zsh-vi-mode
 

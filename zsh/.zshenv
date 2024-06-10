@@ -64,6 +64,9 @@ if [[ $(uname) == Linux && -z "${SSH_CONNECTION}" ]]; then
     export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 fi
 
+# Starhip config
+export STARSHIP_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/starship/starship.toml"
+
 # Tex Live release and architecture
 # install dir: /usr/local/texlive/2023/bin/universal-darwin
 export TEXLIVE_DIR=/usr/local/texlive

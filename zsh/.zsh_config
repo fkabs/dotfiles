@@ -48,11 +48,7 @@ fi
 # History config
 export HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zsh_history
 export HISTSIZE=1000000
-export SAVEHIST=1000000 
-
-# Powerlevel10k config
-# To customize prompt, run `p10k configure` or edit ~/.dotfiles/p10k/.p10k
-[[ -e ${XDG_CONFIG_HOME:-$HOME/.config}/p10k/.p10k ]] && source ${XDG_CONFIG_HOME:-$HOME/.config}/p10k/.p10k
+export SAVEHIST=1000000
 
 # Tex Live
 path+=("/usr/local/texlive/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH")

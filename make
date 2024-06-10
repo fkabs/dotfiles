@@ -55,9 +55,9 @@ _mako() {
     ln -fs "$DOTFILES/mako" "$XDG_CONFIG_HOME/mako"
 }
 
-_p10k() {
-    echo "- [p10k] Linking '$DOTFILES/p10k' to '$XDG_CONFIG_HOME/p10k'"
-    ln -fs "$DOTFILES/p10k" "$XDG_CONFIG_HOME/p10k"
+_starship() {
+    echo "- [starship] Linking '$DOTFILES/starship' to '$XDG_CONFIG_HOME/starship'"
+    ln -fs "$DOTFILES/starship" "$XDG_CONFIG_HOME/starship"
 }
 
 _sway() {
@@ -121,6 +121,9 @@ make_cleanup() {
     echo "- [p10k] Removing '$XDG_CONFIG_HOME/p10k'"
     rm -rf "$XDG_CONFIG_HOME/p10k"
     
+    echo "- [starship] Removing '$XDG_CONFIG_HOME/starship'"
+    rm -rf "$XDG_CONFIG_HOME/starship"
+    
     echo "- [tmux] Removing '$XDG_CONFIG_HOME/tmux'"
     rm -f "$XDG_CONFIG_HOME/tmux"
         
@@ -159,7 +162,7 @@ make_install() {
     _direnv
     _git
     _kitty
-    _p10k
+    _starship
     _tmux
     _zsh
     
