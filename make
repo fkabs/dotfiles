@@ -118,9 +118,6 @@ make_cleanup() {
     echo "- [kitty] Removing '$XDG_CONFIG_HOME/kitty'"
     rm -rf "$XDG_CONFIG_HOME/kitty"
     
-    echo "- [p10k] Removing '$XDG_CONFIG_HOME/p10k'"
-    rm -rf "$XDG_CONFIG_HOME/p10k"
-    
     echo "- [starship] Removing '$XDG_CONFIG_HOME/starship'"
     rm -rf "$XDG_CONFIG_HOME/starship"
     
