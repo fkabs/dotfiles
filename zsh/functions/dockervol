@@ -1,0 +1,41 @@
+#!/bin/zsh
+
+dockervol_cp() {
+    local _vol_name=$1
+    RAND_DIR=$(cat /dev/urandom | base64 | tr -dc '0-9a-zA-Z' | head -c8)
+    mkdir $(pwd)/vol_"$RAND_DIR"
+    docker run --rm -it -v $_vol_name:/data -v $(pwd)/vol_"$RAND_DIR":/mnt busybox sh -c "cp -r /data/* /mnt"
+    echo ">> Copied contents to '$(pwd)/vol_$RAND_DIR'"
+    echo "$(pwd)/vol_$RAND_DIR" | pbcopy
+    cd "$(pwd)/vol_$RAND_DIR"
+    unset RAND_DIR
+}
+
+dockervol_sh() {
+    local _vol_name=$1    
+    docker run --rm -it -v $_vol_name:/data busybox sh
+}
+
+# Set verbose mode for "log" function if it is not set
+if [ -z "$_VERBOSE" ]; then
+    _VERBOSE=1
+fi
+
+# Set command as $1
+command=$1
+
+# Check if volume name was passed as an argument
+if [ -n "$2" ]; then
+    vol_name=$2
+fi
+
+case $command in
+    cp|sh)
+        if [ -z "$vol_name" ]; then
+            echo "Usage: dockervol $command <volume>\n"
+            return 1
+        else
+            dockervol_$command $vol_name
+        fi ;;
+    *) echo "Usage: dockervol {cp|sh} <volume>" ; return 1 ;;
+esac
