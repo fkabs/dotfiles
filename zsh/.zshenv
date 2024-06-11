@@ -68,6 +68,7 @@ fi
 
 # Starhip config
 export STARSHIP_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/starship/starship.toml"
+export STARSHIP_CACHE="${XDG_cache_HOME:-$HOME/.cache}/starship"
 
 # Tex Live release and architecture
 # install dir: /usr/local/texlive/2023/bin/universal-darwin
