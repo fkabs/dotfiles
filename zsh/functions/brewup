@@ -8,9 +8,10 @@ defaults export com.apple.dock /tmp/dock-layout.plist
 echo "\n# Updating antidote plugins"
 antidote update
 
-# ASDF
-echo "\n# Updating asdf plugins"
-asdf plugin update --all
+# pyenv
+echo "\n# Updating pyenv"
+pyenv update
+pyenv doctor
 
 # MAS
 echo "\n# Updating mas apps"

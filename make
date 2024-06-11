@@ -10,21 +10,9 @@ _alacritty() {
     ln -fs "$DOTFILES/alacritty/themes" "$XDG_CONFIG_HOME/alacritty/themes"
 }
 
-_asdf() {
-    echo "- [asdf] Linking '$DOTFILES/asdf/.tool-versions' to '$HOME/.tool-versions'"
-    ln -fs "$DOTFILES/asdf/.tool-versions" "$HOME/.tool-versions"
-}
-
 _bat() {    
     echo "- [bat] Linking '$DOTFILES/bat' to '$XDG_CONFIG_HOME/bat'"
     ln -fs "$DOTFILES/bat" "$XDG_CONFIG_HOME/bat"
-}
-
-_direnv() {
-    mkdir -p "$XDG_CONFIG_HOME/direnv"
-    
-    echo "- [direnv] Linking '$DOTFILES/direnv/.direnvrc' to '$XDG_CONFIG_HOME/direnv/direnvrc'"
-    ln -fs "$DOTFILES/direnv/.direnvrc" "$XDG_CONFIG_HOME/direnv/direnvrc"
 }
 
 _git() {
@@ -100,14 +88,8 @@ make_cleanup() {
     echo "- [alacritty] Removing '$XDG_CONFIG_HOME/alacritty'"
     rm -rff "$XDG_CONFIG_HOME/alacritty"
     
-    echo "- [asdf] Removing '$HOME/.tool-versions'"
-    rm -f "$HOME/.tool-versions"
-    
     echo "- [bat] Removing '$XDG_CONFIG_HOME/bat'"
     rm -rf "$XDG_CONFIG_HOME/bat"
-    
-    echo "- [direnv] Removing '$XDG_CONFIG_HOME/direnv/direnvrc'"
-    rm -f "$XDG_CONFIG_HOME/direnv/direnvrc"
     
     echo "- [git] Removing '$HOME/.gitconfig'"
     rm -f "$HOME/.gitconfig"
@@ -154,9 +136,7 @@ make_cleanup() {
 make_install() {
     echo "[install] Creating symlinks..."
     _alacritty
-    _asdf
     _bat
-    _direnv
     _git
     _kitty
     _starship

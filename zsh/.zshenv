@@ -24,9 +24,6 @@ export XDG_DATA_HOME="$HOME/.local/share"
 # Antidote plugin directory
 export ANTIDOTE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}/antidote
 
-# ASDF .asdfrc location
-export ASDF_CONFIG_FILE="$DOTFILES/asdf/.asdfrc"
-
 # BACKUP directory
 export BACKUP_HOME=$HOME/.backup
 
@@ -58,6 +55,11 @@ export PAGER=less
 
 # Require pip to be run within a virtualenv (can be bypassed with gpip or nopip)
 export PIP_REQUIRE_VIRTUALENV=true
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+export PATH="$PYENV_ROOT/bin:$PATH"
 
 # SSH authetication socket
 if [[ $(uname) == Linux && -z "${SSH_CONNECTION}" ]]; then

@@ -16,21 +16,6 @@ typeset -gxTU INFOPATH infopath
 
 # ----------------------------------------------------------------
 
-# Asdf (load)
-# check if asdf exists
-if [[ -d $HOME/.asdf ]]; then
-    if [[ $(uname) == Darwin ]]; then
-        . $(brew --prefix asdf)/libexec/asdf.sh
-    else
-        . /opt/asdf-vm/asdf.sh
-    fi
-fi
-
-# Direnv (load)
-if type "asdf" > /dev/null && type "direnv" > /dev/null; then
-    source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-fi
-
 # Fuzzy matching (fzf)
 if type "fzf" > /dev/null; then
     eval "$(fzf --zsh)"
@@ -49,6 +34,10 @@ fi
 export HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zsh_history
 export HISTSIZE=1000000
 export SAVEHIST=1000000
+
+# pyenv
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # Tex Live
 path+=("/usr/local/texlive/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH")

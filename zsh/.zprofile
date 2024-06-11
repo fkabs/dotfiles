@@ -7,3 +7,7 @@
 if [[ $(uname) == Darwin ]]; then
     eval $(/opt/homebrew/bin/brew shellenv)
 fi
+
+# pyenv
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
