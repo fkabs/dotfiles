@@ -28,16 +28,6 @@ _gtk3() {
     ln -fs "$DOTFILES/gtk-3.0" "$XDG_CONFIG_HOME/gtk-3.0"
 }
 
-_kitty() {
-    mkdir -p "$XDG_CONFIG_HOME/kitty"
-    
-    echo "- [kitty] Linking '$DOTFILES/kitty/kitty_$OS_SUFFIX.conf' to '$XDG_CONFIG_HOME/kitty/kitty.conf'"
-    ln -fs "$DOTFILES/kitty/kitty_$OS_SUFFIX.conf" "$XDG_CONFIG_HOME/kitty/kitty.conf"
-    
-    echo "- [kitty] Linking '$DOTFILES/kitty/themes' to '$XDG_CONFIG_HOME/kitty/themes'"
-    ln -fs "$DOTFILES/kitty/themes" "$XDG_CONFIG_HOME/kitty/themes"
-}
-
 _mako() {
     echo "- [mako] Linking '$DOTFILES/mako' to '$XDG_CONFIG_HOME/mako'"
     ln -fs "$DOTFILES/mako" "$XDG_CONFIG_HOME/mako"
@@ -97,9 +87,6 @@ make_cleanup() {
     echo "- [git] Removing '$HOME/.gitignore_global'"
     rm -f "$HOME/.gitignore_global"
     
-    echo "- [kitty] Removing '$XDG_CONFIG_HOME/kitty'"
-    rm -rf "$XDG_CONFIG_HOME/kitty"
-    
     echo "- [starship] Removing '$XDG_CONFIG_HOME/starship'"
     rm -rf "$XDG_CONFIG_HOME/starship"
     
@@ -138,7 +125,6 @@ make_install() {
     _alacritty
     _bat
     _git
-    _kitty
     _starship
     _tmux
     _zsh
