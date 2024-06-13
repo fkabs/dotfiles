@@ -26,7 +26,10 @@ zstyle ':completion:*' menu no
 
 # fzf-tab
 # preview directory's content with eza when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -la1 --color=always $realpath'
+# preview directory's content with eza when completing zoxide
+zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -la1 --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -la1 --color=always $realpath'
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 #use ftb-tmux-popup to make full use of it's "popup" feature
