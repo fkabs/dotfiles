@@ -40,11 +40,13 @@ export EDITOR=vim
 export VISUAL=vim
 
 # FZF
-# catppuccin-macchiato theme
-export FZF_DEFAULT_OPTS=" \
---color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
---color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
---color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
+# rose-pine moon theme
+export FZF_DEFAULT_OPTS="
+	--color=fg:#908caa,bg:#232136,hl:#ea9a97
+	--color=fg+:#e0def4,bg+:#393552,hl+:#ea9a97
+	--color=border:#44415a,header:#3e8fb0,gutter:#232136
+	--color=spinner:#f6c177,info:#9ccfd8,separator:#44415a
+	--color=pointer:#c4a7e7,marker:#eb6f92,prompt:#908caa"
 
 # Homebrew
 export HOMEBREW_NO_ANALYTICS=1
@@ -56,11 +58,6 @@ export PAGER=less
 # Require pip to be run within a virtualenv (can be bypassed with gpip or nopip)
 export PIP_REQUIRE_VIRTUALENV=true
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-export PATH="$PYENV_ROOT/bin:$PATH"
-
 # SSH authetication socket
 if [[ $(uname) == Linux && -z "${SSH_CONNECTION}" ]]; then
     export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
@@ -68,7 +65,7 @@ fi
 
 # Starhip config
 export STARSHIP_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/starship/starship.toml"
-export STARSHIP_CACHE="${XDG_cache_HOME:-$HOME/.cache}/starship"
+export STARSHIP_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/starship"
 
 # Tex Live release and architecture
 # install dir: /usr/local/texlive/2023/bin/universal-darwin

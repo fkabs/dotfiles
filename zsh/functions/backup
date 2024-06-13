@@ -9,3 +9,34 @@ echo "Dumped file to $BACKUP_HOME/brew/Brewfile"
 echo "\n# Dock layout"
 echo "Exporting dock layout to $BACKUP_HOME/dock/dock-layout.plist"
 defaults export com.apple.dock $BACKUP_HOME/dock/dock-layout.plist
+
+# Backing up python virtual environments
+echo "\n# Python virtual environments"
+local reactivate_venv=0
+local active_venv=''
+
+# Check if $VIRTUAL_ENV is not empty
+if [ -n "$VIRTUAL_ENV" ]; then
+    reactivate_venv=1
+    active_venv="$VIRTUAL_ENV"
+    deactivate
+fi
+
+if [ -z "$(ls -A $VIRTUALENV_DIR 2>/dev/null)" ]; then
+    echo "No virtual environments found in '$VIRTUALENV_DIR'"
+else
+    echo "Backing up virtual environments to $BACKUP_HOME/venvs:"
+    
+    for venv in "$VIRTUALENV_DIR"/*; do
+        source "$venv/bin/activate"
+        echo "# $(venv get $(basename "$venv"))" > "$BACKUP_HOME/venvs/$(basename "$venv").txt"
+        pip freeze >> "$BACKUP_HOME/venvs/$(basename "$venv").txt"
+        deactivate
+        echo "\t- $(venv get $(basename "$venv"))"
+    done
+    
+    # Reactivate the virtual environment if it was active before
+    if [ $reactivate_venv -eq 1 ]; then
+        source "$active_venv/bin/activate"
+    fi
+fi

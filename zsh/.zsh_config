@@ -35,17 +35,15 @@ export HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zsh_history
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 
-# pyenv
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# mise
+if type "mise" > /dev/null; then
+    eval "$(mise activate zsh)"
+fi
 
 # Tex Live
 path+=("/usr/local/texlive/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH")
 manpath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/man")
 infopath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/info")
-
-# Zsh syntax highlighting
-source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/catppuccin_macchiato-zsh-syntax-highlighting.zsh"
 
 # ----------------------------------------------------------------
 
