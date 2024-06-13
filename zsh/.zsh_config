@@ -21,15 +21,6 @@ if type "fzf" > /dev/null; then
     eval "$(fzf --zsh)"
 fi
 
-# # GNU coreutils
-# path=("$(brew --prefix)/opt/coreutils/libexec/gnubin" $path)
-
-# # GNU findutils
-# path=("$(brew --prefix)/opt/findutils/libexec/gnubin" $path)
-
-# # GNU grep
-# path=("$(brew --prefix)/opt/grep/libexec/gnubin" $path)
-
 # History config
 export HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zsh_history
 export HISTSIZE=1000000

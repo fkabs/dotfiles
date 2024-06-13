@@ -47,11 +47,6 @@ alias map="xargs -n1"
 # Make and change directory
 alias mkcd='(){mkdir -p "$1"; cd "$1"}'
 
-# Shortcut for colima nerdctl
-if [[ $(uname) == Darwin ]]; then
-    alias nerdctl="nerdctl.lima"
-fi
-
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 alias fpath='echo -e ${FPATH//:/\\n}'
