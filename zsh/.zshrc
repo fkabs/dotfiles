@@ -19,6 +19,14 @@ autoload -Uz $ZFUNCDIR/*(.:t)
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_opts ]] && source ${ZDOTDIR:-$HOME}/.zsh_opts
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_styles ]] && source ${ZDOTDIR:-$HOME}/.zsh_styles
 
+# Clone antidote if necessary.
+[[ -d $HOME/.antidote ]] ||
+  git clone --depth=1 https://github.com/mattmc3/antidote.git $HOME/.antidote
+
+# Load antidote
+source $HOME/.antidote/antidote.zsh
+antidote load
+
 # Compinit (cache .zcompdump for about a day)
 autoload -Uz compinit
 
@@ -32,14 +40,6 @@ fi
     zcompile "$ZSH_COMPDUMP"
   fi
 } &!
-
-# Clone antidote if necessary.
-[[ -d $HOME/.antidote ]] ||
-  git clone --depth=1 https://github.com/mattmc3/antidote.git $HOME/.antidote
-
-# Load antidote
-source $HOME/.antidote/antidote.zsh
-antidote load
 
 # Prompt (starship)
 eval "$(starship init zsh)"
