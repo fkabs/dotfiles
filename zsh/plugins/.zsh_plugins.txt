@@ -1,11 +1,11 @@
 # fzf autocomplete
-Aloxaf/fzf-tab
+Aloxaf/fzf-tab kind:defer
 
 # vi mode
 jeffreytse/zsh-vi-mode
 
 # zoxide plugin
-ajeetdsouza/zoxide
+ajeetdsouza/zoxide kind:defer
 
 # zsh-users plugins
 zsh-users/zsh-autosuggestions kind:defer
