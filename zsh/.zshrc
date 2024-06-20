@@ -11,9 +11,6 @@ fi
 # Add Brew zsh-completions and site-functions to fpath
 if [[ $(uname) == Darwin ]]; then
     fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
-    
-    # eval brew shellenv
-    eval "$($(brew --prefix)/bin/brew shellenv)"
 fi
 
 # Add custom zsh functions
