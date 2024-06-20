@@ -3,6 +3,11 @@
 # .zshrc - Sourced by zsh on startup
 #
 
+# Enable zsh profiling
+if [ "${ZSH_PROFILING}" = "1" ]; then
+    zmodload zsh/zprof
+fi
+
 # Add Brew zsh-completions and site-functions to fpath
 if [[ $(uname) == Darwin ]]; then
     fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
@@ -46,3 +51,8 @@ fi
 
 # Prompt (starship)
 eval "$(starship init zsh)"
+
+# Enable zsh profiling
+if [ "${ZSH_PROFILING}" = "1" ]; then
+    zprof
+fi

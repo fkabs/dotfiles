@@ -94,3 +94,6 @@ export ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump-${HOST/.*/}-
 
 # Path to custom zsh functions
 export ZFUNCDIR=$ZDOTDIR/functions
+
+# ZSH profiling
+export ZSH_PROFILING=0
