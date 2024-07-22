@@ -32,3 +32,7 @@ echo "\n# Importing saved dock layout from /tmp/dock-layout.plist"
 defaults import com.apple.dock /tmp/dock-layout.plist
 rm -f /tmp/dock-layout.plist
 killall Dock
+
+# Backup
+echo "\n# Running backup to $BACKUP_HOME"
+backup
