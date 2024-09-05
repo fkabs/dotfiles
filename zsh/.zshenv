@@ -67,10 +67,10 @@ fi
 export STARSHIP_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/starship/starship.toml"
 export STARSHIP_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/starship"
 
-# Tex Live release and architecture
-# install dir: /usr/local/texlive/2023/bin/universal-darwin
+# TeX Live release and architecture
+# install dir: /usr/local/texlive/YYYY/bin/universal-darwin
 export TEXLIVE_DIR=/usr/local/texlive
-export TEXLIVE_RELEASE=2023
+export TEXLIVE_RELEASE=2024
 
 if [[ $(uname) == Darwin ]]; then
     export TEXLIVE_ARCH=universal-darwin
@@ -79,6 +79,16 @@ else
 fi
 
 export TEXLIVE_PATH="$TEXLIVE_DIR/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH"
+
+# TeX Live Paths
+export TEXDIR="$TEXLIVE_DIR/$TEXLIVE_RELEASE"
+export TEXMFLOCAL="$TEXLIVE_DIR/texmf-local"
+export TEXMFSYSVAR="$TEXLIVE_DIR/$TEXLIVE_RELEASE/texmf-var"
+export TEXMFSYSCONFIG="$TEXLIVE_DIR/$TEXLIVE_RELEASE/texmf-config"
+export TEXMFVAR="${XDG_CACHE_HOME:-$HOME/.cache}/texlive/$TEXLIVE_RELEASE/texmf-var"
+export TEXMFCONFIG="$HOME/.texlive/$TEXLIVE_RELEASE/texmf-config"
+export TEXMFHOME="$HOME/.texlive/texmf"
+export TEXMFCACHE="$TEXMFVAR"
 
 # TMUX plugins directory
 export TMUX_PLUGIN_MANAGER_PATH=$XDG_CACHE_HOME/tmux/plugins
