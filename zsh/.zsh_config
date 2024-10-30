@@ -18,7 +18,7 @@ typeset -gxTU INFOPATH infopath
 
 # Fuzzy matching (fzf)
 if type "fzf" > /dev/null; then
-    eval "$(fzf --zsh)"
+    source <(fzf --zsh)
 fi
 
 # History config
