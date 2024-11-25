@@ -62,10 +62,10 @@ venv_rm() {
 
 venv_set() {
     if [ -d "$venv_path" ]; then
-        echo "[tools]" >> .mise.toml
-        echo "python = \"$($venv_path/bin/python --version 2>&1 | awk '{print $2}')\"" >> .mise.toml
-        echo "[env]" >> .mise.toml
-        echo "_.python.venv = \"$venv_path\"" >> .mise.toml
+        echo "[tools]" >> mise.toml
+        echo "python = \"$($venv_path/bin/python --version 2>&1 | awk '{print $2}')\"" >> mise.toml
+        echo "[env]" >> mise.toml
+        echo "_.python.venv = \"$venv_path\"" >> mise.toml
     else
         echo "Virtual environment '$venv_name' not found"
         return 1
