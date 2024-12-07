@@ -88,18 +88,19 @@ if [ -n "$2" ]; then
 fi
 
 case $command in
-    get|mk|rm|set)
-        if [ -z "$venv_name" ]; then
-            echo "Usage: venv $command <venv_name>\n"
-            _NO_VERSION=1 venv_ls
-            return 1
-        else
-            if [ "$command" = "get" ]; then
-                venv_get $venv_name
-            else
-                venv_$command
-            fi
-        fi ;;
-    ls) venv_ls ;;
-    *) echo "Usage: venv {get|ls|mk|rm|set}" ; return 1 ;;
+    # get|mk|rm|set)
+    #     if [ -z "$venv_name" ]; then
+    #         echo "Usage: venv $command <venv_name>\n"
+    #         _NO_VERSION=1 venv_ls
+    #         return 1
+    #     else
+    #         if [ "$command" = "get" ]; then
+    #             venv_get $venv_name
+    #         else
+    #             venv_$command
+    #         fi
+    #     fi ;;
+    # ls) venv_ls ;;
+    # *) echo "Usage: venv {get|ls|mk|rm|set}" ; return 1 ;;
+    *) echo "Custom venv script not in use!" ; return 1 ;;
 esac

@@ -9,7 +9,7 @@ if [[ $(uname) == Darwin ]]; then
 fi
 
 # mise shims
-eval "$(mise activate zsh --shims)"
+# eval "$(mise activate zsh --shims)"
 
 # # GNU utils and manpages
 # if [[ $(uname) == Darwin ]]; then

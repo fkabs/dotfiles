@@ -58,6 +58,11 @@ export PAGER=less
 # Require pip to be run within a virtualenv (can be bypassed with gpip or nopip)
 export PIP_REQUIRE_VIRTUALENV=true
 
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
 # SSH authetication socket
 if [[ $(uname) == Linux && -z "${SSH_CONNECTION}" ]]; then
     export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
@@ -94,7 +99,7 @@ export TEXMFCACHE="$TEXMFVAR"
 export TMUX_PLUGIN_MANAGER_PATH=$XDG_CACHE_HOME/tmux/plugins
 
 # Virtualenv (venv) config
-export VIRTUALENV_DIR=$HOME/.virtualenvs
+# export VIRTUALENV_DIR=$HOME/.virtualenvs
 
 # Path to zoxide database
 export _ZO_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zoxide"

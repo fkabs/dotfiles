@@ -27,9 +27,13 @@ export HISTSIZE=1000000
 export SAVEHIST=1000000
 
 # mise
-if type "mise" > /dev/null; then
-    eval "$(mise activate zsh)"
-fi
+# if type "mise" > /dev/null; then
+#     eval "$(mise activate zsh)"
+# fi
+
+# pyenv
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # Tex Live
 path+=("/usr/local/texlive/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH")
