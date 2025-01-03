@@ -15,6 +15,11 @@ _bat() {
     ln -fs "$DOTFILES/bat" "$XDG_CONFIG_HOME/bat"
 }
 
+_ghostty() {
+    echo "- [ghostty] Linking '$DOTFILES/ghostty' to '$XDG_CONFIG_HOME/ghostty'"
+    ln -fs "$DOTFILES/ghostty" "$XDG_CONFIG_HOME/ghostty"
+}
+
 _git() {
     echo "- [git] Linking '$DOTFILES/git/.gitconfig' to '$HOME/.gitconfig'"
     ln -fs "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
@@ -81,6 +86,9 @@ make_cleanup() {
     echo "- [bat] Removing '$XDG_CONFIG_HOME/bat'"
     rm -rf "$XDG_CONFIG_HOME/bat"
     
+    echo "- [ghostty] Removing '$XDG_CONFIG_HOME/ghostty'"
+    rm -rf "$XDG_CONFIG_HOME/ghostty"
+    
     echo "- [git] Removing '$HOME/.gitconfig'"
     rm -f "$HOME/.gitconfig"
     
@@ -124,6 +132,7 @@ make_install() {
     echo "[install] Creating symlinks..."
     _alacritty
     _bat
+    _ghostty
     _git
     _starship
     _tmux

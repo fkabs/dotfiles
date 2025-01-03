@@ -1,0 +1,29 @@
+# General settings
+auto-update = off
+theme = rose-pine-moon
+
+# Font settings
+font-size = 14
+font-family = FiraCode Nerd Font Mono
+font-style = Retina
+font-family-bold = FiraCode Nerd Font Mono
+font-style-bold = SemiBold
+font-family-italic = FiraCode Nerd Font Mono
+font-style-italic = Light
+font-family-bold-italic = FiraCode Nerd Font Mono
+font-style-bold-italic = Medium
+font-feature = -calt
+font-feature = -liga
+font-feature = -dliga
+
+# UI/Window settings
+macos-titlebar-style = tabs
+macos-icon = custom-style
+macos-icon-frame = chrome
+
+shell-integration-features = no-cursor, sudo, no-title
+
+window-colorspace = display-p3
+window-height = 35
+window-width = 120
+window-padding-balance = true
