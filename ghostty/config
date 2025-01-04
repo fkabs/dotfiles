@@ -1,6 +1,10 @@
 # General settings
 auto-update = off
-theme = rose-pine-moon
+theme = light:rose-pine-dawn, dark:rose-pine-moon
+
+# Background settings
+background-opacity = 0.9
+background-blur-radius = 10
 
 # Font settings
 font-size = 14.0
@@ -17,14 +21,25 @@ font-feature = -calt
 font-feature = -liga
 font-feature = -dliga
 
-# UI/Window settings
-macos-titlebar-style = tabs
+
+# Mac settings
 macos-icon = custom-style
 macos-icon-frame = chrome
+macos-titlebar-style = hidden
 
+# Shell integration settings
 shell-integration-features = no-cursor, sudo, no-title
 
+# Window Settings
 window-colorspace = display-p3
 window-height = 32
 window-width = 120
 window-padding-balance = true
+
+# Keybindings
+keybind = global:super+grave_accent=toggle_quick_terminal
+
+# Quick-Terminal settings
+quick-terminal-screen = main
+quick-terminal-animation-duration = 0.1
+quick-terminal-autohide = false
