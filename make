@@ -33,10 +33,10 @@ _gtk3() {
     ln -fs "$DOTFILES/gtk-3.0" "$XDG_CONFIG_HOME/gtk-3.0"
 }
 
-_karabiner() {
-    echo "- [karabiner] Linking '$DOTFILES/karabiner' to '$HOME/.config/karabiner'"
-    ln -fs "$DOTFILES/karabiner" "$HOME/.config/karabiner"
-}
+# _karabiner() {
+#     echo "- [karabiner] Linking '$DOTFILES/karabiner' to '$HOME/.config/karabiner'"
+#     ln -fs "$DOTFILES/karabiner" "$HOME/.config/karabiner"
+# }
 
 _mako() {
     echo "- [mako] Linking '$DOTFILES/mako' to '$XDG_CONFIG_HOME/mako'"
@@ -112,10 +112,10 @@ make_cleanup() {
     echo "- [zsh] Removing '$XDG_CONFIG_HOME/zsh'"
     rm -rf "$XDG_CONFIG_HOME/zsh"
     
-    if [[ $(uname) == Darwin ]]; then
-        echo "- [karabiner] Removing '$HOME/.config/karabiner'"
-        rm -rf "$HOME/.config/karabiner"
-    fi
+    # if [[ $(uname) == Darwin ]]; then
+    #     echo "- [karabiner] Removing '$HOME/.config/karabiner'"
+    #     rm -rf "$HOME/.config/karabiner"
+    # fi
     
     if [[ $(uname) == Linux ]]; then
         echo "- [gtk-3.0] Removing '$XDG_CONFIG_HOME/gtk-3.0'"
@@ -148,9 +148,9 @@ make_install() {
     _tmux
     _zsh
     
-    if [[ $(uname) == Darwin ]]; then
-        _karabiner
-    fi
+    # if [[ $(uname) == Darwin ]]; then
+    #     _karabiner
+    # fi
     
     if [[ $(uname) == Linux ]]; then
         _gtk3
