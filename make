@@ -21,8 +21,13 @@ _dunst() {
 }
 
 _ghostty() {
-    echo "- [ghostty] Linking '$DOTFILES/ghostty' to '$XDG_CONFIG_HOME/ghostty'"
-    ln -fs "$DOTFILES/ghostty" "$XDG_CONFIG_HOME/ghostty"
+    mkdir -p "$XDG_CONFIG_HOME/ghostty"
+    
+    echo "- [ghostty] Linking '$DOTFILES/ghostty/ghostty_$OS_SUFFIX.toml' to '$XDG_CONFIG_HOME/ghostty/ghostty.toml'"
+    ln -fs "$DOTFILES/ghostty/ghostty_$OS_SUFFIX.toml" "$XDG_CONFIG_HOME/ghostty/ghostty.toml"
+    
+    echo "- [ghostty] Linking '$DOTFILES/ghostty/themes' to '$XDG_CONFIG_HOME/ghostty/themes'"
+    ln -fs "$DOTFILES/ghostty/themes" "$XDG_CONFIG_HOME/ghostty/themes"
 }
 
 _git() {
