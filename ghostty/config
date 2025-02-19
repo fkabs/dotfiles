@@ -1,6 +1,6 @@
 # General settings
 auto-update = off
-theme = light:rose-pine-dawn, dark:rose-pine-moon
+theme = rose-pine-moon
 
 # Background settings
 background-opacity = 0.9
