@@ -15,6 +15,11 @@ _bat() {
     ln -fs "$DOTFILES/bat" "$XDG_CONFIG_HOME/bat"
 }
 
+_dunst() {
+    echo "- [dunst] Linking '$DOTFILES/dunst' to '$XDG_CONFIG_HOME/dunst'"
+    ln -fs "$DOTFILES/dunst" "$XDG_CONFIG_HOME/dunst"
+}
+
 _ghostty() {
     echo "- [ghostty] Linking '$DOTFILES/ghostty' to '$XDG_CONFIG_HOME/ghostty'"
     ln -fs "$DOTFILES/ghostty" "$XDG_CONFIG_HOME/ghostty"
@@ -33,14 +38,29 @@ _gtk3() {
     ln -fs "$DOTFILES/gtk-3.0" "$XDG_CONFIG_HOME/gtk-3.0"
 }
 
+_gtk4() {
+    echo "- [gtk-4.0] Linking '$DOTFILES/gtk-4.0' to '$XDG_CONFIG_HOME/gtk-4.0'"
+    ln -fs "$DOTFILES/gtk-4.0" "$XDG_CONFIG_HOME/gtk-4.0"
+}
+
+_i3() {
+    echo "- [i3] Linking '$DOTFILES/i3' to '$XDG_CONFIG_HOME/i3'"
+    ln -fs "$DOTFILES/i3" "$XDG_CONFIG_HOME/i3"
+}
+
 # _karabiner() {
 #     echo "- [karabiner] Linking '$DOTFILES/karabiner' to '$HOME/.config/karabiner'"
 #     ln -fs "$DOTFILES/karabiner" "$HOME/.config/karabiner"
 # }
 
-_mako() {
-    echo "- [mako] Linking '$DOTFILES/mako' to '$XDG_CONFIG_HOME/mako'"
-    ln -fs "$DOTFILES/mako" "$XDG_CONFIG_HOME/mako"
+_nwg-look() {
+    echo "- [nwg-look] Linking '$DOTFILES/nwg-look' to '$XDG_CONFIG_HOME/nwg-look'"
+    ln -fs "$DOTFILES/nwg-look" "$XDG_CONFIG_HOME/nwg-look"
+}
+
+_rofi() {
+    echo "- [rofi] Linking '$DOTFILES/rofi' to '$XDG_CONFIG_HOME/rofi'"
+    ln -fs "$DOTFILES/rofi" "$XDG_CONFIG_HOME/rofi"
 }
 
 _starship() {
@@ -48,29 +68,9 @@ _starship() {
     ln -fs "$DOTFILES/starship" "$XDG_CONFIG_HOME/starship"
 }
 
-_sway() {
-    echo "- [sway] Linking '$DOTFILES/sway' to '$XDG_CONFIG_HOME/sway'"
-    ln -fs "$DOTFILES/sway" "$XDG_CONFIG_HOME/sway"
-}
-
-_swaylock() {
-    echo "- [swaylock] Linking '$DOTFILES/swaylock' to '$XDG_CONFIG_HOME/swaylock'"
-    ln -fs "$DOTFILES/swaylock" "$XDG_CONFIG_HOME/swaylock"
-}
-
 _tmux() {
     echo "- [tmux] Linking '$DOTFILES/tmux' to '$XDG_CONFIG_HOME/tmux'"
     ln -fs "$DOTFILES/tmux" "$XDG_CONFIG_HOME/tmux"
-}
-
-_waybar() {
-    echo "- [waybar] Linking '$DOTFILES/waybar' to '$XDG_CONFIG_HOME/waybar'"
-    ln -fs "$DOTFILES/waybar" "$XDG_CONFIG_HOME/waybar"
-}
-
-_wofi() {
-    echo "- [wofi] Linking '$DOTFILES/wofi' to '$XDG_CONFIG_HOME/wofi'"
-    ln -fs "$DOTFILES/wofi" "$XDG_CONFIG_HOME/wofi"
 }
 
 _zsh() {
@@ -118,23 +118,23 @@ make_cleanup() {
     # fi
     
     if [[ $(uname) == Linux ]]; then
+        echo "- [dunst] Removing '$XDG_CONFIG_HOME/dunst'"
+        rm -rf "$XDG_CONFIG_HOME/dunst"
+        
         echo "- [gtk-3.0] Removing '$XDG_CONFIG_HOME/gtk-3.0'"
         rm -rf "$XDG_CONFIG_HOME/gtk-3.0"
         
-        echo "- [mako] Removing '$XDG_CONFIG_HOME/mako'"
-        rm -rf "$XDG_CONFIG_HOME/mako"
+        echo "- [gtk-4.0] Removing '$XDG_CONFIG_HOME/gtk-4.0'"
+        rm -rf "$XDG_CONFIG_HOME/gtk-4.0"
         
-        echo "- [sway] Removing '$XDG_CONFIG_HOME/sway'"
-        rm -rf "$XDG_CONFIG_HOME/sway"
+        echo "- [i3] Removing '$XDG_CONFIG_HOME/i3'"
+        rm -rf "$XDG_CONFIG_HOME/i3"
         
-        echo "- [swaylock] Removing '$XDG_CONFIG_HOME/swaylock'"
-        rm -rf "$XDG_CONFIG_HOME/swaylock"
+        echo "- [nwg-look] Removing '$XDG_CONFIG_HOME/nwg-look'"
+        rm -rf "$XDG_CONFIG_HOME/nwg-look"
         
-        echo "- [waybar] Removing '$XDG_CONFIG_HOME/waybar'"
-        rm -rf "$XDG_CONFIG_HOME/waybar"
-        
-        echo "- [wofi] Removing '$XDG_CONFIG_HOME/wofi'"
-        rm -rf "$XDG_CONFIG_HOME/wofi"
+        echo "- [rofi] Removing '$XDG_CONFIG_HOME/rofi'"
+        rm -rf "$XDG_CONFIG_HOME/rofi"
     fi
 }
 
@@ -153,12 +153,12 @@ make_install() {
     # fi
     
     if [[ $(uname) == Linux ]]; then
+        _dunst
         _gtk3
-        _mako
-        _sway
-        _swaylock
-        _waybar
-        _wofi
+        _gtk4
+        _i3
+        _nwg-look
+        _rofi
     fi
 }
 
