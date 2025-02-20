@@ -12,10 +12,10 @@ Main() {
         "+Shift+n" "new empty workspace" ""
         "+w" "open Browser" ""
         "+n" "open Filebrowser" ""
-        "+d" "app menu" ""
+        "+space" "app menu" ""
         "+q" "close focused app" ""
         "Print-key" "screenshot" ""
-        "+Shift+e" "logout menu" ""
+        "+Shift+q" "logout menu" ""
         "F1" "open keybinding helper" ""
     )
 

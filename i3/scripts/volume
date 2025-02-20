@@ -73,13 +73,14 @@ volume() {
 
 format() {
   
-  perl_filter='if (/.*\[(\d+%)\] (\[(-?\d+.\d+dB)\] )?\[(on|off)\]/)'
-  perl_filter+='{CORE::say $4 eq "off" ? "MUTE" : "'
-  # If dB was selected, print that instead
-  perl_filter+=$([[ $STEP = *dB ]] && echo '$3' || echo '$1')
-  perl_filter+='"; exit}'
-  output=$(perl -ne "$perl_filter")
-  echo "$LABEL$output"
+  # perl_filter='if (/.*\[(\d+%)\] (\[(-?\d+.\d+dB)\] )?\[(on|off)\]/)'
+  # perl_filter+='{CORE::say $4 eq "off" ? "MUTE" : "'
+  # # If dB was selected, print that instead
+  # perl_filter+=$([[ $STEP = *dB ]] && echo '$3' || echo '$1')
+  # perl_filter+='"; exit}'
+  # output=$(perl -ne "$perl_filter")
+  # echo "$LABEL$output"
+  echo "$LABEL"
 }
 
 #------------------------------------------------------------------------

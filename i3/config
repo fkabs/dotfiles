@@ -178,13 +178,13 @@ bindsym $mod+Return exec ghostty
 bindsym $mod+q kill
 
 # exit-menu
-bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/powermenu
+bindsym $mod+Shift+q exec --no-startup-id ~/.config/i3/scripts/powermenu
 
 # Lock the system
 # lock with a picture:
 #bindsym $mod+l exec --no-startup-id i3lock -i  ~/.config/i3/i3-lock-screen.png -p default|win -t
 # lock by blurring the screen:
-bindsym $mod+l exec --no-startup-id ~/.config/i3/scripts/blur-lock
+bindsym $mod+Ctrl+q exec --no-startup-id ~/.config/i3/scripts/blur-lock
 # lock in case after sleep
 exec --no-startup-id xss-lock -l ~/.config/i3/scripts/blur-lock
 
@@ -208,10 +208,10 @@ bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_bri
 bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_down
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+b focus up
-bindsym $mod+o focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -220,10 +220,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+b move up
-bindsym $mod+Shift+o move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -232,7 +232,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -249,7 +249,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Ctrl+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -450,7 +450,7 @@ exec --no-startup-id /usr/bin/dunst
 #exec --no-startup-id blueberry-tray
 
 # networkmanager-applet
-#exec --no-startup-id nm-applet
+# exec --no-startup-id nm-applet
 
 # clipman-applet
 #exec --no-startup-id xfce4-clipman
@@ -507,70 +507,76 @@ client.unfocused	    	$darkblue	$darkblue	$grey		$darkgrey	$darkgrey
 client.focused_inactive		$darkblue	$darkblue	$grey		$black		$black
 client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
 
-############################################
-# bar settings (input comes from i3blocks) #
-############################################
 
-# Start i3bar to display a workspace bar
-# (plus the system information i3status finds out, if available)
-bar {
-		font pango: Noto Sans Regular 11
-		status_command i3blocks -c ~/.config/i3/i3blocks.conf
-	    	position top
-#	    	i3bar_command i3bar --transparency
-# it could be that you have no primary display set: set one (xrandr --output <output> --primary)
-# reference: https://i3wm.org/docs/userguide.html#_tray_output
-		    #tray_output primary
-		    tray_padding 0
+# ############################################
+# # bar settings (polybar) #
+# ############################################
+exec --no-startup-id polybar -c ~/.config/i3/polybar.ini
 
-# When strip_workspace_numbers is set to yes,
-# any workspace that has a name of the form
-# “[n][:][NAME]” will display only the name.
-strip_workspace_numbers yes
-##strip_workspace_name no
+# ############################################
+# # bar settings (input comes from i3blocks) #
+# ############################################
 
-		    colors {
-		    separator          $purple
-		    background         $darkgrey
-		    statusline         $white
-#                          		border 		        bg		txt		indicator
-		focused_workspace	$mediumgrey	   	$grey		$darkgrey	$purple
-		active_workspace	$lightblue      	$mediumgrey	$darkgrey	$purple
-		inactive_workspace	$darkgrey   		$darkgrey	$grey		$purple
-		urgent_workspace	$urgentred	    	$urgentred	$white		$purple
-	}
-}
-
-# you can add different bars for multidisplay setups on each display:
-# set output HDMI-0 to the display you want the bar, --transparency can be set.
-# Transparency needs rgba color codes to be used where the last two letters are the transparency factor see here:
-# https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
-# #08052be6 --> e6=90%
-
+# # Start i3bar to display a workspace bar
+# # (plus the system information i3status finds out, if available)
 # bar {
-#	font pango: Noto Sans Regular 10
-#	status_command i3blocks -c ~/.config/i3/i3blocks-2.conf
-#	i3bar_command i3bar --transparency
-#	output HDMI-0
-#	position bottom
-#
-# When strip_workspace_numbers is set to yes,
-# any workspace that has a name of the form
-# “[n][:][NAME]” will display only the name.
-#strip_workspace_numbers yes
-##strip_workspace_name no
-#
-#	colors {
-#		separator          $purple
-#		background         $darkbluetrans
-#        	statusline         $white
-#					border		bg		txt		indicator
-#		focused_workspace	$lighterblue	$lighterblue	$darkblue	$purple
-#		active_workspace	$lightdblue	$lightdblue	$darkblue	$purple
-#		inactive_workspace	$darkblue	$darkblue	$lightdblue	$purple
-#		urgent_workspace	$urgentred	$urgentred	$white		$purple
-#	}
-#}
+#     font pango: Noto Sans Regular 11
+# 	status_command i3blocks -c ~/.config/i3/i3blocks.conf
+#  	position top
+# #	    	i3bar_command i3bar --transparency
+# # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
+# # reference: https://i3wm.org/docs/userguide.html#_tray_output
+# 		    #tray_output primary
+#  	tray_padding 0
+
+# # When strip_workspace_numbers is set to yes,
+# # any workspace that has a name of the form
+# # “[n][:][NAME]” will display only the name.
+#     strip_workspace_numbers yes
+# ##strip_workspace_name no
+
+#  	colors {
+#  	    separator          $purple
+#  	    background         $darkgrey
+#  	    statusline         $white
+# #                  		    border      bg          txt         indicator
+#  	    focused_workspace	$mediumgrey $grey       $darkgrey   $purple
+#  	    active_workspace	$lightblue  $mediumgrey $darkgrey   $purple
+#  	    inactive_workspace	$darkgrey   $darkgrey   $grey    $purple
+#  	    urgent_workspace	$urgentred  $urgentred  $white      $purple
+#  	}
+#  }
+
+# # you can add different bars for multidisplay setups on each display:
+# # set output HDMI-0 to the display you want the bar, --transparency can be set.
+# # Transparency needs rgba color codes to be used where the last two letters are the transparency factor see here:
+# # https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
+# # #08052be6 --> e6=90%
+
+# # bar {
+# #	font pango: Noto Sans Regular 10
+# #	status_command i3blocks -c ~/.config/i3/i3blocks-2.conf
+# #	i3bar_command i3bar --transparency
+# #	output HDMI-0
+# #	position bottom
+# #
+# # When strip_workspace_numbers is set to yes,
+# # any workspace that has a name of the form
+# # “[n][:][NAME]” will display only the name.
+# #strip_workspace_numbers yes
+# ##strip_workspace_name no
+# #
+# #	colors {
+# #		separator          $purple
+# #		background         $darkbluetrans
+# #        	statusline         $white
+# #					border		bg		txt		indicator
+# #		focused_workspace	$lighterblue	$lighterblue	$darkblue	$purple
+# #		active_workspace	$lightdblue	$lightdblue	$darkblue	$purple
+# #		inactive_workspace	$darkblue	$darkblue	$lightdblue	$purple
+# #		urgent_workspace	$urgentred	$urgentred	$white		$purple
+# #	}
+# #}
 
 #####################################
 # Application menu handled by rofi: #
@@ -578,7 +584,7 @@ strip_workspace_numbers yes
 
 ## rofi bindings fancy application menu ($mod+d /F9 optional disabled)
 
-bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun \
+bindsym $mod+space exec --no-startup-id rofi -modi drun -show drun \
 		-config ~/.config/rofi/rofidmenu.rasi
 
 #bindsym F9 exec --no-startup-id rofi -modi drun -show drun \
