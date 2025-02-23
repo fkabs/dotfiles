@@ -4,7 +4,7 @@
   "macros": [
     "{KC_LGUI,KC_LSFT,KC_5}",
     "{KC_LCTL,KC_LGUI,KC_Q}",
-    "{KC_LCTL,KC_LGUI,KC_SPC}",
+    "",
     "",
     "",
     "",
@@ -82,7 +82,7 @@
       "KC_ENT",
       "KC_PGUP",
       "KC_LSFT",
-      "MACRO(2)",
+      "KC_NUBS",
       "KC_Z",
       "KC_X",
       "KC_C",
