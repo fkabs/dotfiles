@@ -25,13 +25,14 @@ font-feature = -dliga
 # Mac settings
 macos-icon = custom-style
 macos-icon-frame = chrome
-macos-titlebar-style = hidden
+macos-titlebar-style = transparent
 
 # Shell integration settings
 shell-integration-features = no-cursor, sudo, no-title
 
 # Window Settings
 window-colorspace = display-p3
+window-decoration = auto
 window-height = 32
 window-width = 120
 window-padding-balance = true
