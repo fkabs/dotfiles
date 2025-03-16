@@ -32,18 +32,23 @@ autoload -Uz $ZFUNCDIR/*(.:t)
 source $HOME/.antidote/antidote.zsh
 antidote load
 
+# Load docker CLI completion
+if command -v docker &> /dev/null; then
+    fpath=($HOME/.docker/completions $fpath)
+fi
+
 # Compinit (cache .zcompdump for about a day)
 autoload -Uz compinit
 
 if [[ $ZSH_COMPDUMP(#qNmh-20) ]]; then
-  compinit -C -d "$ZSH_COMPDUMP"
+    compinit -C -d "$ZSH_COMPDUMP"
 else
-  compinit -i -d "$ZSH_COMPDUMP"; touch "$ZSH_COMPDUMP"
+    compinit -i -d "$ZSH_COMPDUMP"; touch "$ZSH_COMPDUMP"
 fi
 {
-  if [[ -s "$ZSH_COMPDUMP" && (! -s "${ZSH_COMPDUMP}.zwc" || "$ZSH_COMPDUMP" -nt "${ZSH_COMPDUMP}.zwc") ]]; then
-    zcompile "$ZSH_COMPDUMP"
-  fi
+    if [[ -s "$ZSH_COMPDUMP" && (! -s "${ZSH_COMPDUMP}.zwc" || "$ZSH_COMPDUMP" -nt "${ZSH_COMPDUMP}.zwc") ]]; then
+        zcompile "$ZSH_COMPDUMP"
+    fi
 } &!
 
 # Prompt (starship)
