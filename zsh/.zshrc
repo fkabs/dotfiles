@@ -32,7 +32,7 @@ autoload -Uz $ZFUNCDIR/*(.:t)
 source $HOME/.antidote/antidote.zsh
 antidote load
 
-# Load docker CLI completion
+# Load docker CLI completions
 if command -v docker &> /dev/null; then
     fpath=($HOME/.docker/completions $fpath)
 fi
