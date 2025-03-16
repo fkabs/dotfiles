@@ -26,7 +26,7 @@ autoload -Uz $ZFUNCDIR/*(.:t)
 
 # Clone antidote if necessary.
 [[ -d $HOME/.antidote ]] ||
-  git clone --depth=1 https://github.com/mattmc3/antidote.git $HOME/.antidote
+    git clone --depth=1 https://github.com/mattmc3/antidote.git $HOME/.antidote
 
 # Load antidote
 source $HOME/.antidote/antidote.zsh
