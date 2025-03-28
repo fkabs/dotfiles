@@ -104,11 +104,15 @@ export TMUX_PLUGIN_MANAGER_PATH=$XDG_CACHE_HOME/tmux/plugins
 # Path to zoxide database
 export _ZO_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zoxide"
 
-# Path of zsh dumps
-export ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump-${HOST/.*/}-${ZSH_VERSION}"
-
 # Path to custom zsh functions
 export ZFUNCDIR=$ZDOTDIR/functions
+
+# zsh autosuggest config
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+export ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+# Path of zsh dumps
+export ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump"
 
 # ZSH profiling
 export ZSH_PROFILING=0

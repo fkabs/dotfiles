@@ -37,13 +37,14 @@ if command -v docker &> /dev/null; then
     fpath=($HOME/.docker/completions $fpath)
 fi
 
-# Compinit (cache .zcompdump for about a day)
+# Compinit (cache .zcompdump for 24 hours)
 autoload -Uz compinit
 
-if [[ $ZSH_COMPDUMP(#qNmh-20) ]]; then
-    compinit -C -d "$ZSH_COMPDUMP"
+if [[ -n $ZSH_COMPDUMP(#qN.mh+24) ]]; then
+    echo "Compdump is older than 24 hours, removing it"
+    compinit -i -d "$ZSH_COMPDUMP"
 else
-    compinit -i -d "$ZSH_COMPDUMP"; touch "$ZSH_COMPDUMP"
+    compinit -C -d "$ZSH_COMPDUMP"
 fi
 {
     if [[ -s "$ZSH_COMPDUMP" && (! -s "${ZSH_COMPDUMP}.zwc" || "$ZSH_COMPDUMP" -nt "${ZSH_COMPDUMP}.zwc") ]]; then
