@@ -1,182 +1,192 @@
+# Sets the starship format
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$c\
+$elixir\
+$elm\
+$golang\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$rust\
+$scala\
+$conda\
+$python\
+$rlang\
+$time\
+$character
+"""
+
 # Sets user-defined palette
-palette = "catppuccin_macchiato"
+palette = "rose-pine-moon"
 
 [character]
-success_symbol = "[I❯](green)"
-error_symbol = "[I❯](red)"
-vimcmd_symbol = "[N❯](green)"
-vimcmd_replace_one_symbol = "[R❯](green)"
-vimcmd_replace_symbol = "[r❯](green)"
-vimcmd_visual_symbol = "[V❯](green)"
+format = "\n  [󱞪](fg:iris) $symbol "
+success_symbol = '[I](fg:iris)'
+error_symbol = "[I](fg:love)"
+vimcmd_symbol = "[N](fg:iris)"
+vimcmd_replace_one_symbol = "[R](fg:iris)"
+vimcmd_replace_symbol = "[r](fg:iris)"
+vimcmd_visual_symbol = "[V](fg:iris)"
 
 [directory]
-truncation_length = 4
-style = "bold lavender"
-read_only = " 󰌾"
+format = "[](fg:overlay)[  $path ]($style)[](fg:overlay) "
+style = "bg:overlay fg:pine"
+truncation_length = 2
+fish_style_pwd_dir_length = 2
+truncation_symbol = "…/"
+use_os_path_sep = false
 
-[aws]
-symbol = "  "
-
-[buf]
-symbol = " "
-
-[c]
-symbol = " "
-
-[conda]
-symbol = " "
-
-[crystal]
-symbol = " "
-
-[dart]
-symbol = " "
-
-[docker_context]
-symbol = " "
-
-[elixir]
-symbol = " "
-
-[elm]
-symbol = " "
-
-[fennel]
-symbol = " "
-
-[fossil_branch]
-symbol = " "
+[fill]
+style = "fg:overlay"
+symbol = " "
 
 [git_branch]
-symbol = " "
+format = "[](fg:overlay)[ $symbol$branch ]($style)"
+style = "bg:overlay fg:foam"
+symbol = " "
 
-[golang]
-symbol = " "
+[git_status]
+disabled = false
+style = "bg:overlay fg:foam"
+format = '([$all_status$ahead_behind]($style))[](fg:overlay) '
+up_to_date = '(bg:overlay fg:iris)'
+untracked = '[?\($count\) ](bg:overlay fg:gold)'
+stashed = '[\$ ](bg:overlay fg:iris)'
+typechanged = '[T ](bg:overlay fg:iris)'
+modified = '[!\($count\) ](bg:overlay fg:gold)'
+renamed = '[»\($count\) ](bg:overlay fg:iris)'
+deleted = '[✘\($count\) ](bg:overlay fg:love)'
+conflicted = '[=\($count\) ](bg:overlay fg:love)'
+staged = '[++\($count\) ](bg:overlay fg:gold)'
+ahead = '[⇡\(${count}\) ](bg:overlay fg:foam)'
+diverged = '⇕[\[](bg:overlay fg:iris)[⇡\(${ahead_count}\) ](bg:overlay fg:foam)[⇣\(${behind_count}\) ](bg:overlay fg:rose)[\]](bg:overlay fg:iris)'
+behind = '[⇣\(${count}\) ](bg:overlay fg:rose)'
 
-[guix_shell]
-symbol = " "
+[time]
+disabled = false
+format = " [](fg:overlay)[ $time 󰴈 ]($style)[](fg:overlay)"
+style = "bg:overlay fg:rose"
+time_format = "%H:%M"
+use_12hr = false
 
-[haskell]
-symbol = " "
-
-[haxe]
-symbol = " "
-
-[hg_branch]
-symbol = " "
+[username]
+disabled = false
+format = "[](fg:overlay)[ 󰧱 $user(@$hostname) ]($style)[](fg:overlay) "
+show_always = true
+style_root = "bg:overlay fg:iris"
+style_user = "bg:overlay fg:iris"
 
 [hostname]
-ssh_symbol = " "
+disabled = false
+format = "[](fg:overlay)[ $ssh_symbol$hostname ]($style)[](fg:overlay) "
+ssh_only = true
+style = "bg:overlay fg:iris"
+ssh_symbol = " "
+
+# Languages
+
+[c]
+style = "bg:overlay fg:pine"
+format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
+disabled = false
+symbol = " "
+
+[elixir]
+style = "bg:overlay fg:pine"
+format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
+disabled = false
+symbol = " "
+
+[elm]
+style = "bg:overlay fg:pine"
+format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
+disabled = false
+symbol = " "
+
+[golang]
+style = "bg:overlay fg:pine"
+format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
+disabled = false
+symbol = " "
+
+[haskell]
+style = "bg:overlay fg:pine"
+format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
+disabled = false
+symbol = " "
 
 [java]
-symbol = " "
+style = "bg:overlay fg:pine"
+format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
+disabled = false
+symbol = ""
 
 [julia]
+style = "bg:overlay fg:pine"
+format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
+disabled = false
 symbol = " "
 
-[kotlin]
-symbol = " "
-
-[lua]
-symbol = " "
-
-[memory_usage]
-symbol = "󰍛 "
-
-[meson]
-symbol = "󰔷 "
+[nodejs]
+style = "bg:overlay fg:pine"
+format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
+disabled = false
+symbol = "󰎙 "
 
 [nim]
+style = "bg:overlay fg:pine"
+format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
+disabled = false
 symbol = "󰆥 "
 
-[nix_shell]
-symbol = " "
-
-[nodejs]
-symbol = " "
-
-[ocaml]
-symbol = " "
-
-[os.symbols]
-Alpaquita = " "
-Alpine = " "
-AlmaLinux = " "
-Amazon = " "
-Android = " "
-Arch = " "
-Artix = " "
-CentOS = " "
-Debian = " "
-DragonFly = " "
-Emscripten = " "
-EndeavourOS = " "
-Fedora = " "
-FreeBSD = " "
-Garuda = "󰛓 "
-Gentoo = " "
-HardenedBSD = "󰞌 "
-Illumos = "󰈸 "
-Kali = " "
-Linux = " "
-Mabox = " "
-Macos = " "
-Manjaro = " "
-Mariner = " "
-MidnightBSD = " "
-Mint = " "
-NetBSD = " "
-NixOS = " "
-OpenBSD = "󰈺 "
-openSUSE = " "
-OracleLinux = "󰌷 "
-Pop = " "
-Raspbian = " "
-Redhat = " "
-RedHatEnterprise = " "
-RockyLinux = " "
-Redox = "󰀘 "
-Solus = "󰠳 "
-SUSE = " "
-Ubuntu = " "
-Unknown = " "
-Void = " "
-Windows = "󰍲 "
-
-[package]
-symbol = "󰏗 "
-
-[perl]
-symbol = " "
-
-[php]
-symbol = " "
-
-[pijul_channel]
-symbol = " "
-
-[python]
-symbol = " "
-
-[rlang]
-symbol = "󰟔 "
-
-[ruby]
-symbol = " "
-
 [rust]
+style = "bg:overlay fg:pine"
+format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
+disabled = false
 symbol = " "
 
 [scala]
+style = "bg:overlay fg:pine"
+format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
+disabled = false
 symbol = " "
 
-[swift]
-symbol = " "
+[rlang]
+style = "bg:overlay fg:pine"
+format = ' [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)'
+disabled = false
+symbol = ' '
 
-[zig]
-symbol = " "
+[python]
+style = "bg:overlay fg:pine"
+format = ' [](fg:overlay)[ $symbol$version( \($virtualenv\))]($style)[](fg:overlay)'
+disabled = false
+symbol = ' '
+
+[conda]
+style = "bg:overlay fg:pine"
+format = " [](fg:overlay)[ $symbol$environment ]($style)[](fg:overlay)"
+disabled = false
+symbol = '🅒 '
 
 # palette tables should be last in the config ⚓️
+[palettes.rose-pine-moon]
+overlay = '#393552'
+love = '#eb6f92'
+gold = '#f6c177'
+rose = '#ea9a97'
+pine = '#3e8fb0'
+foam = '#9ccfd8'
+iris = '#c4a7e7'
+
 [palettes.catppuccin_macchiato]
 rosewater = "#f4dbd6"
 flamingo = "#f0c6c6"
