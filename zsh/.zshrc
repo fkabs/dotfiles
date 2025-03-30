@@ -41,7 +41,6 @@ fi
 autoload -Uz compinit
 
 if [[ -n $ZSH_COMPDUMP(#qN.mh+24) ]]; then
-    echo "Compdump is older than 24 hours, removing it"
     compinit -i -d "$ZSH_COMPDUMP"
 else
     compinit -C -d "$ZSH_COMPDUMP"
