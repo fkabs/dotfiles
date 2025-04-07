@@ -102,7 +102,7 @@
 	excludesfile = ~/.gitignore_global
 
 [diff]
-    tool = difftastic
+	tool = bc
 
 [difftool]
     prompt = false
@@ -119,3 +119,9 @@
 [user]
 	name = Fabian Kovac
 	email = fkabs@pm.me
+[difftool "bc"]
+	trustExitCode = true
+[merge]
+	tool = bc
+[mergetool "bc"]
+	trustExitCode = true
