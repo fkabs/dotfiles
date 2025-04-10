@@ -76,7 +76,7 @@ style_user = "bg:overlay fg:iris"
 disabled = false
 format = "[](fg:overlay)[$ssh_symbol$hostname]($style)[](fg:overlay) "
 ssh_only = true
-style = "bg:overlay fg:iris"
+style = "bg:overlay fg:gold"
 ssh_symbol = " "
 
 # Languages
