@@ -20,14 +20,6 @@ make_install() {
     done
 }
 
-make_dock() {
-    if [[ $(uname) == Darwin ]]; then
-        echo "- [dock] Importing com.apple.dock from '$DOTFILES/dock/dock-layout.plist'"
-        defaults import com.apple.dock "$DOTFILES/dock/dock-layout.plist"
-        killall Dock
-    fi
-}
-
 # Set packages to be stowed
 STOW_PACKAGES=(
     "bat"
