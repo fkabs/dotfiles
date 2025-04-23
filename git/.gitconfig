@@ -107,8 +107,17 @@
 [difftool]
     prompt = false
 
+[difftool "bc"]
+	trustExitCode = true
+
 [difftool "difftastic"]
     cmd = difft "$LOCAL" "$REMOTE"
+
+[merge]
+	tool = bc
+
+[mergetool "bc"]
+	trustExitCode = true
 
 [pager]
     difftool = true
@@ -119,9 +128,3 @@
 [user]
 	name = Fabian Kovac
 	email = fkabs@pm.me
-[difftool "bc"]
-	trustExitCode = true
-[merge]
-	tool = bc
-[mergetool "bc"]
-	trustExitCode = true
