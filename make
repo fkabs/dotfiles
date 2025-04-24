@@ -6,7 +6,7 @@ make_cleanup() {
     # remove packages
     for PKG in "${STOW_PACKAGES[@]}"; do
         echo "[stow] $PKG"
-        stow -D -t "$HOME" "$PKG"
+        $STOW -D -t "$HOME" "$PKG"
     done
 }
 
@@ -16,7 +16,7 @@ make_install() {
     # stow packages
     for PKG in "${STOW_PACKAGES[@]}"; do
         echo "[stow] $PKG"
-        stow -t "$HOME" "$PKG"
+        $STOW -t "$HOME" "$PKG"
     done
 }
 
@@ -25,10 +25,24 @@ STOW_PACKAGES=(
     "bat"
     "ghostty"
     "git"
+    "nvim"
     "starship"
     "tmux"
     "zsh"
 )
+
+# Set stow as absolute path on /opt/homebrew/bin/stow
+if [ -d "/opt/homebrew/bin" ]; then
+    STOW="/opt/homebrew/bin/stow"
+else
+    STOW="/usr/local/bin/stow"
+fi
+
+# Check if stow is installed
+if [ ! -f "$STOW" ]; then
+    echo "[stow] Not installed. Please install stow first."
+    return 1
+fi
 
 # Set command as $1
 command=$1
