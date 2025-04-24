@@ -76,13 +76,7 @@ export STARSHIP_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/starship"
 # install dir: /usr/local/texlive/YYYY/bin/universal-darwin
 export TEXLIVE_DIR=/usr/local/texlive
 export TEXLIVE_RELEASE=2024
-
-if [[ $(uname) == Darwin ]]; then
-    export TEXLIVE_ARCH=universal-darwin
-else
-    export TEXLIVE_ARCH=linux
-fi
-
+export TEXLIVE_ARCH=universal-darwin
 export TEXLIVE_PATH="$TEXLIVE_DIR/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH"
 
 # TeX Live Paths

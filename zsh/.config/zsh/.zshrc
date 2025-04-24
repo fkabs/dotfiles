@@ -9,9 +9,7 @@ if [ "${ZSH_PROFILING}" = "1" ]; then
 fi
 
 # Add Brew zsh-completions and site-functions to fpath
-if [[ $(uname) == Darwin ]]; then
-    fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
-fi
+fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
 
 # Add custom zsh functions
 fpath=($ZFUNCDIR $fpath)
