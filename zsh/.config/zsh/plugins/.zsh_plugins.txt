@@ -1,6 +1,9 @@
 # fzf autocomplete
 Aloxaf/fzf-tab kind:defer
 
+# romkatv plugins
+romkatv/zsh-defer
+
 # vi mode
 jeffreytse/zsh-vi-mode
 
