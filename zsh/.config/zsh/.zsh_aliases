@@ -50,8 +50,12 @@ alias mkcd='(){mkdir -p "$1"; cd "$1"}'
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 alias fpath='echo -e ${FPATH//:/\\n}'
-alias mpath='echo -e ${MANPATH//:/\\n}'
 alias ipath='echo -e ${INFOPATH//:/\\n}'
+alias mpath='echo -e ${MANPATH//:/\\n}'
+
+# Use nvim as default editor
+alias vi='nvim'
+alias vim='nvim'
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
