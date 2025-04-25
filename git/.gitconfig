@@ -1,39 +1,37 @@
 [alias]    
-    # basic {{{
+    # basic
     br = branch
     ci = commit
     cl = clone
     co = checkout
     cp = cherry-pick
     st = status -sb
-    # }}}
     
-    # tweak defaults {{{
+    # tweak defaults
     ai = add --interactive
     branch = branch -ra
     diff = diff --word-diff
     f = "!git ls-files | grep -i"
     grep = grep -Ii
-    # }}}
     
-    # commit {{{
+    # commit
     amend = commit --amend
     cm = commit -m
     cma = commit -a -m
-    # }}}
     
-    # log commands {{{
+    # log commands
     filelog = log -u
     fl = log -u
+    graph = log --graph --oneline --decorate --all
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [a:%an,c:%cn]" --decorate --numstat
     llc  = "!f() { git ll "$1"^.."$1"; }; f"
     ln = log --pretty=format:"%h\\ %s\\ [%cn]"
     lnc = "!f() { git ln "$1"^.."$1"; }; f"
     ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%an]" --decorate --date=relative
     lsc  = "!f() { git ls "$1"^.."$1"; }; f"
-    # }}}
+    lol = log --oneline --decorate --all
     
-    # diff {{{
+    # diff
     d = diff --word-diff
     dc = diff --cached
     dft = difftool
@@ -45,23 +43,20 @@
     diffr  = "!f() { git diff "$1"^.."$1"; }; f"
     dlc = diff --cached HEAD^
     dr  = "!f() { git diff -w "$1"^.."$1"; }; f"
-    # }}}
     
-    # reset commands {{{
+    # reset commands
     r1 = reset HEAD^
     r2 = reset HEAD^^
     rh = reset --hard
     rh1 = reset HEAD^ --hard
     rh2 = reset HEAD^^ --hard
-    # }}}
     
-    # git svn {{{
+    # git svn
     svnd = svn dcommit
     svnl = svn log --oneline --show-commit
     svnr = svn rebase
-    # }}}
     
-    # various useful {{{
+    # various useful
     # last tag created
     lasttag = describe --tags --abbrev=0
     lt = describe --tags --abbrev=0
@@ -84,13 +79,11 @@
 
     # list all aliases
     la = "!git config -l | grep alias | cut -c 7-"
-    # }}}
     
-    # worktree list {{{
+    # worktree list
     wl = worktree list
     # undo from here http://megakemp.com/2016/08/25/git-undo/
     undo = "!f() { git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}; }; f"
-    # }}}
 
 [branch]
     sort = -committerdate
