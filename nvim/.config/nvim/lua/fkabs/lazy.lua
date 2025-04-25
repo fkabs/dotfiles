@@ -29,3 +29,6 @@ require('lazy').setup({
         notify = false,
     },
 })
+
+local keymap = vim.keymap
+keymap.set('n', '<leader>la', '<cmd>Lazy<cr>', { desc = 'Open Lazy' })

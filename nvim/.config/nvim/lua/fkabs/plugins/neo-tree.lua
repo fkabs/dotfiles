@@ -13,6 +13,10 @@ return {
     opts = {
         -- fill any relevant options here
     },
+    keys = {
+        { '<C-b>', '<cmd>Neotree toggle<cr>', desc = 'Toggle file explorer' },
+        { '<leader>e', '<cmd>Neotree reveal<cr>', desc = 'Reveal file in explorer' },
+    },
     config = function()
         require('neo-tree').setup({
             filesystem = {
@@ -22,6 +26,17 @@ return {
                     hide_gitignored = false,
                 },
             },
+            event_handlers = {
+                {
+                    event = 'file_opened',
+                    handler = function()
+                        -- auto close
+                        -- vim.cmd('Neotree close')
+                        -- OR
+                        require('neo-tree.command').execute({ action = 'close' })
+                    end
+                }
+            }
         })
     end
 }
