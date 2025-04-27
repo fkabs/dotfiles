@@ -6,9 +6,6 @@ vim.g.maplocalleader = '\\'
 vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines and keep cursor position' })
 vim.keymap.set('n', 'Q', '<nop>', { desc = 'Disable Ex mode' })
 
--- comment
-vim.keymap.set('n', '<C-\\>', '<Plug>(comment_toggle_linewise_current)', { desc = 'Toggle comment' })
-
 -- search & replace
 vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Next search result and center' })
 vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Previous search result and center' })
@@ -22,7 +19,9 @@ vim.keymap.set('n', '<leader>y', [["+y]], { desc = 'Copy to system clipboard' })
 vim.keymap.set('v', '<leader>y', [["+y]], { desc = 'Copy to system clipboard' })
 vim.keymap.set('n', '<leader>Y', [["+Y]], { desc = 'Copy to system clipboard' })
 
--- move commands
+-- indent & move commands
+vim.keymap.set('v', '<', '<gv', { desc = 'Indent left' })
+vim.keymap.set('v', '>', '>gv', { desc = 'Indent right' })
 vim.keymap.set('v', 'J', [[:m '>+1<CR>gv=gv]], { desc = 'Move selected lines down' })
 vim.keymap.set('v', 'K', [[:m '<-2<CR>gv=gv]], { desc = 'Move selected lines up' })
 
@@ -31,6 +30,10 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Half page down and center' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Half page up and center' })
 
 -- window management
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to bottom window' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to top window' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
 vim.keymap.set('n', '<leader>sv', '<C-w>v', { desc = 'Split window vertically' })
 vim.keymap.set('n', '<leader>sh', '<C-w>s', { desc = 'Split window horizontally' })
 vim.keymap.set('n', '<leader>se', '<C-w>=', { desc = 'Make splits equal size' })
