@@ -3,6 +3,8 @@
 if [[ -z "$VIRTUAL_ENV" ]] ; then
     if [[ -d ./.venv ]] ; then
         source ./.venv/bin/activate
+    else
+        echo "No virtual environment found."
     fi
 else
     echo "No virtual environment found."
