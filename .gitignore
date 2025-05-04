@@ -137,6 +137,5 @@ zsdoc/data
 
 # ignore neovim lazylock
 lazy-lock.json
-nvim/.config/nvim/lazy-lock.json
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,windows,zsh,homebrew,fish,git
