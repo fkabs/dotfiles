@@ -2,7 +2,9 @@
 
 if [[ -z "$VIRTUAL_ENV" ]] ; then
 ## If .venv folder is found then activate the vitualenv
-    if [[ -d  ]] ; then
-    source ./.venv/bin/activate
+    if [[ -d ./.venv ]] ; then
+        source ./.venv/bin/activate
     fi
 else
+    echo "No virtual environment found."
+fi

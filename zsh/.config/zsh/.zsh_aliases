@@ -53,6 +53,9 @@ alias fpath='echo -e ${FPATH//:/\\n}'
 alias ipath='echo -e ${INFOPATH//:/\\n}'
 alias mpath='echo -e ${MANPATH//:/\\n}'
 
+# Use uv pip
+alias uvp='uv pip'
+
 # Use nvim as default editor
 alias vi='nvim'
 alias vim='nvim'
