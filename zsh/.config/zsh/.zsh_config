@@ -26,14 +26,22 @@ export HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zsh_history
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 
-# # pyenv (not in use)
-# eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
+# docker CLI completions
+if command -v docker &> /dev/null; then
+    fpath=($HOME/.docker/completions $fpath)
+fi
+
+# starship (prompt)
+eval "$(starship init zsh)"
 
 # Tex Live
 path+=("/usr/local/texlive/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH")
 manpath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/man")
 infopath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/info")
+
+# uv
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
 
 # ----------------------------------------------------------------
 

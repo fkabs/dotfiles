@@ -92,8 +92,8 @@ export TEXMFCACHE="$TEXMFVAR"
 # TMUX plugins directory
 export TMUX_PLUGIN_MANAGER_PATH=$XDG_CACHE_HOME/tmux/plugins
 
-# Virtualenv (venv) config
-# export VIRTUALENV_DIR=$HOME/.virtualenvs
+# uv
+export PATH="/Users/fkabs/.local/share/../bin:$PATH"
 
 # Path to zoxide database
 export _ZO_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zoxide"
