@@ -139,3 +139,4 @@ zsdoc/data
 lazy-lock.json
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,windows,zsh,homebrew,fish,git
+nvim/.config/nvim/lazy-lock.json
