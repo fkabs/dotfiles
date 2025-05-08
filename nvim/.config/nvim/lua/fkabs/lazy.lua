@@ -19,7 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
     spec = {
         { import = 'fkabs.plugins' },
-        -- { import = 'fkabs.plugins.lsp' },
+        { import = 'fkabs.plugins.lsp' },
     },
     checker = {
         enabled = true,

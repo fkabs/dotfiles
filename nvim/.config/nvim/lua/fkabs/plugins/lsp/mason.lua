@@ -1,7 +1,7 @@
 return {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     dependencies = {
-        "williamboman/mason-lspconfig.nvim",
+        "mason-org/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
     config = function()
@@ -27,27 +27,35 @@ return {
         mason_lspconfig.setup({
             -- list of servers for mason to install
             ensure_installed = {
-                "tsserver",
-                "html",
-                "cssls",
-                "tailwindcss",
-                "svelte",
+                "bashls",
+                "docker_compose_language_service",
+                "dockerls",
+                "jsonls",
                 "lua_ls",
-                "graphql",
-                "emmet_ls",
-                "prismals",
+                "marksman",
                 "pyright",
+                "ruff",
+                "sqlls",
+                "yamlls",
             },
+            
         })
         
         mason_tool_installer.setup({
             ensure_installed = {
-                "prettier", -- prettier formatter
-                "stylua", -- lua formatter
-                "isort", -- python formatter
-                "black", -- python formatter
-                "pylint",
-                "eslint_d",
+                "black",
+                "isort",
+                "prettier",
+                "shellcheck",
+                "shfmt",
+                "sql-formatter",
+            },
+            auto_update = true,
+            run_on_start = true,
+            integrations = {
+                ['mason-lspconfig'] = true,
+                ['mason-null-ls'] = false,
+                ['mason-nvim-dap'] = false,
             },
         })
     end,
