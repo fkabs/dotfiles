@@ -8,19 +8,6 @@ return {
         -- log level
         vim.lsp.set_log_level('debug')
         
-        -- ensure_installed = {
-        --     "bashls",
-        --     "docker_compose_language_service",
-        --     "dockerls",
-        --     "jsonls",
-        --     "lua_ls",
-        --     "marksman",
-        --     "pyright",
-        --     "ruff",
-        --     "sqlls",
-        --     "yamlls",
-        -- },
-        
         -- bashls
         vim.lsp.enable('bashls')
         
