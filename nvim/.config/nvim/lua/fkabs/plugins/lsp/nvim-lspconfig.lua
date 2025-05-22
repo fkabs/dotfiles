@@ -65,14 +65,19 @@ return {
         -- yamlls
         vim.lsp.enable('yamlls')
         
-        -- Setup keymaps
+        -- setup keymaps
         local keymap = vim.keymap
-        keymap.set('n', '<leader>lD', vim.lsp.buf.declaration, { desc = 'LSP: Declaration' })
-        keymap.set('n', '<leader>lK', vim.lsp.buf.hover, { desc = 'LSP: Hover' })
-        keymap.set('n', '<leader>lI', vim.lsp.buf.implementation, { desc = 'LSP: Implementation' })
-        keymap.set('n', '<leader>lR', vim.lsp.buf.rename, { desc = 'LSP: Rename' })
-        keymap.set('n', '<leader>lF', vim.lsp.buf.format, { desc = 'LSP: Format' })
+        keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Show diagnostics' })
+        keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP: Code Action' })
+        keymap.set('n', '<leader>gd', vim.lsp.buf.definition, { desc = 'LSP: Definition' })
+        keymap.set('n', '<leader>gf', vim.lsp.buf.format, { desc = 'LSP: Format' })
+        keymap.set('n', '<leader>gr', vim.lsp.buf.references, { desc = 'LSP: References' })
         keymap.set('n', '<leader>lA', vim.lsp.buf.code_action, { desc = 'LSP: Code Action' })
+        keymap.set('n', '<leader>lD', vim.lsp.buf.declaration, { desc = 'LSP: Declaration' })
+        keymap.set('n', '<leader>lF', vim.lsp.buf.format, { desc = 'LSP: Format' })
+        keymap.set('n', '<leader>lI', vim.lsp.buf.implementation, { desc = 'LSP: Implementation' })
+        keymap.set('n', '<leader>lK', vim.lsp.buf.hover, { desc = 'LSP: Hover' })
+        keymap.set('n', '<leader>lR', vim.lsp.buf.rename, { desc = 'LSP: Rename' })
     
     end,
 }

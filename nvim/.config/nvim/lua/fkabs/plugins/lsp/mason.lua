@@ -4,6 +4,7 @@ return {
         'mason-org/mason-lspconfig.nvim',
         'WhoIsSethDaniel/mason-tool-installer.nvim',
     },
+    lazy = false,
     config = function()
         -- import mason
         local mason = require('mason')
@@ -60,14 +61,9 @@ return {
                 ['mason-nvim-dap'] = false,
             },
         })
+        
+        -- setup keymaps
+        local keymap = vim.keymap
+        keymap.set('n', '<leader>ms', '<cmd>Mason<cr>', { desc = 'Open Mason' })
     end,
-    keys = {
-        {'n', 'K', vim.lsp.buf.hover, {}},
-        {'n', '<leader>gd', vim.lsp.buf.definition, {}},
-        {'n', '<leader>gr', vim.lsp.buf.references, {}},
-        {'n', '<leader>ca', vim.lsp.buf.code_action, {}},
-        {'n', '<leader>gf', vim.lsp.buf.format, {}},
-        {'n', '<space>rn', vim.lsp.buf.rename, {}},
-        {'n', '<leader>d', vim.diagnostic.open_float, { desc = 'Show diagnostics' }},
-    }
 }
