@@ -16,6 +16,10 @@ mas upgrade
 echo "\n# Updating brew apps"
 brew upgrade --greedy
 
+# nvim
+echo "\n# Updating nvim Lazy and Mason"
+nvim --headless "+Lazy! sync" "+MasonToolsUpdateSync" "+qa"
+
 # Clean up
 echo "\n# Cleaning up"
 brew autoremove
