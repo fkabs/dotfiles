@@ -76,6 +76,9 @@
     
     # show files not in repo
     others = ls-files --others --ignored --exclude-from=.gitignore
+    
+    # stash all
+    staash = stash --all
 
     # list all aliases
     la = "!git config -l | grep alias | cut -c 7-"
@@ -106,6 +109,9 @@
 [difftool "difftastic"]
     cmd = difft "$LOCAL" "$REMOTE"
 
+[gpg]
+    format = ssh
+
 [merge]
 	tool = bc
 
@@ -121,3 +127,4 @@
 [user]
 	name = Fabian Kovac
 	email = fkabs@pm.me
+    signingkey = ~/.ssh/id_ed25519.pub
