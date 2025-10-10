@@ -95,6 +95,7 @@
     ui = auto
 
 [core]
+    attributesfile = ~/.gitattributes
 	excludesfile = ~/.gitignore_global
 
 [diff]
@@ -108,6 +109,9 @@
 
 [difftool "difftastic"]
     cmd = difft "$LOCAL" "$REMOTE"
+
+[difftool "exiftool"]
+    cmd = exiftool -G1 -a -u "$LOCAL" "$REMOTE" | less
 
 [gpg]
     format = ssh
