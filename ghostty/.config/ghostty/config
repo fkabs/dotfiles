@@ -28,7 +28,7 @@ macos-icon-frame = chrome
 macos-titlebar-style = transparent
 
 # Shell integration settings
-shell-integration-features = no-cursor, sudo, no-title
+shell-integration-features = no-cursor, sudo, no-title, ssh-terminfo, ssh-env
 
 # Window Settings
 window-colorspace = display-p3
