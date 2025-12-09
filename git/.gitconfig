@@ -51,6 +51,37 @@
     rh1 = reset HEAD^ --hard
     rh2 = reset HEAD^^ --hard
     
+    # squash commands
+    squash-all = "!f(){ \
+        if [ $# -eq 0 ]; then \
+            echo 'Usage: git squash-all -m \"commit message\"' >&2; \
+            return 1; \
+        fi; \
+        git reset $(git commit-tree \"HEAD^{tree}\" \"$@\"); \
+        };f"
+    
+    squash-last-n = "!f(){ \
+        if [ -z \"$1\" ]; then \
+            echo 'Usage: git squash-last-n <number> -m \"message\"' >&2; \
+            return 1; \
+        fi; \
+        n=\"$1\"; shift; \
+        if ! [ \"$n\" -gt 0 ] 2>/dev/null; then \
+            echo 'Error: First argument must be a positive number' >&2; \
+            return 1; \
+        fi; \
+        case \"$*\" in \
+            *-m*|*--message*) ;; \
+            *) echo 'Error: Please provide a commit message with -m \"message\"' >&2; return 1 ;; \
+        esac; \
+        count=$(git rev-list --count HEAD); \
+        if [ \"$n\" -gt \"$count\" ]; then \
+            echo \"Error: Only $count commits available, cannot squash $n\" >&2; \
+            return 1; \
+        fi; \
+        git reset $(git commit-tree \"HEAD^{tree}\" -p \"HEAD~$n\" \"$@\"); \
+        };f"
+    
     # git svn
     svnd = svn dcommit
     svnl = svn log --oneline --show-commit
