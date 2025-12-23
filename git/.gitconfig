@@ -82,6 +82,13 @@
         git reset $(git commit-tree \"HEAD^{tree}\" -p \"HEAD~$n\" \"$@\"); \
         };f"
     
+    # stash
+    stu = stash -u
+    sta = stash --all
+    stl = stash list
+    stp = stash pop
+    std = stash drop
+    
     # git svn
     svnd = svn dcommit
     svnl = svn log --oneline --show-commit
@@ -107,9 +114,6 @@
     
     # show files not in repo
     others = ls-files --others --ignored --exclude-from=.gitignore
-    
-    # stash all
-    staash = stash --all
 
     # list all aliases
     la = "!git config -l | grep alias | cut -c 7-"
