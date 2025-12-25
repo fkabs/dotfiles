@@ -23,6 +23,7 @@ make_install() {
 # Set packages to be stowed
 STOW_PACKAGES=(
     "bat"
+    "btop"
     "ghostty"
     "git"
     "nvim"
