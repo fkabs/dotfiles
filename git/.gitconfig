@@ -82,8 +82,8 @@
         };f"
     
     # stash
-    stu = stash -u
-    sta = stash --all
+    sta = stash push --all
+    stu = stash push -u
     stl = stash list
     stp = stash pop
     std = stash drop
