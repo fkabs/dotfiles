@@ -3,9 +3,6 @@
 # .zsh_binds - Set whatever shell binds you want.
 #
 
-# Vim mode
-bindkey -v
-
 # Arrow keys to search history using substring search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+bindkey "${terminfo[kcuu1]}" history-substring-search-up
+bindkey "${terminfo[kcud1]}" history-substring-search-down

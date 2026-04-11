@@ -8,11 +8,6 @@ zstyle ':antidote:bundle' file ${ZDOTDIR:-~}/plugins/.zsh_plugins.txt
 zstyle ':antidote:static' file ${ANTIDOTE_HOME:-~/.cache/antidote}/.zsh_plugins.zsh
 zstyle ':antidote:bundle' use-friendly-names 'yes'
 
-# autocomplete
-zstyle ':autocomplete:*' insert-unambiguous yes
-zstyle ':autocomplete:*' fzf-completion yes
-zstyle ':autocomplete:*' widget-style menu-select
-
 # completion
 # set descriptions format to enable group support
 # NOTE: don't use escape sequences here, fzf-tab will ignore them

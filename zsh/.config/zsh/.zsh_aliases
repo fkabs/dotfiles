@@ -48,10 +48,10 @@ alias map="xargs -n1"
 alias mkcd='(){mkdir -p "$1"; cd "$1"}'
 
 # Print each PATH entry on a separate line
-alias path='echo -e ${PATH//:/\\n}'
-alias fpath='echo -e ${FPATH//:/\\n}'
-alias ipath='echo -e ${INFOPATH//:/\\n}'
-alias mpath='echo -e ${MANPATH//:/\\n}'
+alias showpath='echo -e ${PATH//:/\\n}'
+alias showfpath='echo -e ${FPATH//:/\\n}'
+alias showipath='echo -e ${INFOPATH//:/\\n}'
+alias showmpath='echo -e ${MANPATH//:/\\n}'
 
 # Use uv pip
 alias uvp='uv pip'

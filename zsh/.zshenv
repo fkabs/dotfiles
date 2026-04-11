@@ -88,7 +88,7 @@ export TEXMFCACHE="$TEXMFVAR"
 export TMUX_PLUGIN_MANAGER_PATH=$XDG_CACHE_HOME/tmux/plugins
 
 # uv
-export PATH="/Users/fkabs/.local/share/../bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Path to zoxide database
 export _ZO_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/zoxide"
@@ -98,7 +98,6 @@ export ZFUNCDIR=$ZDOTDIR/functions
 
 # zsh autosuggest config
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-export ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # Path of zsh dumps
 export ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump"

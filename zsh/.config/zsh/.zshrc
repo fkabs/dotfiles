@@ -9,7 +9,7 @@ if [ "${ZSH_PROFILING}" = "1" ]; then
 fi
 
 # Add Brew zsh-completions and site-functions to fpath
-fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
+fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
 
 # Add custom zsh functions
 fpath=($ZFUNCDIR $fpath)
