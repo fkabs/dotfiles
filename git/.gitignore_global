@@ -1,6 +1,10 @@
 # asdf
 .tool-versions
 
+# claude
+.claude
+superpowers
+
 # Environments
 .env
 .envrc
