@@ -2,9 +2,9 @@
 .tool-versions
 
 # claude
-.claude
+.claude/
 CLAUDE.md
-superpowers
+superpowers/
 
 # Environments
 .env
