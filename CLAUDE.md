@@ -112,13 +112,12 @@ Config at `btop/.config/btop/btop.conf` with a custom rose-pine-moon theme at `b
 
 Config at `claude/.claude/`. Tracked files (config only — cache/runtime dirs are left untracked):
 
-| File | Purpose |
-|------|---------|
+| File/Dir | Purpose |
+|----------|---------|
 | `settings.json` | Permissions, enabled plugins, advisor model |
 | `CLAUDE.md` | Global Claude instructions |
-| `plugins/installed_plugins.json` | Installed plugin list |
-| `plugins/blocklist.json` | Blocked plugins |
-| `plugins/known_marketplaces.json` | Marketplace registry |
+| `agents/` | Custom agent definitions (subagent specs) |
+| `skills/` | Custom skill definitions (slash commands) |
 
 ## VIA (`via/`)
 

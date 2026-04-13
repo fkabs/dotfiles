@@ -139,3 +139,7 @@ zsdoc/data
 lazy-lock.json
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,windows,zsh,homebrew,fish,git
+
+# un-ignore claude config tracked in this dotfiles repo
+!.claude/
+!CLAUDE.md
