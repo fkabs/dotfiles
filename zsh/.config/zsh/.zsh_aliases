@@ -56,6 +56,9 @@ alias showmpath='echo -e ${MANPATH//:/\\n}'
 # Use uv pip
 alias uvp='uv pip'
 
+# Claude Code
+alias cc='claude'
+
 # Use nvim as default editor
 alias vi='nvim'
 alias vim='nvim'
