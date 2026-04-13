@@ -1,23 +1,23 @@
-[alias]    
+[alias]
     # basic
     bd = branch -d
     cb = checkout -b
     co = checkout
     cp = cherry-pick
     st = status -sb
-    
+
     # tweak defaults
     ai = add --interactive
     branch = branch -ra
     diff = diff --word-diff
     f = "!git ls-files | grep -i"
     grep = grep -Ii
-    
+
     # commit
     amend = commit --amend
     cm = commit -m
     cma = commit -a -m
-    
+
     # log commands
     filelog = log -u
     fl = log -u
@@ -29,7 +29,7 @@
     ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%an]" --decorate --date=relative
     lsc  = "!f() { git ls "$1"^.."$1"; }; f"
     lol = log --oneline --decorate --all
-    
+
     # diff
     d = diff --word-diff
     dc = diff --cached
@@ -42,14 +42,14 @@
     diffr  = "!f() { git diff "$1"^.."$1"; }; f"
     dlc = diff --cached HEAD^
     dr  = "!f() { git diff -w "$1"^.."$1"; }; f"
-    
+
     # reset commands
     r1 = reset HEAD^
     r2 = reset HEAD^^
     rh = reset --hard
     rh1 = reset HEAD^ --hard
     rh2 = reset HEAD^^ --hard
-    
+
     # squash commands
     squash-all = "!f(){ \
         if [ $# -eq 0 ]; then \
@@ -58,7 +58,7 @@
         fi; \
         git reset $(git commit-tree \"HEAD^{tree}\" \"$@\"); \
         };f"
-    
+
     squash-last-n = "!f(){ \
         if [ -z \"$1\" ]; then \
             echo 'Usage: git squash-last-n <number> -m \"message\"' >&2; \
@@ -80,19 +80,19 @@
         fi; \
         git reset $(git commit-tree \"HEAD^{tree}\" -p \"HEAD~$n\" \"$@\"); \
         };f"
-    
+
     # stash
     sta = stash push --all
     stu = stash push -u
     stl = stash list
     stp = stash pop
     std = stash drop
-    
+
     # git svn
     svnd = svn dcommit
     svnl = svn log --oneline --show-commit
     svnr = svn rebase
-    
+
     # various useful
     # last tag created
     lasttag = describe --tags --abbrev=0
@@ -110,16 +110,16 @@
 
     # initial empty commit
     empty = "!git commit -am\"[empty] Initial commit\" --allow-empty"
-    
+
     # show files not in repo
     others = ls-files --others --ignored --exclude-from=.gitignore
 
     # list all aliases
     la = "!git config -l | grep alias | cut -c 7-"
-    
+
     # worktree list
     wl = worktree list
-    
+
     # undo from here http://megakemp.com/2016/08/25/git-undo/
     undo = "!f() { git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}; }; f"
 
@@ -150,6 +150,12 @@
 
 [gpg]
     format = ssh
+
+[gpg "ssh"]
+    allowedSignersFile = ~/.ssh/allowed_signers
+
+[init]
+    defaultBranch = main
 
 [merge]
 	tool = bc

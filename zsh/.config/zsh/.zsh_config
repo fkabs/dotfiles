@@ -39,11 +39,14 @@ path+=("/usr/local/texlive/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH")
 manpath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/man")
 infopath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/info")
 
-# uv (cache completions to avoid subprocess on every startup)
+# uv (cache completions, invalidate when uv version changes)
 _uv_comp="${ZSH_COMPDUMP:h}/uv-comp.zsh"
-if [[ ! -f "$_uv_comp" ]]; then
+_uv_comp_ver="${ZSH_COMPDUMP:h}/uv-comp.version"
+_uv_ver="$(uv --version 2>/dev/null)"
+if [[ ! -f "$_uv_comp" || ! -f "$_uv_comp_ver" || "$(cat "$_uv_comp_ver")" != "$_uv_ver" ]]; then
     uv generate-shell-completion zsh > "$_uv_comp"
     uvx --generate-shell-completion zsh >> "$_uv_comp"
+    echo "$_uv_ver" > "$_uv_comp_ver"
 fi
 source "$_uv_comp"
 

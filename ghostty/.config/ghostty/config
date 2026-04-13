@@ -1,5 +1,6 @@
 # General settings
 auto-update = off
+confirm-close-surface = false
 theme = rose-pine-moon
 
 # Background settings
