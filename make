@@ -24,6 +24,7 @@ make_install() {
 STOW_PACKAGES=(
     "bat"
     "btop"
+    "claude"
     "ghostty"
     "git"
     "nvim"

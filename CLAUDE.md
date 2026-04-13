@@ -20,7 +20,7 @@ The `make` script (a zsh script, not a Makefile) manages stow operations:
 
 Stow is expected at `/opt/homebrew/bin/stow` (Apple Silicon) or `/usr/local/bin/stow` (Intel).
 
-The managed packages are: `bat`, `btop`, `ghostty`, `git`, `nvim`, `starship`, `tmux`, `zsh`.
+The managed packages are: `bat`, `btop`, `claude`, `ghostty`, `git`, `nvim`, `starship`, `tmux`, `zsh`.
 
 ## Repository Structure
 
@@ -107,6 +107,18 @@ Config at `bat/.batrc` (path set via `$BAT_CONFIG_PATH` in `.zshenv`). Used as t
 ## btop (`btop/`)
 
 Config at `btop/.config/btop/btop.conf` with a custom rose-pine-moon theme at `btop/.config/btop/themes/rose-pine-moon.theme`.
+
+## Claude Code (`claude/`)
+
+Config at `claude/.claude/`. Tracked files (config only — cache/runtime dirs are left untracked):
+
+| File | Purpose |
+|------|---------|
+| `settings.json` | Permissions, enabled plugins, advisor model |
+| `CLAUDE.md` | Global Claude instructions |
+| `plugins/installed_plugins.json` | Installed plugin list |
+| `plugins/blocklist.json` | Blocked plugins |
+| `plugins/known_marketplaces.json` | Marketplace registry |
 
 ## VIA (`via/`)
 
