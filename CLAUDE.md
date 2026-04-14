@@ -20,7 +20,7 @@ The `make` script (a zsh script, not a Makefile) manages stow operations:
 
 Stow is expected at `/opt/homebrew/bin/stow` (Apple Silicon) or `/usr/local/bin/stow` (Intel).
 
-The managed packages are: `bat`, `btop`, `claude`, `ghostty`, `git`, `nvim`, `starship`, `tmux`, `zsh`.
+The managed packages are: `agents`, `bat`, `btop`, `claude`, `ghostty`, `git`, `nvim`, `opencode`, `starship`, `tmux`, `zsh`.
 
 ## Repository Structure
 
@@ -118,6 +118,18 @@ Config at `claude/.claude/`. Tracked files (config only — cache/runtime dirs a
 | `CLAUDE.md` | Global Claude instructions |
 | `agents/` | Custom agent definitions (subagent specs) |
 | `skills/` | Custom skill definitions (slash commands) |
+
+## Agents (`agents/`)
+
+Stows to `~/.agents/`. Contains custom skills for superpowers plugins (caveman variants). Not tracked under `claude/` — these are plugin-managed skill definitions.
+
+## OpenCode (`opencode/`)
+
+Config at `opencode/.config/opencode/`.
+
+- `opencode.json` — default agent: `plan`; permission policy: ask for all, allow reads of `~/.config/opencode/**` and `/tmp/**`
+- `tui.json` — TUI theme: `system`
+- `AGENTS.md` — global agent instructions (caveman mode)
 
 ## VIA (`via/`)
 
