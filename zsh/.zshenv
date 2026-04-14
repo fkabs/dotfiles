@@ -84,6 +84,9 @@ export TEXMFCONFIG="$HOME/.texlive/$TEXLIVE_RELEASE/texmf-config"
 export TEXMFHOME="$HOME/.texlive/texmf"
 export TEXMFCACHE="$TEXMFVAR"
 
+# Claude Code config directory
+export CLAUDE_CONFIG_DIR="$XDG_CONFIG_HOME/claude"
+
 # TMUX plugins directory
 export TMUX_PLUGIN_MANAGER_PATH=$XDG_CACHE_HOME/tmux/plugins
 

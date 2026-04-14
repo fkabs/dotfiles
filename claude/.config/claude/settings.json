@@ -30,5 +30,6 @@
       }
     }
   },
-  "advisorModel": "opus"
+  "advisorModel": "opus",
+  "model": "opusplan"
 }
