@@ -2,7 +2,7 @@
 
 make_cleanup() {
     echo "[cleanup] Removing symlinked stow packages..."
-    
+
     # remove packages
     for PKG in "${STOW_PACKAGES[@]}"; do
         echo "[stow] $PKG"
@@ -12,7 +12,7 @@ make_cleanup() {
 
 make_install() {
     echo "[install] stowing packages..."
-    
+
     # stow packages
     for PKG in "${STOW_PACKAGES[@]}"; do
         echo "[stow] $PKG"
@@ -22,12 +22,14 @@ make_install() {
 
 # Set packages to be stowed
 STOW_PACKAGES=(
+    "agents"
     "bat"
     "btop"
     "claude"
     "ghostty"
     "git"
     "nvim"
+    "opencode"
     "starship"
     "tmux"
     "zsh"

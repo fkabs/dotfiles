@@ -28,8 +28,11 @@ export SAVEHIST=1000000
 
 # docker CLI completions
 if command -v docker &> /dev/null; then
-    fpath=($HOME/.docker/completions $fpath)
+    fpath+=("$HOME/.docker/completions")
 fi
+
+# opencode
+path+=("$HOME/.opencode/bin")
 
 # starship (prompt)
 eval "$(starship init zsh)"
