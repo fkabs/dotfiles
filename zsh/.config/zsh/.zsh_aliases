@@ -59,6 +59,9 @@ alias uvp='uv pip'
 # Claude Code
 alias cc='claude'
 
+# Opencode
+alias oc='opencode'
+
 # Use nvim as default editor
 alias vi='nvim'
 alias vim='nvim'
