@@ -36,7 +36,7 @@ shell-integration-features = no-cursor, sudo, no-title, ssh-terminfo, ssh-env
 window-colorspace = display-p3
 window-decoration = auto
 window-height = 32
-window-width = 120
+window-width = 128
 window-padding-balance = true
 
 # Keybindings
