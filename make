@@ -22,7 +22,6 @@ make_install() {
 
 # Set packages to be stowed
 STOW_PACKAGES=(
-    "agents"
     "bat"
     "btop"
     "claude"

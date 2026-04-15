@@ -1,5 +1,29 @@
 #!/bin/zsh
 
+# Backup .ssh config and keys
+echo "\n# SSH"
+mkdir -p $BACKUP_HOME/ssh/keys
+cp $HOME/.ssh/config $BACKUP_HOME/ssh/config 2>/dev/null && echo "Copied .ssh/config" || echo "No .ssh/config found"
+if [[ -d $HOME/.ssh/keys ]]; then
+  cp -r $HOME/.ssh/keys/. $BACKUP_HOME/ssh/keys/
+  echo "Copied .ssh/keys/"
+else
+  echo "No .ssh/keys/ found"
+fi
+
+# Backup .secrets
+echo "\n# Secrets"
+mkdir -p $BACKUP_HOME/secrets
+if [[ -d $HOME/.secrets ]]; then
+  cp -r $HOME/.secrets/. $BACKUP_HOME/secrets/
+  echo "Copied .secrets/"
+elif [[ -f $HOME/.secrets ]]; then
+  cp $HOME/.secrets $BACKUP_HOME/secrets/.secrets
+  echo "Copied .secrets"
+else
+  echo "No .secrets found"
+fi
+
 # Make a brew dump file
 echo "\n# Brewfile"
 brew bundle dump --force --file=$BACKUP_HOME/brew/Brewfile

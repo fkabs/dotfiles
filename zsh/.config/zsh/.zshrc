@@ -35,6 +35,7 @@ fi
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_config ]] && source ${ZDOTDIR:-$HOME}/.zsh_config
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_opts ]] && source ${ZDOTDIR:-$HOME}/.zsh_opts
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_styles ]] && source ${ZDOTDIR:-$HOME}/.zsh_styles
+[[ -e ${ZDOTDIR:-$HOME}/.zsh_secrets ]] && source ${ZDOTDIR:-$HOME}/.zsh_secrets
 
 # Clone antidote if necessary.
 [[ -d $HOME/.antidote ]] ||
