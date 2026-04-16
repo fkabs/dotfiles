@@ -4,7 +4,8 @@
 # claude
 .claude/
 CLAUDE.md
-superpowers/
+docs/superpowers/
+docs/plans/
 
 # Environments
 .env
