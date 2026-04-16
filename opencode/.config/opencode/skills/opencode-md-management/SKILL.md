@@ -1,47 +1,48 @@
 ---
-name: claude-md-improver
-description: Audit and improve CLAUDE.md files in repositories. Use when user asks to check, audit, update, improve, or fix CLAUDE.md files. Scans for all CLAUDE.md files, evaluates quality against templates, outputs quality report, then makes targeted updates. Also use when the user mentions "CLAUDE.md maintenance" or "project memory optimization".
+name: opencode-md-improver
+description: Audit and improve AGENTS.md files in repositories. Use when user asks to check, audit, update, improve, or fix AGENTS.md files. Scans for all AGENTS.md files, evaluates quality against templates, outputs quality report, then makes targeted updates. Also use when the user mentions "AGENTS.md maintenance" or "project memory optimization".
 tools: Read, Glob, Grep, Bash, Edit
 ---
 
-# CLAUDE.md Improver
+# AGENTS.md Improver
 
-Audit, evaluate, and improve CLAUDE.md files across a codebase to ensure Claude Code has optimal project context.
+Audit, evaluate, and improve AGENTS.md files across a codebase to ensure OpenCode has optimal project context.
 
-**This skill can write to CLAUDE.md files.** After presenting a quality report and getting user approval, it updates CLAUDE.md files with targeted improvements.
+**This skill can write to AGENTS.md files.** After presenting a quality report and getting user approval, it updates AGENTS.md files with targeted improvements.
 
 ## Workflow
 
 ### Phase 1: Discovery
 
-Find all CLAUDE.md files in the repository:
+Find all AGENTS.md files (with CLAUDE.md fallback) in the repository:
 
 ```bash
-find . -name "CLAUDE.md" -o -name ".claude.md" -o -name ".claude.local.md" 2>/dev/null | head -50
+# Primary: AGENTS.md. Fallback: CLAUDE.md where no AGENTS.md sibling exists
+find . \( -name "AGENTS.md" -o -name "CLAUDE.md" \) 2>/dev/null | head -50
 ```
+
+**Fallback rule:** OpenCode reads `AGENTS.md` first. If absent in a directory, it falls back to `CLAUDE.md`. When both exist, `AGENTS.md` wins. When auditing, flag any `CLAUDE.md` that has no `AGENTS.md` sibling as a migration opportunity — recommend renaming to `AGENTS.md` for clarity.
 
 **File Types & Locations:**
 
-| Type | Location | Purpose |
-|------|----------|---------|
-| Project root | `./CLAUDE.md` | Primary project context (checked into git, shared with team) |
-| Local overrides | `./.claude.local.md` | Personal/local settings (gitignored, not shared) |
-| Global defaults | `~/.claude/CLAUDE.md` | User-wide defaults across all projects |
-| Package-specific | `./packages/*/CLAUDE.md` | Module-level context in monorepos |
-| Subdirectory | Any nested location | Feature/domain-specific context |
-
-**Note:** Claude auto-discovers CLAUDE.md files in parent directories, making monorepo setups work automatically.
+| Type | Primary | Fallback | Purpose |
+|------|---------|----------|---------|
+| Project root | `./AGENTS.md` | `./CLAUDE.md` | Primary project context |
+| Local overrides | `./.agents.local.md` | — | Personal/local (gitignored) |
+| Global defaults | `~/.config/opencode/AGENTS.md` | `~/.config/opencode/CLAUDE.md` | User-wide defaults |
+| Package-specific | `./packages/*/AGENTS.md` | `./packages/*/CLAUDE.md` | Monorepo module context |
+| Subdirectory | Any `AGENTS.md` | Any `CLAUDE.md` | Feature/domain context |
 
 ### Phase 2: Quality Assessment
 
-For each CLAUDE.md file, evaluate against quality criteria. See [references/quality-criteria.md](references/quality-criteria.md) for detailed rubrics.
+For each AGENTS.md file, evaluate against quality criteria. See [references/quality-criteria.md](references/quality-criteria.md) for detailed rubrics.
 
 **Quick Assessment Checklist:**
 
 | Criterion | Weight | Check |
 |-----------|--------|-------|
 | Commands/workflows documented | High | Are build/test/deploy commands present? |
-| Architecture clarity | High | Can Claude understand the codebase structure? |
+| Architecture clarity | High | Can OpenCode understand the codebase structure? |
 | Non-obvious patterns | Medium | Are gotchas and quirks documented? |
 | Conciseness | Medium | No verbose explanations or obvious info? |
 | Currency | High | Does it reflect current codebase state? |
@@ -61,7 +62,7 @@ For each CLAUDE.md file, evaluate against quality criteria. See [references/qual
 Format:
 
 ```
-## CLAUDE.md Quality Report
+## AGENTS.md Quality Report
 
 ### Summary
 - Files found: X
@@ -70,7 +71,7 @@ Format:
 
 ### File-by-File Assessment
 
-#### 1. ./CLAUDE.md (Project Root)
+#### 1. ./AGENTS.md (Project Root)
 **Score: XX/100 (Grade: X)**
 
 | Criterion | Score | Notes |
@@ -87,9 +88,6 @@ Format:
 
 **Recommended additions:**
 - [List what should be added]
-
-#### 2. ./packages/api/CLAUDE.md (Package-specific)
-...
 ```
 
 ### Phase 4: Targeted Updates
@@ -112,14 +110,14 @@ After outputting the quality report, ask user for confirmation before updating.
    - Verbose explanations when a one-liner suffices
 
 3. **Show diffs** - For each change, show:
-   - Which CLAUDE.md file to update
+   - Which AGENTS.md file to update
    - The specific addition (as a diff or quoted block)
    - Brief explanation of why this helps future sessions
 
 **Diff Format:**
 
 ```markdown
-### Update: ./CLAUDE.md
+### Update: ./AGENTS.md
 
 **Why:** Build command was missing, causing confusion about how to run the project.
 
@@ -137,9 +135,20 @@ After outputting the quality report, ask user for confirmation before updating.
 
 After user approval, apply changes using the Edit tool. Preserve existing content structure.
 
+### Phase 6: Caveman Compress
+
+After applying updates, automatically compress each modified AGENTS.md to reduce input tokens:
+
+```bash
+SKILL_DIR="$(find ~/.config/opencode/skills -name "caveman-compress" -type d 2>/dev/null | head -1)"
+cd "$SKILL_DIR" && python3 -m scripts <absolute_path_to_updated_file>
+```
+
+Run for each file updated in Phase 5. If compress fails, leave file as-is and report error — do not block on compress failure.
+
 ## Templates
 
-See [references/templates.md](references/templates.md) for CLAUDE.md templates by project type.
+See [references/templates.md](references/templates.md) for AGENTS.md templates by project type.
 
 ## Common Issues to Flag
 
@@ -150,17 +159,7 @@ See [references/templates.md](references/templates.md) for CLAUDE.md templates b
 5. **Broken test commands**: Test scripts that have changed
 6. **Undocumented gotchas**: Non-obvious patterns not captured
 
-## User Tips to Share
-
-When presenting recommendations, remind users:
-
-- **`#` key shortcut**: During a Claude session, press `#` to have Claude auto-incorporate learnings into CLAUDE.md
-- **Keep it concise**: CLAUDE.md should be human-readable; dense is better than verbose
-- **Actionable commands**: All documented commands should be copy-paste ready
-- **Use `.claude.local.md`**: For personal preferences not shared with team (add to `.gitignore`)
-- **Global defaults**: Put user-wide preferences in `~/.claude/CLAUDE.md`
-
-## What Makes a Great CLAUDE.md
+## What Makes a Great AGENTS.md
 
 **Key principles:**
 - Concise and human-readable

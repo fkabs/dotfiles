@@ -137,6 +137,18 @@ After outputting the quality report, ask user for confirmation before updating.
 
 After user approval, apply changes using the Edit tool. Preserve existing content structure.
 
+### Phase 6: Caveman Compress
+
+After applying updates, automatically compress each modified CLAUDE.md to reduce input tokens:
+
+```bash
+# Find caveman-compress scripts relative to skills dir
+SKILL_DIR="$(find ~/.claude/skills ~/.dotfiles/claude/.claude/skills -name "caveman-compress" -type d 2>/dev/null | head -1)"
+cd "$SKILL_DIR" && python3 -m scripts <absolute_path_to_updated_file>
+```
+
+Run for each file updated in Phase 5. If compress fails, leave file as-is and report error — do not block on compress failure.
+
 ## Templates
 
 See [references/templates.md](references/templates.md) for CLAUDE.md templates by project type.

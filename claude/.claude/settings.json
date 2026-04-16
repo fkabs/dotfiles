@@ -8,10 +8,13 @@
     "commit": "",
     "pr": ""
   },
+  "spinnerTipsEnabled": false,
   "permissions": {
     "allow": [
       "Read(~/.claude)",
-      "Read(/tmp/**)"
+      "Read(/tmp/**)",
+      "Bash(npx ctx7 *)",
+      "Bash(gh *)"
     ],
     "defaultMode": "default"
   },
@@ -26,16 +29,6 @@
             "command": "node $HOME/.claude/hooks/caveman-activate.js",
             "timeout": 5,
             "statusMessage": "Loading caveman mode..."
-          }
-        ]
-      },
-      {
-        "matcher": "startup|clear|compact",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$HOME/.claude/hooks/superpowers-session-start\"",
-            "async": false
           }
         ]
       }

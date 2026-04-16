@@ -1,14 +1,14 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code (claude.ai/code) in this repo.
 
 ## What This Repo Is
 
-A dotfiles repository managed with [GNU Stow](https://www.gnu.org/software/stow/). Each top-level directory is a stow package that mirrors the `$HOME` directory structure.
+Dotfiles repo managed with [GNU Stow](https://www.gnu.org/software/stow/). Each top-level dir is stow package mirroring `$HOME` structure.
 
 ## Installing / Removing Symlinks
 
-The `make` script (a zsh script, not a Makefile) manages stow operations:
+`make` script (zsh, not Makefile) manages stow ops:
 
 ```zsh
 # Symlink all packages into $HOME
@@ -18,20 +18,20 @@ The `make` script (a zsh script, not a Makefile) manages stow operations:
 ./make cleanup
 ```
 
-Stow is expected at `/opt/homebrew/bin/stow` (Apple Silicon) or `/usr/local/bin/stow` (Intel).
+Stow expected at `/opt/homebrew/bin/stow` (Apple Silicon) or `/usr/local/bin/stow` (Intel).
 
-The managed packages are: `bat`, `btop`, `claude`, `ghostty`, `git`, `nvim`, `opencode`, `starship`, `tmux`, `zsh`.
+Managed packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `nvim`, `opencode`, `starship`, `tmux`, `zsh`.
 
 ## Repository Structure
 
-Each package directory contains files laid out exactly as they should appear relative to `$HOME`. For example:
+Each package dir contains files laid out relative to `$HOME`. Examples:
 - `zsh/.zshenv` → `~/.zshenv`
 - `zsh/.config/zsh/.zshrc` → `~/.config/zsh/.zshrc`
 - `git/.gitconfig` → `~/.gitconfig`
 
 ## Zsh Configuration
 
-Zsh config lives in `zsh/` and is split across several files sourced by `.zshrc`:
+Zsh config in `zsh/`, split across files sourced by `.zshrc`:
 
 | File | Purpose |
 |------|---------|
@@ -43,18 +43,18 @@ Zsh config lives in `zsh/` and is split across several files sourced by `.zshrc`
 | `.zsh_opts` | `setopt` / `unsetopt` calls |
 | `.zsh_styles` | `zstyle` completion styling |
 
-`ZDOTDIR` is set to `~/.config/zsh`, so zsh reads config from there, not `$HOME`.
+`ZDOTDIR` set to `~/.config/zsh` — zsh reads config there, not `$HOME`.
 
-Plugin management uses [antidote](https://github.com/mattmc3/antidote). Plugin list is in `zsh/.config/zsh/plugins/.zsh_plugins.txt`.
+Plugin management via [antidote](https://github.com/mattmc3/antidote). Plugin list: `zsh/.config/zsh/plugins/.zsh_plugins.txt`.
 
-Custom zsh functions in `zsh/.config/zsh/functions/` are autoloaded. Notable functions: `gpip`/`nopip` (bypass virtualenv pip guard), `venv`/`workon` (virtualenv helpers), `brewup`/`brewzap` (Homebrew helpers), `backup`, `ssh-tunnel`.
+Custom zsh functions in `zsh/.config/zsh/functions/` autoloaded. Notable: `gpip`/`nopip` (bypass virtualenv pip guard), `venv`/`workon` (virtualenv helpers), `brewup`/`brewzap` (Homebrew helpers), `backup`, `ssh-tunnel`.
 
 ## Key Environment Conventions
 
 - `$DOTFILES` → `~/.dotfiles`
 - `$ZDOTDIR` → `~/.config/zsh`
-- XDG Base Directory spec is followed: `$XDG_CONFIG_HOME`, `$XDG_CACHE_HOME`, `$XDG_DATA_HOME`
-- `PIP_REQUIRE_VIRTUALENV=true` — pip is blocked outside virtualenvs by default
+- XDG Base Directory spec followed: `$XDG_CONFIG_HOME`, `$XDG_CACHE_HOME`, `$XDG_DATA_HOME`
+- `PIP_REQUIRE_VIRTUALENV=true` — pip blocked outside virtualenvs by default
 - Antidote plugin cache: `$XDG_CACHE_HOME/antidote`
 - Tmux plugin cache: `$XDG_CACHE_HOME/tmux/plugins`
 
@@ -63,11 +63,11 @@ Custom zsh functions in `zsh/.config/zsh/functions/` are autoloaded. Notable fun
 - `git/.gitconfig` — aliases, diff/merge tools (Beyond Compare), SSH signing, rerere
 - `git/.gitignore_global` — global gitignore
 - `git/.gitattributes` — global gitattributes
-- Commits are signed with SSH key `~/.ssh/id_ed25519.pub`
+- Commits signed with SSH key `~/.ssh/id_ed25519.pub`
 
 ## Neovim (`nvim/`)
 
-Config lives in `nvim/.config/nvim/`. Structure:
+Config in `nvim/.config/nvim/`. Structure:
 
 - `init.lua` — loads `fkabs.core` and `fkabs.lazy`
 - `lua/fkabs/core/` — options and keymaps (leader: `<Space>`, localleader: `\`)
@@ -85,32 +85,32 @@ Config at `tmux/.config/tmux/tmux.conf`.
 - Pane navigation: `prefix + h/j/k/l`
 - Plugin manager: [TPM](https://github.com/tmux-plugins/tpm) (expected at `~/.tmux/plugins/tpm/tpm`)
 - Plugins: tpm, tmux-sensible, tmux-mode-indicator, rose-pine/tmux (moon variant)
-- Plugin cache path: `$XDG_CACHE_HOME/tmux/plugins`
+- Plugin cache: `$XDG_CACHE_HOME/tmux/plugins`
 
 ## Ghostty (`ghostty/`)
 
 Config at `ghostty/.config/ghostty/config`.
 
-- Theme: rose-pine-moon (custom theme file in `themes/`)
+- Theme: rose-pine-moon (custom theme in `themes/`)
 - Font: FiraCode Nerd Font Mono, 14pt, ligatures disabled
 - Global keybind: `Super+`` ` → toggle quick terminal
 - Shell integration: sudo passthrough, ssh-terminfo, no cursor/title overrides
 
 ## Starship (`starship/`)
 
-Config at `starship/.config/starship/starship.toml`. Uses the rose-pine-moon palette. Prompt shows: username, hostname, directory, git branch/status, python env, time.
+Config at `starship/.config/starship/starship.toml`. Uses rose-pine-moon palette. Prompt: username, hostname, directory, git branch/status, python env, time.
 
 ## bat (`bat/`)
 
-Config at `bat/.batrc` (path set via `$BAT_CONFIG_PATH` in `.zshenv`). Used as the `MANPAGER` for rendered man pages.
+Config at `bat/.batrc` (path via `$BAT_CONFIG_PATH` in `.zshenv`). Used as `MANPAGER` for rendered man pages.
 
 ## btop (`btop/`)
 
-Config at `btop/.config/btop/btop.conf` with a custom rose-pine-moon theme at `btop/.config/btop/themes/rose-pine-moon.theme`.
+Config at `btop/.config/btop/btop.conf`, custom rose-pine-moon theme at `btop/.config/btop/themes/rose-pine-moon.theme`.
 
 ## Claude Code (`claude/`)
 
-Config at `claude/.claude/`. Tracked files (config only — cache/runtime dirs are left untracked):
+Config at `claude/.claude/`. Tracked files (config only — cache/runtime dirs untracked):
 
 | File/Dir | Purpose |
 |----------|---------|
@@ -128,11 +128,11 @@ Config at `opencode/.config/opencode/`.
 
 ## VIA (`via/`)
 
-Keyboard layout files for a Monsgeek M1V5 (ISO layout). Not stowed to `$HOME` — the `.stow-local-ignore` file excludes the JSON files from symlinking, as these are meant to be manually imported into the VIA app on the user's machine.
+Keyboard layout files for Monsgeek M1V5 (ISO layout). Not stowed to `$HOME` — `.stow-local-ignore` excludes JSON files; import manually into VIA app.
 
 ## Adding a New Package
 
-1. Create a new top-level directory matching the package name.
-2. Add files mirroring their intended `$HOME` paths.
-3. Add the package name to the `STOW_PACKAGES` array in `make`.
+1. Create new top-level dir matching package name.
+2. Add files mirroring intended `$HOME` paths.
+3. Add package name to `STOW_PACKAGES` array in `make`.
 4. Run `./make install` to symlink.
