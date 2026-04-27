@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-Guidance for Claude Code (claude.ai/code) in this repo.
+Claude Code guidance for this repo.
 
 ## What This Repo Is
 
-Dotfiles repo managed with [GNU Stow](https://www.gnu.org/software/stow/). Each top-level dir is stow package mirroring `$HOME` structure.
+Dotfiles repo managed with [GNU Stow](https://www.gnu.org/software/stow/). Each top-level dir = stow package mirroring `$HOME` structure.
 
 ## Installing / Removing Symlinks
 
@@ -20,11 +20,11 @@ Dotfiles repo managed with [GNU Stow](https://www.gnu.org/software/stow/). Each 
 
 Stow expected at `/opt/homebrew/bin/stow` (Apple Silicon) or `/usr/local/bin/stow` (Intel).
 
-Managed packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `nvim`, `starship`, `tmux`, `zsh`.
+Managed packages: `agents`, `bat`, `btop`, `claude`, `ghostty`, `git`, `nvim`, `pi`, `starship`, `tmux`, `zsh`.
 
 ## Repository Structure
 
-Each package dir contains files laid out relative to `$HOME`. Examples:
+Each package dir = files relative to `$HOME`. Examples:
 - `zsh/.zshenv` → `~/.zshenv`
 - `zsh/.config/zsh/.zshrc` → `~/.config/zsh/.zshrc`
 - `git/.gitconfig` → `~/.gitconfig`
@@ -43,7 +43,7 @@ Zsh config in `zsh/`, split across files sourced by `.zshrc`:
 | `.zsh_opts` | `setopt` / `unsetopt` calls |
 | `.zsh_styles` | `zstyle` completion styling |
 
-`ZDOTDIR` set to `~/.config/zsh` — zsh reads config there, not `$HOME`.
+`ZDOTDIR` → `~/.config/zsh` — zsh reads config there, not `$HOME`.
 
 Plugin management via [antidote](https://github.com/mattmc3/antidote). Plugin list: `zsh/.config/zsh/plugins/.zsh_plugins.txt`.
 
@@ -53,8 +53,8 @@ Custom zsh functions in `zsh/.config/zsh/functions/` autoloaded. Notable: `gpip`
 
 - `$DOTFILES` → `~/.dotfiles`
 - `$ZDOTDIR` → `~/.config/zsh`
-- XDG Base Directory spec followed: `$XDG_CONFIG_HOME`, `$XDG_CACHE_HOME`, `$XDG_DATA_HOME`
-- `PIP_REQUIRE_VIRTUALENV=true` — pip blocked outside virtualenvs by default
+- XDG Base Directory spec: `$XDG_CONFIG_HOME`, `$XDG_CACHE_HOME`, `$XDG_DATA_HOME`
+- `PIP_REQUIRE_VIRTUALENV=true` — pip blocked outside virtualenvs
 - Antidote plugin cache: `$XDG_CACHE_HOME/antidote`
 - Tmux plugin cache: `$XDG_CACHE_HOME/tmux/plugins`
 
@@ -108,14 +108,30 @@ Config at `bat/.batrc` (path via `$BAT_CONFIG_PATH` in `.zshenv`). Used as `MANP
 
 Config at `btop/.config/btop/btop.conf`, custom rose-pine-moon theme at `btop/.config/btop/themes/rose-pine-moon.theme`.
 
+## Agents (`agents/`)
+
+Config at `agents/.agents/`. Tracked content:
+- `AGENTS.md` — global agent instructions
+- `agents/` — specialized agent prompts
+- `commands/` — slash-command markdown prompts
+- `skills/` — reusable skills and support files
+
+## Pi (`pi/`)
+
+Config at `pi/.pi/agent/`.
+- `settings.json` — default provider, model, thinking level, and theme for pi coding agent
+
 ## Claude Code (`claude/`)
 
 Config at `claude/.claude/`. Tracked files (config only — cache/runtime dirs untracked):
 
 | File/Dir | Purpose |
 |----------|---------|
-| `settings.json` | Permissions, enabled plugins, advisor model |
+| `settings.json` | Env, permissions, model/advisor model, hooks, status line |
 | `CLAUDE.md` | Global Claude instructions |
+| `agents/` | Specialized agent prompts |
+| `commands/` | Slash-command markdown prompts |
+| `hooks/` | Session/user-prompt hook scripts (caveman mode, status line) |
 
 ## VIA (`via/`)
 
@@ -123,7 +139,7 @@ Keyboard layout files for Monsgeek M1V5 (ISO layout). Not stowed to `$HOME` — 
 
 ## Adding a New Package
 
-1. Create new top-level dir matching package name.
-2. Add files mirroring intended `$HOME` paths.
-3. Add package name to `STOW_PACKAGES` array in `make`.
+1. Create top-level dir matching package name.
+2. Add files mirroring `$HOME` paths.
+3. Add package name to `STOW_PACKAGES` in `make`.
 4. Run `./make install` to symlink.
