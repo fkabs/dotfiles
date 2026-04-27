@@ -20,7 +20,6 @@
   },
   "model": "opusplan",
   "advisorModel": "opus",
-  "effortLevel": "high",
   "hooks": {
     "SessionStart": [
       {
