@@ -143,3 +143,6 @@ lazy-lock.json
 # un-ignore claude config tracked in this dotfiles repo
 !.claude/
 !CLAUDE.md
+
+# local git worktrees
+.worktrees/
