@@ -20,6 +20,7 @@
   },
   "model": "opusplan",
   "advisorModel": "opus",
+  "effortLevel": "high",
   "hooks": {
     "SessionStart": [
       {
@@ -43,7 +44,31 @@
             "statusMessage": "Tracking caveman mode..."
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx -y ccstatusline@latest --hook"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx -y ccstatusline@latest --hook"
+          }
+        ]
       }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
   }
 }
