@@ -22,13 +22,14 @@ make_install() {
 
 # Set packages to be stowed
 STOW_PACKAGES=(
+    "agents"
     "bat"
     "btop"
     "claude"
     "ghostty"
     "git"
     "nvim"
-    "opencode"
+    "pi"
     "starship"
     "tmux"
     "zsh"

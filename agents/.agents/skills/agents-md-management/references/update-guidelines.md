@@ -2,7 +2,7 @@
 
 ## Core Principle
 
-Only add information that will genuinely help future OpenCode sessions. The context window is precious - every line must earn its place.
+Only add information that will genuinely help future agent sessions. The context window is precious - every line must earn its place.
 
 ## What TO Add
 
@@ -146,5 +146,5 @@ Before finalizing an update, verify:
 - [ ] No generic advice or obvious info
 - [ ] Commands are tested and work
 - [ ] File paths are accurate
-- [ ] Would a new OpenCode session find this helpful?
+- [ ] Would a new agent session find this helpful?
 - [ ] Is this the most concise way to express the info?

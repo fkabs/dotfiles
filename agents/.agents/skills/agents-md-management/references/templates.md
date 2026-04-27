@@ -31,7 +31,7 @@ Document the essential commands for working with the project.
 
 ### Architecture
 
-Describe the project structure so OpenCode understands where things live.
+Describe the project structure so agents understands where things live.
 
 ```markdown
 ## Architecture
@@ -46,7 +46,7 @@ Describe the project structure so OpenCode understands where things live.
 
 ### Key Files
 
-List important files that OpenCode should know about.
+List important files that agents should know about.
 
 ```markdown
 ## Key Files
@@ -250,4 +250,4 @@ When updating any AGENTS.md:
 1. **Be specific**: Use actual file paths, real commands from this project
 2. **Be current**: Verify info against the actual codebase
 3. **Be brief**: One line per concept when possible
-4. **Be useful**: Would this help a new OpenCode session understand the project?
+4. **Be useful**: Would this help a new agent session understand the project?

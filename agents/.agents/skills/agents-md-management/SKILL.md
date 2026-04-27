@@ -1,12 +1,12 @@
 ---
-name: opencode-md-improver
+name: agents-md-management
 description: Audit and improve AGENTS.md files in repositories. Use when user asks to check, audit, update, improve, or fix AGENTS.md files. Scans for all AGENTS.md files, evaluates quality against templates, outputs quality report, then makes targeted updates. Also use when the user mentions "AGENTS.md maintenance" or "project memory optimization".
 tools: Read, Glob, Grep, Bash, Edit
 ---
 
 # AGENTS.md Improver
 
-Audit, evaluate, and improve AGENTS.md files across a codebase to ensure OpenCode has optimal project context.
+Audit, evaluate, and improve AGENTS.md files across a codebase to ensure optimal project context.
 
 **This skill can write to AGENTS.md files.** After presenting a quality report and getting user approval, it updates AGENTS.md files with targeted improvements.
 
@@ -21,15 +21,15 @@ Find all AGENTS.md files (with CLAUDE.md fallback) in the repository:
 find . \( -name "AGENTS.md" -o -name "CLAUDE.md" \) 2>/dev/null | head -50
 ```
 
-**Fallback rule:** OpenCode reads `AGENTS.md` first. If absent in a directory, it falls back to `CLAUDE.md`. When both exist, `AGENTS.md` wins. When auditing, flag any `CLAUDE.md` that has no `AGENTS.md` sibling as a migration opportunity — recommend renaming to `AGENTS.md` for clarity.
+**Fallback rule:** Reads `AGENTS.md` first. If absent in a directory, it falls back to `CLAUDE.md`. When both exist, `AGENTS.md` wins. When auditing, flag any `CLAUDE.md` that has no `AGENTS.md` sibling as a migration opportunity — recommend renaming to `AGENTS.md` for clarity.
 
 **File Types & Locations:**
 
 | Type | Primary | Fallback | Purpose |
 |------|---------|----------|---------|
 | Project root | `./AGENTS.md` | `./CLAUDE.md` | Primary project context |
-| Local overrides | `./.agents.local.md` | — | Personal/local (gitignored) |
-| Global defaults | `~/.config/opencode/AGENTS.md` | `~/.config/opencode/CLAUDE.md` | User-wide defaults |
+| Local overrides | `./.AGENTENS.local.md` | ./.CLAUDE.local.md | Personal/local (gitignored) |
+| Global defaults | `~/.agents/AGENTS.md` | `~/.claude/CLAUDE.md` | User-wide defaults |
 | Package-specific | `./packages/*/AGENTS.md` | `./packages/*/CLAUDE.md` | Monorepo module context |
 | Subdirectory | Any `AGENTS.md` | Any `CLAUDE.md` | Feature/domain context |
 
@@ -42,7 +42,7 @@ For each AGENTS.md file, evaluate against quality criteria. See [references/qual
 | Criterion | Weight | Check |
 |-----------|--------|-------|
 | Commands/workflows documented | High | Are build/test/deploy commands present? |
-| Architecture clarity | High | Can OpenCode understand the codebase structure? |
+| Architecture clarity | High | Is the codebase structure understandable? |
 | Non-obvious patterns | Medium | Are gotchas and quirks documented? |
 | Conciseness | Medium | No verbose explanations or obvious info? |
 | Currency | High | Does it reflect current codebase state? |
@@ -140,7 +140,7 @@ After user approval, apply changes using the Edit tool. Preserve existing conten
 After applying updates, automatically compress each modified AGENTS.md to reduce input tokens:
 
 ```bash
-SKILL_DIR="$(find ~/.config/opencode/skills -name "caveman-compress" -type d 2>/dev/null | head -1)"
+SKILL_DIR="$(find ~/.agents/skills -name "caveman-compress" -type d 2>/dev/null | head -1)"
 cd "$SKILL_DIR" && python3 -m scripts <absolute_path_to_updated_file>
 ```
 

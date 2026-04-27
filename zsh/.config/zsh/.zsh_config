@@ -31,9 +31,6 @@ if command -v docker &> /dev/null; then
     fpath+=("$HOME/.docker/completions")
 fi
 
-# opencode
-path+=("$HOME/.opencode/bin")
-
 # starship (prompt)
 eval "$(starship init zsh)"
 

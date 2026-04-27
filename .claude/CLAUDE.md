@@ -20,7 +20,7 @@ Dotfiles repo managed with [GNU Stow](https://www.gnu.org/software/stow/). Each 
 
 Stow expected at `/opt/homebrew/bin/stow` (Apple Silicon) or `/usr/local/bin/stow` (Intel).
 
-Managed packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `nvim`, `opencode`, `starship`, `tmux`, `zsh`.
+Managed packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `nvim`, `starship`, `tmux`, `zsh`.
 
 ## Repository Structure
 
@@ -116,15 +116,6 @@ Config at `claude/.claude/`. Tracked files (config only — cache/runtime dirs u
 |----------|---------|
 | `settings.json` | Permissions, enabled plugins, advisor model |
 | `CLAUDE.md` | Global Claude instructions |
-
-## OpenCode (`opencode/`)
-
-Config at `opencode/.config/opencode/`.
-
-- `opencode.json` — default agent: `plan`; permission policy: ask for all, allow reads of `~/.config/opencode/**` and `/tmp/**`
-- `tui.json` — TUI theme: `system`
-- `AGENTS.md` — global agent instructions (caveman mode)
-- `skills/` — custom OpenCode skills (caveman, brainstorming, frontend-design, superpowers variants, etc.)
 
 ## VIA (`via/`)
 
