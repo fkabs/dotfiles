@@ -1,5 +1,4 @@
 {
-  "editorMode": "vim",
   "env": {
     "EDITOR": "vim",
     "ENABLE_TOOL_SEARCH": "true",
