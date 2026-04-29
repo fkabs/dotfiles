@@ -20,6 +20,10 @@ brew upgrade --greedy
 echo "\n# Updating nvim Lazy and Mason"
 nvim --headless "+Lazy! sync" "+MasonToolsUpdateSync" "+qa"
 
+# pi
+echo "\n# Updating pi coding agent and plugins"
+pi update
+
 # Clean up
 echo "\n# Cleaning up"
 brew autoremove
