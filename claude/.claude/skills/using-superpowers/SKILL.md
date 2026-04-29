@@ -1,6 +1,6 @@
 ---
 name: using-superpowers
-description: Use only when the user explicitly asks to use superpowers, skills, or a skill-driven workflow. Do not auto-activate at conversation start. Once invoked, establishes how to find and use relevant skills for the current task.
+description: Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions
 ---
 
 <SUBAGENT-STOP>
@@ -8,13 +8,11 @@ If you were dispatched as a subagent to execute a specific task, skip this skill
 </SUBAGENT-STOP>
 
 <EXTREMELY-IMPORTANT>
-This skill is opt-in.
+If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST invoke the skill.
 
-Do NOT invoke it automatically at the start of a conversation or merely because a skill might help.
+IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
 
-Only use this skill when the user explicitly asks to use superpowers, skills, or a skill-based workflow.
-
-After the user has explicitly enabled it for the current conversation or task, treat relevant or requested skills as mandatory and follow them strictly.
+This is not negotiable. This is not optional. You cannot rationalize your way out of this.
 </EXTREMELY-IMPORTANT>
 
 ## Instruction Priority
@@ -45,17 +43,15 @@ Skills use Claude Code tool names. Non-CC platforms: see `references/copilot-too
 
 ## The Rule
 
-**Only apply this workflow after the user has explicitly enabled superpowers for the current conversation or task.** Once enabled, invoke relevant or requested skills BEFORE any further response or action. If an invoked skill turns out to be wrong for the situation, you don't need to use it.
+**Invoke relevant or requested skills BEFORE any response or action.** Even a 1% chance a skill might apply means that you should invoke the skill to check. If an invoked skill turns out to be wrong for the situation, you don't need to use it.
 
 ```dot
 digraph skill_flow {
     "User message received" [shape=doublecircle];
-    "User explicitly asked to use superpowers/skills?" [shape=diamond];
-    "Respond normally" [shape=doublecircle];
     "About to EnterPlanMode?" [shape=doublecircle];
     "Already brainstormed?" [shape=diamond];
     "Invoke brainstorming skill" [shape=box];
-    "Relevant or requested skill applies?" [shape=diamond];
+    "Might any skill apply?" [shape=diamond];
     "Invoke Skill tool" [shape=box];
     "Announce: 'Using [skill] to [purpose]'" [shape=box];
     "Has checklist?" [shape=diamond];
@@ -63,17 +59,14 @@ digraph skill_flow {
     "Follow skill exactly" [shape=box];
     "Respond (including clarifications)" [shape=doublecircle];
 
-    "User message received" -> "User explicitly asked to use superpowers/skills?";
-    "User explicitly asked to use superpowers/skills?" -> "Respond normally" [label="no"];
-    "User explicitly asked to use superpowers/skills?" -> "About to EnterPlanMode?" [label="yes"];
-
     "About to EnterPlanMode?" -> "Already brainstormed?";
     "Already brainstormed?" -> "Invoke brainstorming skill" [label="no"];
-    "Already brainstormed?" -> "Relevant or requested skill applies?" [label="yes"];
-    "Invoke brainstorming skill" -> "Relevant or requested skill applies?";
+    "Already brainstormed?" -> "Might any skill apply?" [label="yes"];
+    "Invoke brainstorming skill" -> "Might any skill apply?";
 
-    "Relevant or requested skill applies?" -> "Invoke Skill tool" [label="yes"];
-    "Relevant or requested skill applies?" -> "Respond (including clarifications)" [label="no"];
+    "User message received" -> "Might any skill apply?";
+    "Might any skill apply?" -> "Invoke Skill tool" [label="yes, even 1%"];
+    "Might any skill apply?" -> "Respond (including clarifications)" [label="definitely not"];
     "Invoke Skill tool" -> "Announce: 'Using [skill] to [purpose]'";
     "Announce: 'Using [skill] to [purpose]'" -> "Has checklist?";
     "Has checklist?" -> "Create TodoWrite todo per item" [label="yes"];
@@ -84,7 +77,7 @@ digraph skill_flow {
 
 ## Red Flags
 
-These thoughts mean STOP—you're rationalizing **after the user has explicitly enabled superpowers for the current task**. Before that opt-in, do not auto-activate this skill:
+These thoughts mean STOP—you're rationalizing:
 
 | Thought | Reality |
 |---------|---------|
@@ -121,4 +114,4 @@ The skill itself tells you which.
 
 ## User Instructions
 
-Instructions say WHAT, not HOW. If the user explicitly asks you to use superpowers, follow these workflows for the HOW. If they do not opt in, do not auto-activate this skill.
+Instructions say WHAT, not HOW. "Add X" or "Fix Y" doesn't mean skip workflows.

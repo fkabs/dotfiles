@@ -1,7 +1,11 @@
 {
-  "lastChangelogVersion": "0.70.2",
   "defaultProvider": "github-copilot",
   "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "high",
-  "theme": "rose-pine-moon"
+  "theme": "rose-pine-moon",
+  "lastChangelogVersion": "0.70.6",
+  "packages": [
+    "npm:pi-mcp-adapter",
+    "npm:pi-subagents"
+  ]
 }
