@@ -12,12 +12,14 @@
   "permissions": {
     "allow": [
       "Read(~/.claude)",
+      "Read(.claude)",
       "Read(/tmp/**)",
       "Bash(npx ctx7 *)",
       "Bash(gh *)"
     ],
-    "defaultMode": "default"
+    "defaultMode": "plan"
   },
+  "plansDirectory": "$HOME/.claude/plans",
   "model": "opusplan",
   "advisorModel": "opus",
   "effortLevel": "high",
