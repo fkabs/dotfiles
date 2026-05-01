@@ -3,7 +3,7 @@
   "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "high",
   "theme": "rose-pine-moon",
-  "lastChangelogVersion": "0.70.6",
+  "lastChangelogVersion": "0.71.0",
   "packages": [
     "npm:pi-mcp-adapter",
     "npm:pi-subagents"
