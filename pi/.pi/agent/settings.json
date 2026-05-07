@@ -3,9 +3,10 @@
   "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "high",
   "theme": "rose-pine-moon",
-  "lastChangelogVersion": "0.71.0",
+  "lastChangelogVersion": "0.74.0",
   "packages": [
     "npm:pi-mcp-adapter",
-    "npm:pi-subagents"
+    "npm:pi-subagents",
+    "npm:context-mode"
   ]
 }
