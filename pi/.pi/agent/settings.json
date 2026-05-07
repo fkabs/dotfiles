@@ -6,7 +6,6 @@
   "lastChangelogVersion": "0.74.0",
   "packages": [
     "npm:pi-mcp-adapter",
-    "npm:pi-subagents",
-    "npm:context-mode"
+    "npm:pi-subagents"
   ]
 }

@@ -65,8 +65,7 @@
     "claude-md-management@claude-plugins-official": true,
     "linear@claude-plugins-official": true,
     "caveman@caveman": true,
-    "code-review@claude-plugins-official": true,
-    "context-mode@context-mode": true
+    "code-review@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -79,12 +78,6 @@
       "source": {
         "source": "github",
         "repo": "JuliusBrussee/caveman"
-      }
-    },
-    "context-mode": {
-      "source": {
-        "source": "github",
-        "repo": "mksglu/context-mode"
       }
     }
   },
