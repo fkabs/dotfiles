@@ -59,6 +59,9 @@ alias uvp='uv pip'
 # Claude Code
 alias cc='claude'
 
+# Tmux
+alias tm='tmux' # Force tmux to use 256 colors
+
 # Use nvim as default editor
 alias vi='nvim'
 alias vim='nvim'
