@@ -3,7 +3,9 @@
 
 # claude
 .claude/
+.claude/plans/
 CLAUDE.md
+CLAUDE.local.md
 docs/superpowers/
 docs/plans/
 
