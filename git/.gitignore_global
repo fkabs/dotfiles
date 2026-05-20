@@ -1,13 +1,11 @@
 # asdf
 .tool-versions
 
-# claude
-.claude/
-.claude/plans/
-CLAUDE.md
+# claude/agents
+settings.local.json
 CLAUDE.local.md
-docs/superpowers/
-docs/plans/
+AGENTS.local.md
+.claude/plans/
 
 # Environments
 .env
