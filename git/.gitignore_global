@@ -6,6 +6,7 @@ settings.local.json
 CLAUDE.local.md
 AGENTS.local.md
 .claude/plans/
+.caveman-active
 
 # Environments
 .env
