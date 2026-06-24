@@ -1,0 +1,36 @@
+# asdf
+.tool-versions
+
+# claude/agents
+settings.local.json
+CLAUDE.local.md
+AGENTS.local.md
+.claude/.caveman-active
+.claude/plans/
+
+# Environments
+.env
+.envrc
+.direnv
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jetbrains
+.idea
+
+# MacOS .DS_Store
+**/*.DS_Store
+
+# mise
+.mise*.toml
+
+# pyenv
+.python-version
+
+# Visual Studios Code
+.vscode
+.vscode-server

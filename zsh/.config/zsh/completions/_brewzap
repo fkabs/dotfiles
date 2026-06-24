@@ -1,0 +1,6 @@
+#compdef brewzap
+local -a _formulae _casks _pkgs
+_formulae=( ${(f)"$(brew list --formula 2>/dev/null)"} )
+_casks=( ${(f)"$(brew list --cask 2>/dev/null)"} )
+_pkgs=( ${_formulae[@]/%/:formula} ${_casks[@]/%/:cask} )
+_describe 'installed package' _pkgs

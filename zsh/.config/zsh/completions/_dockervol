@@ -1,0 +1,10 @@
+#compdef dockervol
+if (( CURRENT == 2 )); then
+  _values 'command' \
+    'cp[copy volume contents to local temp directory]' \
+    'sh[open shell in busybox container with volume mounted]'
+elif (( CURRENT == 3 )); then
+  local -a _vols
+  _vols=( ${(f)"$(docker volume ls -q 2>/dev/null)"} )
+  _describe 'volume' _vols
+fi

@@ -1,0 +1,48 @@
+# General settings
+auto-update = off
+confirm-close-surface = false
+theme = rose-pine-moon
+
+# Background settings
+background-opacity = 0.9
+background-blur-radius = 10
+
+# Font settings
+font-size = 14.0
+font-family = FiraCode Nerd Font Mono
+font-style = Retina
+font-family-bold = FiraCode Nerd Font Mono
+font-style-bold = SemiBold
+font-family-italic = FiraCode Nerd Font Mono
+font-style-italic = Light
+font-family-bold-italic = FiraCode Nerd Font Mono
+font-style-bold-italic = Medium
+
+font-feature = -calt
+font-feature = -liga
+font-feature = -dliga
+
+
+# Mac settings
+macos-icon = custom-style
+macos-icon-frame = chrome
+macos-option-as-alt = left
+macos-titlebar-style = transparent
+
+# Shell integration settings
+shell-integration-features = no-cursor, sudo, no-title, ssh-terminfo, ssh-env
+
+# Window Settings
+window-colorspace = display-p3
+window-decoration = auto
+window-height = 32
+window-width = 128
+window-padding-balance = true
+
+# Keybindings
+keybind = global:super+grave_accent=toggle_quick_terminal
+
+# Quick-Terminal settings
+quick-terminal-screen = main
+quick-terminal-animation-duration = 0.1
+quick-terminal-autohide = false

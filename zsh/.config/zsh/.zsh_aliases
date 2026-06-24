@@ -1,0 +1,76 @@
+#!/bin/zsh
+#
+# .zsh_aliases - Set whatever shell aliases you want.
+#
+
+# General aliases
+alias ls="ls -h --color=auto"
+alias la="ls -lah --color=auto"
+alias ll="ls -lh --color=auto"
+
+# Shortcuts for easier navigation
+alias ~="cd ~"
+alias -- -="cd -"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias dl="cd ~/Downloads"
+alias dt="cd ~/Desktop"
+
+# Use bat (https://github.com/sharkdp/bat) instead of cat
+alias bata="bat -A"
+alias cat="bat"
+alias cata="bat -A"
+alias rcat='\bat --paging=never'
+alias rcata='\bat -A --paging=never'
+
+# Use fzf with bat for previewing files as default
+alias fzf='fzf --preview "bat --color=always --style=numbers,changes --line-range=:500 {}"'
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Always enable colored `grep` output
+# Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# Intuitive map function
+# For example, to list all directories that contain a certain file:
+# find . -name .gitattributes | map dirname
+alias map="xargs -n1"
+
+# Make and change directory
+alias mkcd='(){mkdir -p "$1"; cd "$1"}'
+
+# Print each PATH entry on a separate line
+alias showpath='echo -e ${PATH//:/\\n}'
+alias showfpath='echo -e ${FPATH//:/\\n}'
+alias showipath='echo -e ${INFOPATH//:/\\n}'
+alias showmpath='echo -e ${MANPATH//:/\\n}'
+
+# Use uv pip
+alias uvp='uv pip'
+
+# Claude Code
+alias cc='claude'
+
+# Tmux
+alias tm='tmux' # Force tmux to use 256 colors
+
+# Use nvim as default editor
+alias vi='nvim'
+alias vim='nvim'
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Please = sudo with alias expansion
+alias please='sudo '
+
+# Get week number
+alias week='date +%V'

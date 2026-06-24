@@ -1,0 +1,42 @@
+return {
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+        'MunifTanjim/nui.nvim',
+        -- {'3rd/image.nvim', opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+    },
+    lazy = false, -- neo-tree will lazily load itself
+    ---@module 'neo-tree'
+    ---@type neotree.Config?
+    opts = {
+        -- fill any relevant options here
+    },
+    keys = {
+        { '<C-b>', '<cmd>Neotree toggle<cr>', desc = 'Toggle file explorer' },
+        { '<leader>e', '<cmd>Neotree reveal<cr>', desc = 'Reveal file in explorer' },
+    },
+    config = function()
+        require('neo-tree').setup({
+            filesystem = {
+                filtered_items = {
+                    visible = true,
+                    hide_dotfiles = false,
+                    hide_gitignored = false,
+                },
+            },
+            event_handlers = {
+                {
+                    event = 'file_opened',
+                    handler = function()
+                        -- auto close
+                        -- vim.cmd('Neotree close')
+                        -- OR
+                        require('neo-tree.command').execute({ action = 'close' })
+                    end
+                }
+            }
+        })
+    end
+}

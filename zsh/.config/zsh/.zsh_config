@@ -1,0 +1,64 @@
+#!/bin/zsh
+#
+# .zsh_config - Zsh config file for custom configs.
+#
+
+# Export existing paths
+typeset -gxU path PATH
+typeset -gxU fpath FPATH
+typeset -gxU manpath MANPATH
+
+# Create and export new paths
+typeset -gxU infopath INFOPATH
+
+# Tie the new paths
+typeset -gxTU INFOPATH infopath
+
+# ----------------------------------------------------------------
+
+# Fuzzy matching (fzf)
+if type "fzf" > /dev/null; then
+    source <(fzf --zsh)
+fi
+
+# History config
+export HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/zsh/.zsh_history
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
+# direnv
+eval "$(direnv hook zsh)"
+
+# docker CLI completions
+if command -v docker &> /dev/null; then
+    fpath+=("$HOME/.docker/completions")
+fi
+
+# mole shell completion
+if output="$(mole completion zsh 2>/dev/null)"; then eval "$output"; fi
+
+# starship (prompt)
+eval "$(starship init zsh)"
+
+# Tex Live
+path+=("/usr/local/texlive/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH")
+manpath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/man")
+infopath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/info")
+
+# uv (cache completions, invalidate when uv version changes)
+_uv_comp="${ZSH_COMPDUMP:h}/uv-comp.zsh"
+_uv_comp_ver="${ZSH_COMPDUMP:h}/uv-comp.version"
+_uv_ver="$(uv --version 2>/dev/null)"
+if [[ ! -f "$_uv_comp" || ! -f "$_uv_comp_ver" || "$(cat "$_uv_comp_ver")" != "$_uv_ver" ]]; then
+    uv generate-shell-completion zsh > "$_uv_comp"
+    uvx --generate-shell-completion zsh >> "$_uv_comp"
+    echo "$_uv_ver" > "$_uv_comp_ver"
+fi
+source "$_uv_comp"
+
+# ----------------------------------------------------------------
+
+# Update paths
+path=($^path(N-/))
+infopath=($^infopath(N-/))
+manpath=($^manpath(N-/))

@@ -1,0 +1,21 @@
+#compdef cpdf
+
+_cpdf_output() {
+  if [[ ${_cpdf_out_prev-} != "$BUFFER" ]]; then
+    typeset -g _cpdf_out_prev="$BUFFER"
+    _message "output filename - default: combined_$(date +%Y%m%d%H%M%S).pdf"
+    return
+  fi
+  unset _cpdf_out_prev
+  local -a descs=("combined_$(date +%Y%m%d%H%M%S).pdf:default output filename")
+  _describe 'output filename' descs
+}
+
+_cpdf_inputs() {
+  local -a pdfs=( **/*.pdf(N.) )
+  compadd -a pdfs
+}
+
+_arguments \
+  '1:output filename:_cpdf_output' \
+  '*:input pdf:_cpdf_inputs'

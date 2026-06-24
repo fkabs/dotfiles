@@ -1,0 +1,44 @@
+#!/bin/zsh
+
+ssh-tunnel() {
+    local usage="Usage: ssh-tunnel local_port:remote_port user@machine"
+
+    if [[ $# -ne 2 ]]; then
+        echo "Error: Expected 2 arguments"
+        echo "$usage"
+        return 1
+    fi
+
+    local ports="$1"
+    local target="$2"
+
+    # Validate port format
+    if [[ ! "$ports" =~ ^[0-9]+:[0-9]+$ ]]; then
+        echo "Error: Invalid port format '$ports'"
+        echo "$usage"
+        echo "Example: 5432:5432"
+        return 1
+    fi
+
+    # Validate user@machine format
+    if [[ ! "$target" =~ ^.+@.+$ ]]; then
+        echo "Error: Invalid target format '$target'"
+        echo "$usage"
+        echo "Example: user@hostname"
+        return 1
+    fi
+
+    local local_port="${ports%%:*}"
+    local remote_port="${ports##*:}"
+
+    local cmd=(ssh -N -L "${local_port}:localhost:${remote_port}" "${target}")
+
+    echo "> ${cmd[*]}"
+    echo "| Starting SSH tunnel [local :${local_port} -> remote :${remote_port}]"
+    echo "| Press Ctrl-C to close the tunnel."
+    echo "..."
+    
+    "${cmd[@]}"
+}
+
+ssh-tunnel "$@"

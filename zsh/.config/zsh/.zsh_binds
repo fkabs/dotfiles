@@ -1,0 +1,8 @@
+#!/bin/zsh
+#
+# .zsh_binds - Set whatever shell binds you want.
+#
+
+# Arrow keys to search history using substring search
+bindkey "${terminfo[kcuu1]}" history-substring-search-up
+bindkey "${terminfo[kcud1]}" history-substring-search-down

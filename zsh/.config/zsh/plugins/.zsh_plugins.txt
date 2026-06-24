@@ -1,0 +1,17 @@
+# fzf autocomplete
+Aloxaf/fzf-tab kind:defer
+
+# romkatv plugins
+romkatv/zsh-defer
+
+# vi mode
+jeffreytse/zsh-vi-mode
+
+# zoxide plugin
+ajeetdsouza/zoxide kind:defer
+
+# zsh-users plugins
+zsh-users/zsh-autosuggestions kind:defer
+zsh-users/zsh-completions path:src kind:fpath
+zsh-users/zsh-history-substring-search kind:defer
+zsh-users/zsh-syntax-highlighting kind:defer

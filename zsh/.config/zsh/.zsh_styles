@@ -1,0 +1,34 @@
+#!/bin/zsh
+#
+# .zsh_styles - Set zstyle settings for plugins that need them.
+#
+
+# antidote
+zstyle ':antidote:bundle' file ${ZDOTDIR:-~}/plugins/.zsh_plugins.txt
+zstyle ':antidote:static' file ${ANTIDOTE_HOME:-~/.cache/antidote}/.zsh_plugins.zsh
+zstyle ':antidote:bundle' use-friendly-names 'yes'
+
+# completion
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+
+# fzf-tab
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -la1 --color=always $realpath'
+# preview file content with bat when completing cat, less, more, vi, vim, nvim
+zstyle ':fzf-tab:complete:(cat|bat|code|less|more|vi|vim|nvim):*' fzf-preview \
+    'bat --color=always --style=numbers,changes --line-range=:500 $realpath'
+# preview directory's content with eza when completing zoxide
+zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -la1 --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -la1 --color=always $realpath'
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+#use ftb-tmux-popup to make full use of it's "popup" feature
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup

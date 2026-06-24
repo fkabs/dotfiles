@@ -1,0 +1,34 @@
+#compdef ssh-tunnel
+
+_ssh_tunnel_hosts() {
+  local -a entries cur_hosts
+  local cur_user='' line key val h
+
+  while IFS= read -r line; do
+    line=${line##[[:space:]]##}
+    [[ $line == '#'* || -z $line ]] && continue
+    key=${(L)${line%% *}}
+    val=${line#* }
+    case $key in
+      host)
+        for h in $cur_hosts; do
+          [[ $h == *[*?]* ]] && continue
+          entries+=("${cur_user:-$USER}@${h}")
+        done
+        cur_hosts=(${=val})
+        cur_user=''
+        ;;
+      user) cur_user=$val ;;
+    esac
+  done < "${HOME}/.ssh/config"
+  for h in $cur_hosts; do
+    [[ $h == *[*?]* ]] && continue
+    entries+=("${cur_user:-$USER}@${h}")
+  done
+
+  _describe 'ssh target' entries
+}
+
+_arguments \
+  '1:local\:remote ports:' \
+  '2:user\@host:_ssh_tunnel_hosts'
