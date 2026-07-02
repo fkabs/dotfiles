@@ -1,3 +1,8 @@
+---
+description: Git mutation safety
+tools: "*"
+dedupe: session
+---
 # Git safety
 
 **Never run `git commit`, `git push`, `git merge`, `git tag`, `git rebase`, or any other

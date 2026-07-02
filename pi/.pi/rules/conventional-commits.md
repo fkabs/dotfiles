@@ -1,3 +1,8 @@
+---
+description: Conventional commit format
+tools: "*"
+dedupe: session
+---
 # Conventional Commits
 
 Based on the [Conventional Commits](https://www.conventionalcommits.org/) spec.
