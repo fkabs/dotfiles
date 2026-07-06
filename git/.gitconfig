@@ -21,14 +21,14 @@
     # log commands
     filelog = log -u
     fl = log -u
-    graph = log --graph --oneline --decorate --all
-    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [a:%an,c:%cn]" --decorate --numstat
+    graph = log --graph --decorate --all --pretty=format:"%C(auto)%h%d\\ %s\\ %Cblue[%an]"
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%an]" --decorate --numstat
     llc  = "!f() { git ll "$1"^.."$1"; }; f"
-    ln = log --pretty=format:"%h\\ %s\\ [%cn]"
+    ln = log --pretty=format:"%h\\ %s\\ [%an]"
     lnc = "!f() { git ln "$1"^.."$1"; }; f"
     ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%an]" --decorate --date=relative
     lsc  = "!f() { git ls "$1"^.."$1"; }; f"
-    lol = log --oneline --decorate --all
+    lol = log --decorate --all --pretty=format:"%C(auto)%h%d\\ %s\\ %Cblue[%an]"
 
     # diff
     d = diff --word-diff
