@@ -24,8 +24,6 @@ Before implementing:
 - If something is unclear, stop. Name what's confusing. Ask.
 - Always create plans before coding. Don't code to "see if it works". Write down your plan first, before executing.
 
-**Plans MUST start with the date in their filename** — no exceptions, no matter the workspace. Format: `YYYY-MM-DD_short-description.md`. Example: `2024-06-01_implement-new-feature-x.md`.
-
 ## 3. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**

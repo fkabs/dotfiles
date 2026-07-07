@@ -44,17 +44,11 @@ Based on the [Conventional Commits](https://www.conventionalcommits.org/) spec.
 
 Multi-change (bullet body):
 ```
-chore(claude): add plan-naming rule and /fix-plan-names command
+fix(git): show author consistently in log aliases
 
-- Add rules/making-plans.md: auto-loaded naming convention (YYYY-MM-DD_short-desc.md),
-  no hardcoded path, references /fix-plan-names for bulk fixes
-- Add commands/fix-plan-names.md: user-only slash command that resolves plansDirectory
-  from settings, renames non-conforming plan files, updates memory references
-- Remove dead SessionStart hook (context-mode-cache-heal.mjs; plugin uninstalled)
-- Delete code-reviewer agent (no longer available)
-- Fix repo doc table: remove phantom commands/ and hooks/ rows, add real rules/ and commands/
-- Update plan naming format string (short-description) in CLAUDE.md
-- zsh: add direnv hook
+- ln: author was missing, showed committer instead ([%cn] -> [%an])
+- ll: drop always-shown committer pair [a:,c:], keep [%an] only
+- graph/lol: add author block via custom pretty format (replaces --oneline)
 ```
 
 Trivial single-area change (subject only):

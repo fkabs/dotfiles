@@ -117,8 +117,8 @@ Config at `pi/.pi/agent/`. Tracked content:
 | `settings.json` | Default provider, model, thinking level, theme, and packages |
 | `AGENTS.md` | Global agent instructions |
 | `agents/` | Specialized agent prompts (e.g. `code-reviewer.md`) |
-| `commands/` | Slash commands (e.g. `/fix-plan-names`) |
-| `rules/` | Auto-loaded rules: `context7.md`, `conventional-commits.md`, `git-safety.md`, `plan-naming.md` |
+| `commands/` | Slash commands |
+| `rules/` | Auto-loaded rules: `context7.md`, `conventional-commits.md`, `git-safety.md` |
 | `mcp.json` | MCP server config |
 | `themes/` | UI themes |
 
@@ -135,8 +135,8 @@ Config at `claude/.claude/`. Tracked files (config only — cache/runtime dirs u
 | `settings.json` | Env, permissions, model/advisor model, hooks, status line |
 | `CLAUDE.md` | Global Claude instructions |
 | `agents/` | Specialized agent prompts |
-| `rules/` | Auto-loaded user rules (e.g. plan naming) |
-| `commands/` | Custom slash commands (e.g. `/fix-plan-names`) |
+| `rules/` | Auto-loaded user rules (e.g. git safety) |
+| `commands/` | Custom slash commands |
 
 ## VIA (`via/`)
 
