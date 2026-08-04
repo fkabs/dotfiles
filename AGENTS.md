@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-Claude Code guidance for this repo.
+Agent guidance for this repo (Claude Code, pi). pi reads `AGENTS.md` directly; Claude Code reads `CLAUDE.md`, which is a one-line `@AGENTS.md` import (not a symlink) — edit `AGENTS.md`, changes apply to both automatically.
 
 ## What This Repo Is
 
@@ -8,17 +8,15 @@ Dotfiles repo managed with [GNU Stow](https://www.gnu.org/software/stow/). Each 
 
 ## Installing / Removing Symlinks
 
-`make` script (zsh, not Makefile) manages stow ops:
+`justfile` (repo root) manages stow ops. Requires `just` and `stow` on `PATH`.
 
 ```zsh
-# Symlink all packages into $HOME
-./make install
-
-# Remove all symlinks from $HOME
-./make cleanup
+just install     # symlink all packages into $HOME
+just uninstall   # remove all symlinks from $HOME
+just restow      # re-stow all packages (fixes broken links)
 ```
 
-Stow expected at `/opt/homebrew/bin/stow` (Apple Silicon) or `/usr/local/bin/stow` (Intel).
+Each recipe optionally takes package names to target a subset, e.g. `just install nvim`.
 
 Managed packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `nvim`, `pi`, `starship`, `tmux`, `zsh`.
 
@@ -115,16 +113,14 @@ Config at `pi/.pi/agent/`. Tracked content:
 | File/Dir | Purpose |
 |----------|---------|
 | `settings.json` | Default provider, model, thinking level, theme, and packages |
-| `AGENTS.md` | Global agent instructions |
+| `AGENTS.md` | Global agent instructions — standalone copy of `claude/.claude/CLAUDE.md`'s content (see below), kept in sync by hand |
 | `agents/` | Specialized agent prompts (e.g. `code-reviewer.md`) |
-| `commands/` | Slash commands |
-| `rules/` | Auto-loaded rules: `context7.md`, `conventional-commits.md`, `git-safety.md` |
+| `commands/` | Slash commands (empty) |
 | `mcp.json` | MCP server config |
+| `skills/` | Tracked skill packs (e.g. `agents-sdk`, `cloudflare-email-service`) |
 | `themes/` | UI themes |
 
-Packages (`settings.json` → `packages`): `npm:pi-mcp-adapter`, `npm:pi-subagents`, `git:github.com/DietrichGebert/ponytail`, `git:github.com/obra/superpowers`, `npm:pi-rules`.
-
-Skills are managed at runtime by the pi-skills plugin (`~/.pi/agent/skills/`) — not tracked in this repo.
+Packages (`settings.json` → `packages`): `npm:pi-mcp-adapter`, `npm:pi-subagents`, `git:github.com/DietrichGebert/ponytail`, `git:github.com/obra/superpowers`, `npm:pi-rules`, `git:github.com/jonjonrankin/pi-caveman`.
 
 ## Claude Code (`claude/`)
 
@@ -133,18 +129,33 @@ Config at `claude/.claude/`. Tracked files (config only — cache/runtime dirs u
 | File/Dir | Purpose |
 |----------|---------|
 | `settings.json` | Env, permissions, model/advisor model, hooks, status line |
-| `CLAUDE.md` | Global Claude instructions |
-| `agents/` | Specialized agent prompts |
+| `CLAUDE.md` | Global Claude instructions — `pi/.pi/agent/AGENTS.md` holds an independent copy of this content, kept in sync by hand (see below) |
 | `rules/` | Auto-loaded user rules (e.g. git safety) |
-| `commands/` | Custom slash commands |
+| `commands/` | Custom slash commands (empty) |
+| `skills/` | Tracked skill packs (`supacode-cli`, `supacode-deeplinks`) |
+
+`settings.json` is stowed. If it ever reappears as a regular file in `~/.claude/`, some writer (Claude Code itself, supacode) replaced the symlink — re-sync with `cp ~/.claude/settings.json claude/.claude/settings.json`, then `just install claude`.
 
 ## VIA (`via/`)
 
-Keyboard layout files for Monsgeek M1V5 (ISO layout). Not stowed to `$HOME` — `.stow-local-ignore` excludes JSON files; import manually into VIA app.
+Keyboard layout files for Monsgeek M1V5 (ISO layout). Not stowed to `$HOME` — excluded by omission from the `packages` variable in `justfile`, not by ignore rules; `via/.stow-local-ignore` is empty and vestigial. `just install via` would stow it anyway (footgun — don't). Import layout JSON manually into the VIA app.
+
+## Claude Code vs pi Portability
+
+The `claude/` and `pi/` packages cannot share extension config — different runtimes:
+
+| Thing | Claude Code | pi | Portable? |
+|---|---|---|---|
+| Skills | `skills/<name>/SKILL.md` | `skills/<name>/SKILL.md` | Yes — byte-identical layout, e.g. `agents-sdk/SKILL.md` |
+| Commands | `.md` + YAML frontmatter (`allowed-tools`, `description`) | `.toml` (`description`, `prompt`) | No — different format |
+| Plugins / extensions | `.claude-plugin/{plugin.json,marketplace.json}`; hooks are shell commands; `/plugin marketplace add` | `package.json` `"pi"` key → `extensions/*.ts` (TypeScript), or `plugin.yaml`; hooks are named lifecycle events (`before_agent_start`, `pre_llm_call`); `pi install git:`/`npm:` | No — different runtime entirely |
+| Global instructions | `~/.claude/CLAUDE.md` | `~/.pi/agent/AGENTS.md` | No — kept as two independently maintained files, no automated sync (see Pi/Claude Code tables above) |
+
+Cross-tool packages solve this by shipping per-tool adapters from one repo, not a shared format (e.g. `ponytail` ships `.claude-plugin/`, `.cursor/`, `.windsurf/`, `.opencode/`, plus one shared `skills/` dir).
 
 ## Adding a New Package
 
 1. Create top-level dir matching package name.
 2. Add files mirroring `$HOME` paths.
-3. Add package name to `STOW_PACKAGES` in `make`.
-4. Run `./make install` to symlink.
+3. Add package name to `packages` in `justfile`.
+4. Run `just install <pkg>` to symlink.
