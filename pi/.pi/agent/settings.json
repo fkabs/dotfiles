@@ -3,13 +3,14 @@
   "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "high",
   "theme": "rose-pine-moon",
-  "lastChangelogVersion": "0.82.1",
+  "lastChangelogVersion": "0.83.0",
   "packages": [
     "npm:pi-mcp-adapter",
     "npm:pi-subagents",
     "git:github.com/DietrichGebert/ponytail",
     "git:github.com/obra/superpowers",
-    "npm:pi-rules"
+    "npm:pi-rules",
+    "git:github.com/jonjonrankin/pi-caveman"
   ],
   "enabledModels": [
     "github-copilot/gpt-5.4",
