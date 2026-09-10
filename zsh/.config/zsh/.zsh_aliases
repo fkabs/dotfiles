@@ -58,6 +58,7 @@ alias uvp='uv pip'
 
 # Claude Code
 alias cc='claude'
+alias ccdanger='claude --dangerously-skip-permissions'
 
 # Docker
 alias docker-stop-all='docker ps -q | xargs -r docker stop'
