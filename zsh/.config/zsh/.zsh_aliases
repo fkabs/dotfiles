@@ -19,11 +19,10 @@ alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 
 # Use bat (https://github.com/sharkdp/bat) instead of cat
-alias bata="bat -A"
 alias cat="bat"
 alias cata="bat -A"
-alias rcat='\bat --paging=never'
-alias rcata='\bat -A --paging=never'
+alias rcat='bat --paging=never'
+alias rcata='bat -A --paging=never'
 
 # Use fzf with bat for previewing files as default
 alias fzf='fzf --preview "bat --color=always --style=numbers,changes --line-range=:500 {}"'
