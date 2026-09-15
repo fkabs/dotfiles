@@ -61,7 +61,7 @@ Custom zsh functions in `zsh/.config/zsh/functions/` autoloaded. Notable: `gpip`
 - `git/.gitconfig` — aliases, diff/merge tools (Beyond Compare), SSH signing, rerere
 - `git/.gitignore_global` — global gitignore
 - `git/.gitattributes` — global gitattributes
-- Commits signed with SSH key `~/.ssh/id_ed25519.pub`
+- Commits signed with SSH key `~/.ssh/keys/id_ed25519.pub`
 
 ## Neovim (`nvim/`)
 

@@ -182,4 +182,4 @@
 [user]
 	name = Fabian Kovac
 	email = fkabs@pm.me
-    signingkey = ~/.ssh/id_ed25519.pub
+    signingkey = ~/.ssh/keys/id_ed25519.pub
