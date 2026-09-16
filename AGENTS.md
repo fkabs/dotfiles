@@ -18,7 +18,7 @@ just restow      # re-stow all packages (fixes broken links)
 
 Each recipe optionally takes package names to target a subset, e.g. `just install nvim`.
 
-Managed packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `nvim`, `pi`, `starship`, `tmux`, `zsh`.
+Managed packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `herdr`, `nvim`, `pi`, `starship`, `tmux`, `zsh`.
 
 ## Repository Structure
 
@@ -62,6 +62,19 @@ Custom zsh functions in `zsh/.config/zsh/functions/` autoloaded. Notable: `gpip`
 - `git/.gitignore_global` — global gitignore
 - `git/.gitattributes` — global gitattributes
 - Commits signed with SSH key `~/.ssh/keys/id_ed25519.pub`
+
+## Herdr (`herdr/`)
+
+Config at `herdr/.config/herdr/config.toml` (terminal workspace manager for AI
+coding agents). Only `config.toml` is tracked — `session.json`, `*.log` and
+`.plugins.lock` in `~/.config/herdr/` are runtime state and gitignored.
+Reload a running server after edits: `herdr server reload-config`.
+Validate: `herdr config check`.
+
+`config.toml` is stowed. `herdr config reset-keys` (and possibly the onboarding
+flow) writes it — if it reappears as a regular file in `~/.config/herdr/`,
+re-sync with `cp ~/.config/herdr/config.toml herdr/.config/herdr/config.toml`,
+then `just install herdr`.
 
 ## Neovim (`nvim/`)
 

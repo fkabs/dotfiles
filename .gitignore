@@ -131,3 +131,15 @@ zsdoc/data
 
 # local secrets (real tokens, never committed)
 zsh/.config/zsh/.zsh_secrets.local
+
+
+### Herdr ###
+# runtime state, never commit
+herdr/.config/herdr/*.log
+herdr/.config/herdr/session.json
+herdr/.config/herdr/.plugins.lock
+
+
+### Claude Code ###
+# synced skills cache, not hand-authored
+claude/.claude/skills/synced/

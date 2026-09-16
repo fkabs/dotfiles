@@ -1,4 +1,4 @@
-packages := "bat btop claude ghostty git nvim pi starship tmux zsh"
+packages := "bat btop claude ghostty git herdr nvim pi starship tmux zsh"
 
 default:
     @just --list
