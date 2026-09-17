@@ -63,6 +63,9 @@ if [[ $(uname) == Linux ]]; then
     export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 fi
 
+# Use vim as sudo editor
+export SUDO_EDITOR=vim
+
 # Starhip config
 export STARSHIP_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/starship/starship.toml"
 export STARSHIP_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/starship"

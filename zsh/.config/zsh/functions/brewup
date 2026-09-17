@@ -29,7 +29,7 @@ echo "\n# Updating claude code"
 claude update
 
 # pi
-echo "\n# Updating pi coding agent and plugins"
+echo "\n# Updating pi coding agent and extensions"
 pi update --all
 
 # Clean up

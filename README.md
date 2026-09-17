@@ -9,9 +9,9 @@ See [AGENTS.md](AGENTS.md) for repo structure and conventions.
 just install
 ```
 
-This repo is config-only — it symlinks config into `$HOME`, it does not install the
+This repo is config-only: it symlinks config into `$HOME`, it does not install the
 CLI tools those configs assume. **Install the tools yourself first** (Homebrew on both
-macOS and Linux, or however you prefer) — nothing here checks whether a tool is
+macOS and Linux, or however you prefer); nothing here checks whether a tool is
 installed before using it; a missing one just errors loudly at shell startup.
 
 ## Tools
@@ -24,31 +24,33 @@ Assumed installed and on `PATH`. Nothing is guarded against these being missing:
 - [`git`](https://git-scm.com/)
 - [GNU `stow`](https://www.gnu.org/software/stow/)
 - [`just`](https://github.com/casey/just)
-- **Homebrew** — macOS (`/opt/homebrew` or `/usr/local`) or [Linuxbrew](https://docs.brew.sh/Homebrew-on-Linux) (`/home/linuxbrew/.linuxbrew`). Auto-detected from all three prefixes
-- [`bat`](https://github.com/sharkdp/bat) — replaces `cat`, used as `$MANPAGER`
-- [`eza`](https://github.com/eza-community/eza) — directory previews in `fzf-tab`
-- [`fzf`](https://github.com/junegunn/fzf) — fuzzy completion and keybindings
-- [`zoxide`](https://github.com/ajeetdsouza/zoxide) — smart `cd`
-- [`starship`](https://starship.rs/) — prompt
-- [`direnv`](https://direnv.net/) — per-directory env loading
-- [`uv`](https://docs.astral.sh/uv/) — Python tool manager, shell completions loaded at startup
-- [`neovim`](https://neovim.io/) — `vi`/`vim` alias to `nvim`. **0.12.0+** (required by
+- **Homebrew**: macOS (`/opt/homebrew` or `/usr/local`) or [Linuxbrew](https://docs.brew.sh/Homebrew-on-Linux) (`/home/linuxbrew/.linuxbrew`). Auto-detected from all three prefixes
+- [`bat`](https://github.com/sharkdp/bat): replaces `cat`, used as `$MANPAGER`
+- [`eza`](https://github.com/eza-community/eza): directory previews in `fzf-tab`
+- [`fzf`](https://github.com/junegunn/fzf): fuzzy completion and keybindings
+- [`zoxide`](https://github.com/ajeetdsouza/zoxide): smart `cd`
+- [`starship`](https://starship.rs/): prompt
+- [`direnv`](https://direnv.net/): per-directory env loading
+- [`uv`](https://docs.astral.sh/uv/): Python tool manager, shell completions loaded at startup
+- [`neovim`](https://neovim.io/): `vi`/`vim` alias to `nvim`. **0.12.0+** (required by
   nvim-treesitter's `main` branch)
 - [`tree-sitter`](https://github.com/tree-sitter/tree-sitter) CLI, **0.26.1+**
-  (`brew install tree-sitter-cli` — the `tree-sitter` formula is lib-only) — parser
+  (`brew install tree-sitter-cli`, the `tree-sitter` formula is lib-only): parser
   compilation for nvim-treesitter; not npm
-- a C compiler (`cc`/`gcc`/`clang`) — parser compilation for nvim-treesitter; present by
+- a C compiler (`cc`/`gcc`/`clang`): parser compilation for nvim-treesitter; present by
   default on macOS (Xcode CLT), may be missing on a headless Linux box
 - [`tmux`](https://github.com/tmux/tmux)
-- [`gh`](https://cli.github.com/) — git credential helper
-- [`antidote`](https://github.com/mattmc3/antidote) — zsh plugin manager; self-clones
+- [`gh`](https://cli.github.com/): git credential helper
+- [`antidote`](https://github.com/mattmc3/antidote): zsh plugin manager; self-clones
   to `~/.antidote` on first shell start, no manual install needed
 
 ### Optional
 
 Only used on demand, or genuinely macOS-only regardless of what's installed:
 
-- [`git-delta`](https://github.com/dandavison/delta) / [`difftastic`](https://github.com/Wilfred/difftastic) — alternate `git difftool -t <name>` backends
-- [`btop`](https://github.com/aristocratos/btop)
-- [Ghostscript](https://www.ghostscript.com/) (`gs`) — used by the `cpdf` zsh function
-- `mas` — Mac App Store CLI, only used by `brewup` (macOS only, no Linux equivalent)
+- [`git-delta`](https://github.com/dandavison/delta) / [`difftastic`](https://github.com/Wilfred/difftastic): alternate `git difftool -t <name>` backends
+- [`btop`](https://github.com/aristocratos/btop): **1.4.7+** config format (GPU keys)
+- [Ghostscript](https://www.ghostscript.com/) (`gs`): used by the `cpdf` zsh function
+- `mas`: Mac App Store CLI, only used by `brewup` (macOS only, no Linux equivalent)
+- `vim`: used as `$SUDO_EDITOR` for `sudoedit`; needs a real `vim` on `PATH` since the
+  `vim`/`nvim` alias doesn't apply under sudo's non-interactive shell

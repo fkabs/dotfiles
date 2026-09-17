@@ -81,11 +81,11 @@ alias tm='tmux' # Force tmux to use 256 colors
 alias vi='nvim'
 alias vim='nvim'
 
-# Enable aliases to be sudo’ed
-alias sudo='sudo '
+# Enable aliases to be sudo’ed and preserve the environment
+alias sudo='sudo -E HOME=$HOME '
 
-# Please = sudo with alias expansion
-alias please='sudo '
+# Please = sudo with last command
+alias please='sudo -E HOME=$HOME '
 
 # Get week number
 alias week='date +%V'
