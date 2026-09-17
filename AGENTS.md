@@ -4,21 +4,57 @@ Agent guidance for this repo (Claude Code, pi). pi reads `AGENTS.md` directly; C
 
 ## What This Repo Is
 
-Dotfiles repo managed with [GNU Stow](https://www.gnu.org/software/stow/). Each top-level dir = stow package mirroring `$HOME` structure.
+Dotfiles repo managed with [GNU Stow](https://www.gnu.org/software/stow/), portable
+across macOS and Linux (work laptop, Linux laptop, headless servers — no Homebrew
+there). Each top-level dir = stow package mirroring `$HOME` structure. Every package
+stows on every OS — there's no per-OS package split; macOS-only behavior is guarded
+inline at runtime instead (see below).
 
 ## Installing / Removing Symlinks
 
 `justfile` (repo root) manages stow ops. Requires `just` and `stow` on `PATH`.
 
 ```zsh
-just install     # symlink all packages into $HOME
-just uninstall   # remove all symlinks from $HOME
-just restow      # re-stow all packages (fixes broken links)
+just install            # symlink all packages into $HOME
+just install nvim tmux  # symlink (or restow) just these packages
+just uninstall          # remove all symlinks from $HOME
+just restow             # re-stow all packages (fixes broken links)
 ```
 
-Each recipe optionally takes package names to target a subset, e.g. `just install nvim`.
+This repo is config-only — it doesn't install the CLI tools it configures. See
+[README.md](README.md) for what needs to already be on `PATH`.
 
-Managed packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `herdr`, `nvim`, `pi`, `starship`, `tmux`, `zsh`.
+Managed packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `herdr`, `nvim`, `pi`,
+`starship`, `tmux`, `zsh`. `via` is never stowed (excluded by omission, as before).
+
+## Cross-Platform: OS Gates, Not Tool-Presence Checks
+
+Tools are assumed installed (Homebrew or Linuxbrew, wherever this is stowed) — nothing
+guards on "is this tool on PATH". What's guarded is code that has no Linux equivalent
+*at all*, regardless of what's installed:
+
+- `zsh/.config/zsh/.zprofile` — Homebrew is loaded by checking all three known prefixes
+  (`/opt/homebrew/bin/brew`, `/usr/local/bin/brew`, `/home/linuxbrew/.linuxbrew/bin/brew`
+  — macOS arm64/Intel and Linuxbrew) rather than a `uname` check, since the prefix
+  differs by platform even when brew itself is guaranteed present. It's an `eval`, not a
+  plain env var, so it lives in `.zprofile` (login shells only) rather than `.zshenv`
+  (which stays exports-only, loaded for every shell). `$BROWSER`, `$SSH_AUTH_SOCK`, and
+  the whole TeX Live block are behind explicit `[[ $(uname) == Darwin/Linux ]]` checks in
+  `.zshenv` — these are OS API/toolchain differences, not missing packages.
+- `zsh/.config/zsh/functions/{brewup,brewzap,backup}` — only the pieces with no Linux
+  equivalent are guarded: `(( $+commands[mas] ))` (Mac App Store CLI — brew can't make
+  this exist on Linux) and `(( $+commands[defaults] ))` (macOS Dock/preferences API).
+  `brew`/`antidote`/`nvim`/`claude`/`pi` calls are unconditional.
+- `git/.gitconfig` — credential helper is bare `!gh auth git-credential` (PATH-resolved,
+  no more hardcoded `/opt/homebrew/bin/`); `bc` (Beyond Compare) stays the unconditional
+  default diff/merge tool as before — that only matters if `git difftool`/`git
+  mergetool` is invoked explicitly, so a missing `bc` on Linux is a soft failure, not a
+  startup break. `difft` remains available via `git difftool -t difft` on any OS.
+
+`localip`/`ips` (`.zsh_aliases`) key off `ipconfig`'s presence as an OS-detection proxy
+(no Linux distro ships a binary by that name); the `pbcopy`/`pbpaste` clipboard shim
+picks between `wl-copy`/`xclip` since macOS's names for these don't exist on Linux under
+any name, install or not.
 
 ## Repository Structure
 
@@ -45,7 +81,7 @@ Zsh config in `zsh/`, split across files sourced by `.zshrc`:
 
 Plugin management via [antidote](https://github.com/mattmc3/antidote). Plugin list: `zsh/.config/zsh/plugins/.zsh_plugins.txt`.
 
-Custom zsh functions in `zsh/.config/zsh/functions/` autoloaded. Notable: `gpip`/`nopip` (bypass virtualenv pip guard), `venv`/`workon` (virtualenv helpers), `brewup`/`brewzap` (Homebrew helpers), `backup`, `ssh-tunnel`.
+Custom zsh functions in `zsh/.config/zsh/functions/` autoloaded. Notable: `gpip`/`nopip` (bypass virtualenv pip guard), `venv`/`workon` (virtualenv helpers), `ssh-tunnel`, `backup`/`brewup`/`brewzap` (macOS-specific sections internally guarded by tool presence) — see [Cross-Platform: Guards, Not Packages](#cross-platform-guards-not-packages).
 
 ## Key Environment Conventions
 
@@ -58,7 +94,8 @@ Custom zsh functions in `zsh/.config/zsh/functions/` autoloaded. Notable: `gpip`
 
 ## Git (`git/`)
 
-- `git/.gitconfig` — aliases, diff/merge tools (Beyond Compare), SSH signing, rerere
+- `git/.gitconfig` — aliases, diff/merge tools (Beyond Compare, PATH-resolved `gh`
+  credential helper), SSH signing, rerere
 - `git/.gitignore_global` — global gitignore
 - `git/.gitattributes` — global gitattributes
 - Commits signed with SSH key `~/.ssh/keys/id_ed25519.pub`
@@ -113,7 +150,11 @@ Config at `starship/.config/starship/starship.toml`. Uses rose-pine-moon palette
 
 ## bat (`bat/`)
 
-Config at `bat/.batrc` (path via `$BAT_CONFIG_PATH` in `.zshenv`). Used as `MANPAGER` for rendered man pages.
+Config at `bat/.config/bat/config` — bat's native XDG location, found automatically
+via `$XDG_CONFIG_HOME` (no `$BAT_CONFIG_PATH` override needed). Uses `--theme=ansi` so
+syntax highlighting picks up the terminal's own ANSI colors (Ghostty's
+`theme = rose-pine-moon`) instead of a hardcoded bat theme. Also used as `MANPAGER` for
+rendered man pages.
 
 ## btop (`btop/`)
 
