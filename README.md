@@ -32,7 +32,13 @@ Assumed installed and on `PATH`. Nothing is guarded against these being missing:
 - [`starship`](https://starship.rs/) — prompt
 - [`direnv`](https://direnv.net/) — per-directory env loading
 - [`uv`](https://docs.astral.sh/uv/) — Python tool manager, shell completions loaded at startup
-- [`neovim`](https://neovim.io/) — `vi`/`vim` alias to `nvim`
+- [`neovim`](https://neovim.io/) — `vi`/`vim` alias to `nvim`. **0.12.0+** (required by
+  nvim-treesitter's `main` branch)
+- [`tree-sitter`](https://github.com/tree-sitter/tree-sitter) CLI, **0.26.1+**
+  (`brew install tree-sitter-cli` — the `tree-sitter` formula is lib-only) — parser
+  compilation for nvim-treesitter; not npm
+- a C compiler (`cc`/`gcc`/`clang`) — parser compilation for nvim-treesitter; present by
+  default on macOS (Xcode CLT), may be missing on a headless Linux box
 - [`tmux`](https://github.com/tmux/tmux)
 - [`gh`](https://cli.github.com/) — git credential helper
 - [`antidote`](https://github.com/mattmc3/antidote) — zsh plugin manager; self-clones
