@@ -1,0 +1,13 @@
+# bat config
+# https://github.com/sharkdp/bat#configuration-file
+
+# Use the terminal's own ANSI colors instead of a hardcoded theme
+# Ghostty's `theme = rose-pine-moon` already sets those, so this picks it up for free
+# and stays in sync if the terminal theme ever changes.
+--theme="ansi"
+
+# Show line numbers, Git modification markers, and file header (no grid)
+--style="changes,header-filename,header-filesize,grid,numbers,snip"
+
+# Use italic text on the terminal (not supported on all terminals)
+--italic-text=always
