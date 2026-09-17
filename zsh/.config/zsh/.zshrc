@@ -8,8 +8,12 @@ if [ "${ZSH_PROFILING}" = "1" ]; then
     zmodload zsh/zprof
 fi
 
+# HISTFILE, ZSH_COMPDUMP and uv's completion cache live under here —
+# nothing else creates it, so a fresh box needs this before they're used.
+mkdir -p "${XDG_STATE_HOME:-$HOME/.local/state}/zsh"
+
 # Add Brew zsh-completions and site-functions to fpath
-fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
+[[ -n $HOMEBREW_PREFIX ]] && fpath=("$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
 
 # Add custom CLI completions
 fpath=($ZDOTDIR/completions $fpath)

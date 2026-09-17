@@ -40,10 +40,12 @@ if output="$(mole completion zsh 2>/dev/null)"; then eval "$output"; fi
 # starship (prompt)
 eval "$(starship init zsh)"
 
-# Tex Live
-path+=("/usr/local/texlive/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH")
-manpath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/man")
-infopath+=("/usr/local/texlive/$TEXLIVE_RELEASE/texmf-dist/doc/info")
+# Tex Live (macOS only)
+if [[ $(uname) == Darwin ]]; then
+    path+=("$TEXLIVE_DIR/$TEXLIVE_RELEASE/bin/$TEXLIVE_ARCH")
+    manpath+=("$TEXLIVE_DIR/$TEXLIVE_RELEASE/texmf-dist/doc/man")
+    infopath+=("$TEXLIVE_DIR/$TEXLIVE_RELEASE/texmf-dist/doc/info")
+fi
 
 # uv (cache completions, invalidate when uv version changes)
 _uv_comp="${ZSH_COMPDUMP:h}/uv-comp.zsh"

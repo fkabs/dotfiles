@@ -27,9 +27,20 @@ alias rcata='bat -A --paging=never'
 # Use fzf with bat for previewing files as default
 alias fzf='fzf --preview "bat --color=always --style=numbers,changes --line-range=:500 {}"'
 
+# Clipboard (macOS has pbcopy/pbpaste natively; shim them on Linux)
+if (( $+commands[wl-copy] )); then
+    alias pbcopy=wl-copy pbpaste=wl-paste
+elif (( $+commands[xclip] )); then
+    alias pbcopy='xclip -selection clipboard' pbpaste='xclip -selection clipboard -o'
+fi
+
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
+if (( $+commands[ipconfig] )); then
+    alias localip="ipconfig getifaddr en0"
+else
+    alias localip="ip -4 -o addr show scope global | awk '{print \$4}' | cut -d/ -f1"
+fi
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
 # Always enable colored `grep` output

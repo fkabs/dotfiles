@@ -26,10 +26,14 @@ fi
 
 # Make a brew dump file
 echo "\n# Brewfile"
+mkdir -p $BACKUP_HOME/brew
 brew bundle dump --force --file=$BACKUP_HOME/brew/Brewfile
 echo "Dumped file to $BACKUP_HOME/brew/Brewfile"
 
-# Exporting dock layout
-echo "\n# Dock layout"
-echo "Exporting dock layout to $BACKUP_HOME/dock/dock-layout.plist"
-defaults export com.apple.dock $BACKUP_HOME/dock/dock-layout.plist
+# Exporting dock layout (macOS only)
+if (( $+commands[defaults] )); then
+  echo "\n# Dock layout"
+  mkdir -p $BACKUP_HOME/dock
+  echo "Exporting dock layout to $BACKUP_HOME/dock/dock-layout.plist"
+  defaults export com.apple.dock $BACKUP_HOME/dock/dock-layout.plist
+fi

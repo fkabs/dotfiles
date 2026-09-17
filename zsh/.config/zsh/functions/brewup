@@ -1,16 +1,20 @@
 #!/bin/zsh
 
-# Exporting dock layout
-echo "# Exporting dock layout to /tmp/dock-layout.plist"
-defaults export com.apple.dock /tmp/dock-layout.plist
+# Exporting dock layout (macOS only)
+if (( $+commands[defaults] )); then
+    echo "# Exporting dock layout to /tmp/dock-layout.plist"
+    defaults export com.apple.dock /tmp/dock-layout.plist
+fi
 
 # Antidote
 echo "\n# Updating antidote plugins"
 antidote update
 
-# MAS
-echo "\n# Updating mas apps"
-mas upgrade
+# MAS (macOS only)
+if (( $+commands[mas] )); then
+    echo "\n# Updating mas apps"
+    mas upgrade
+fi
 
 # Brew
 echo "\n# Updating brew apps"
@@ -36,11 +40,14 @@ brew doctor
 
 # Dump Brewfile
 echo "\n# Dumping Brewfile"
+mkdir -p $BACKUP_HOME/brew
 brew bundle dump --force --file=$BACKUP_HOME/brew/Brewfile
 echo "Dumped file to $BACKUP_HOME/brew/Brewfile"
 
-# Importing dock layout
-echo "\n# Importing saved dock layout from /tmp/dock-layout.plist"
-defaults import com.apple.dock /tmp/dock-layout.plist
-rm -f /tmp/dock-layout.plist
-killall Dock
+# Importing dock layout (macOS only)
+if (( $+commands[defaults] )); then
+    echo "\n# Importing saved dock layout from /tmp/dock-layout.plist"
+    defaults import com.apple.dock /tmp/dock-layout.plist
+    rm -f /tmp/dock-layout.plist
+    killall Dock
+fi
