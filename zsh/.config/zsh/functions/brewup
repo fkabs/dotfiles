@@ -18,6 +18,7 @@ fi
 
 # Brew
 echo "\n# Updating brew apps"
+brew update
 brew upgrade --greedy
 
 # nvim
