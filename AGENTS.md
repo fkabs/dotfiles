@@ -109,8 +109,9 @@ Custom zsh functions in `zsh/.config/zsh/functions/` autoloaded. Notable: `gpip`
 ## Herdr (`herdr/`)
 
 Config at `herdr/.config/herdr/config.toml` (terminal workspace manager for AI
-coding agents). Only `config.toml` is tracked; `session.json`, `*.log` and
-`.plugins.lock` in `~/.config/herdr/` are runtime state and gitignored.
+coding agents). `config.toml` and `plugins.json` are tracked; `session.json`,
+`*.log`, `.plugins.lock` and `plugins/` in `~/.config/herdr/` are runtime state
+and gitignored.
 Reload a running server after edits: `herdr server reload-config`.
 Validate: `herdr config check`.
 

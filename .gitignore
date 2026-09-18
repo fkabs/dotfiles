@@ -138,6 +138,7 @@ zsh/.config/zsh/.zsh_secrets.local
 herdr/.config/herdr/*.log
 herdr/.config/herdr/session.json
 herdr/.config/herdr/.plugins.lock
+herdr/.config/herdr/plugins/
 
 
 ### Claude Code ###
