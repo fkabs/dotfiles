@@ -67,8 +67,7 @@ alias showmpath='echo -e ${MANPATH//:/\\n}'
 alias uvp='uv pip'
 
 # Claude Code
-alias cc='claude'
-alias ccdanger='claude --dangerously-skip-permissions'
+alias ccyolo='claude --dangerously-skip-permissions'
 
 # Docker
 alias docker-stop-all='docker ps -q | xargs -r docker stop'
