@@ -34,6 +34,11 @@ if command -v docker &> /dev/null; then
     fpath+=("$HOME/.docker/completions")
 fi
 
+# elan (lean)
+if [[ -d "$HOME/.elan/bin" ]]; then
+    path+=("$HOME/.elan/bin")
+fi
+
 # mole shell completion
 if output="$(mole completion zsh 2>/dev/null)"; then eval "$output"; fi
 
