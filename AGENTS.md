@@ -110,15 +110,19 @@ Custom zsh functions in `zsh/.config/zsh/functions/` autoloaded. Notable: `gpip`
 
 Config at `herdr/.config/herdr/config.toml` (terminal workspace manager for AI
 coding agents). `config.toml` and `plugins.json` are tracked; `session.json`,
-`*.log`, `.plugins.lock` and `plugins/` in `~/.config/herdr/` are runtime state
-and gitignored.
+`*.log`, `.plugins.lock` and `plugins/` in `~/.config/herdr/` are runtime state.
+The `justfile` stows `herdr` with `--no-folding` (herdr only; other packages like
+`btop` stay folded), so `~/.config/herdr` is always a real dir with the two tracked
+files symlinked individually: runtime state never lands inside the repo, hence no
+gitignore entries for it.
 Reload a running server after edits: `herdr server reload-config`.
 Validate: `herdr config check`.
 
 `config.toml` is stowed. `herdr config reset-keys` (and possibly the onboarding
 flow) writes it: if it reappears as a regular file in `~/.config/herdr/`,
 re-sync with `cp ~/.config/herdr/config.toml herdr/.config/herdr/config.toml`,
-then `just install herdr`.
+then `rm ~/.config/herdr/config.toml` (stow won't link over a regular file) and
+`just install herdr`.
 
 ## Neovim (`nvim/`)
 
