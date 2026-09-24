@@ -42,9 +42,11 @@ fi
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_config ]] && source ${ZDOTDIR:-$HOME}/.zsh_config
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_opts ]] && source ${ZDOTDIR:-$HOME}/.zsh_opts
 [[ -e ${ZDOTDIR:-$HOME}/.zsh_styles ]] && source ${ZDOTDIR:-$HOME}/.zsh_styles
-[[ -e ${ZDOTDIR:-$HOME}/.zsh_secrets ]] && source ${ZDOTDIR:-$HOME}/.zsh_secrets
-# .zsh_secrets.local must source AFTER template — empty defaults, real overrides
-[[ -e ${ZDOTDIR:-$HOME}/.zsh_secrets.local ]] && source ${ZDOTDIR:-$HOME}/.zsh_secrets.local
+if [[ -e ${ZDOTDIR:-$HOME}/.zsh_secrets ]]; then
+    source ${ZDOTDIR:-$HOME}/.zsh_secrets
+else
+    print -u2 "zshrc: ${ZDOTDIR:-$HOME}/.zsh_secrets not found (see .zsh_secrets.example)"
+fi
 
 # Clone antidote if necessary.
 [[ -d $HOME/.antidote ]] ||
