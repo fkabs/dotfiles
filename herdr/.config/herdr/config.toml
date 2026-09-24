@@ -148,6 +148,24 @@ prefix = "ctrl+space"
 # width = "80%"
 # height = "80%"
 
+# Lazygit over the focused pane. q closes it.
+[[keys.command]]
+key = ["prefix+alt+g"]
+type = "popup"
+command = "lazygit"
+description = "Lazygit"
+width = "90%"
+height = "90%"
+
+# Neovim over the focused pane. q closes it.
+[[keys.command]]
+key = ["prefix+alt+v"]
+type = "popup"
+command = "cd \"${HERDR_ACTIVE_PANE_CWD:-.}\" && nvim ."
+description = "Neovim"
+width = "90%"
+height = "90%"
+
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
 # [keys.indexed]
