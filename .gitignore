@@ -131,8 +131,3 @@ zsdoc/data
 
 # local secrets (real tokens, never committed)
 zsh/.config/zsh/.zsh_secrets
-
-
-### Claude Code ###
-# synced skills cache, not hand-authored
-claude/.claude/skills/synced/
