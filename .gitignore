@@ -88,11 +88,6 @@ $RECYCLE.BIN/
 *.lnk
 
 
-### Neovim ###
-# ignore neovim lazylock
-lazy-lock.json
-
-
 ### Zsh ###
 # Zsh compiled script + zrecompile backup
 *.zwc
