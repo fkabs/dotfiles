@@ -321,6 +321,7 @@ status_indicators = "symbols"
 # system = ask the OS notification service directly
 # delivery = "off"
 # delay_seconds = 1
+delivery = "herdr"
 
 [ui.toast.herdr]
 # position = "bottom-right"
