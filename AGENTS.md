@@ -91,8 +91,8 @@ in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new fi
   `$XDG_CACHE_HOME/tmux/plugins`.
 - **herdr**: after edits `herdr config check`, then `herdr server reload-config`.
 - **btop**: config format 1.4.7+ (GPU keys).
-- **Theme**: rose-pine-moon everywhere (ghostty, tmux, starship, btop, nvim, pi). bat
-  uses `--theme=ansi` to inherit the terminal palette.
+- **Theme**: rose-pine-moon everywhere (ghostty, tmux, starship, btop, nvim, pi, claude
+  theme and statusline). bat uses `--theme=ansi` to inherit the terminal palette.
 
 ## Claude Code & pi (`claude/`, `pi/`)
 
@@ -104,6 +104,8 @@ in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new fi
 | Skills | `skills/` | `agent/skills/` |
 | Hooks / extensions | `hooks/` (shell) | `agent/extensions/` (TypeScript) |
 | Agents | — | `agent/agents/` |
+| Themes | `themes/` | — |
+| Statusline | `claude-powerline.json` ([claude-powerline](https://github.com/Owloops/claude-powerline), TUI style) | — |
 
 Kept in sync by hand, no automation:
 
