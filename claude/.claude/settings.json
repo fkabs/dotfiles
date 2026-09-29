@@ -18,7 +18,7 @@
     ],
     "defaultMode": "plan"
   },
-  "model": "opus",
+  "model": "opusplan[1m]",
   "hooks": {
     "Notification": [
       {
@@ -149,11 +149,11 @@
     "linear@claude-plugins-official": true,
     "ponytail@ponytail": true,
     "skill-creator@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
     "gitlab@claude-plugins-official": true,
-    "claude-powerline@claude-powerline": true
+    "claude-powerline@claude-powerline": true,
+    "superpowers@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -189,6 +189,14 @@
   },
   "spinnerTipsEnabled": false,
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "high"
+    }
+  },
   "advisorModel": "fable",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
