@@ -3,9 +3,8 @@
   "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "high",
   "theme": "rose-pine-moon",
-  "lastChangelogVersion": "0.86.1",
+  "lastChangelogVersion": "1.0.3",
   "packages": [
-    "npm:pi-mcp-adapter",
     "npm:pi-subagents",
     "git:github.com/DietrichGebert/ponytail",
     "git:github.com/obra/superpowers",
