@@ -39,7 +39,7 @@ pre-commit (`.pre-commit-config.yaml`). Never bypass it.
 - Stow ignores `.gitignore`: any untracked file physically inside a package dir gets
   linked too. Keep app state out of package dirs.
 - **Symlink replaced by a regular file.** Some writers swap the link for a real file
-  (Claude Code/supacode → `~/.claude/settings.json`, `herdr config reset-keys` →
+  (Claude Code → `~/.claude/settings.json`, `herdr config reset-keys` →
   `~/.config/herdr/config.toml`, herdr integration updates → `herdr-agent-state.*`,
   `herdr-tui-session.js`).
   Fix: `cp` the file back into the repo, `rm` the target (stow won't link over a
@@ -117,8 +117,8 @@ Kept in sync by hand, no automation:
 - Rules in opencode are **appended to its `AGENTS.md`** (each under a
   `<!-- rule: <name> -->` comment, verbatim). The `instructions` key in `opencode.json`
   did not load them (tested v2.0.24, glob and explicit paths, `~` and `{env:HOME}`).
-- Skills present in both claude and pi (`herdr`, `supacode-*`): byte-identical copies. opencode
-  reads those from `~/.claude/skills`, so it has no copy.
+- Skills present in both claude and pi (`herdr`): byte-identical copies. opencode reads
+  that one from `~/.claude/skills`, so it has no copy.
 - `pi/.pi/agent/agents/*.md` ↔ `opencode/.../agents/*.md`: same body, opencode adds
   `mode: subagent`.
 - `pi/.pi/agent/mcp.json` ↔ `mcp` in `opencode.json`: context7 and github in both
