@@ -69,6 +69,11 @@ alias uvp='uv pip'
 # Claude Code
 alias ccyolo='claude --dangerously-skip-permissions'
 
+# Pi
+pi() {
+    command pi "$@" 2> >(grep -v '^\[pi-tool-rules\] skipped .*: symlink escape to ' >&2)
+}
+
 # Docker
 alias docker-stop-all='docker ps -q | xargs -r docker stop'
 alias docker-rm-all='docker ps -aq | xargs -r docker rm'
