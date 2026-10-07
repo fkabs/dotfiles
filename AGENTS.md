@@ -124,6 +124,9 @@ Kept in sync by hand, no automation:
 - `pi/.pi/agent/mcp.json` ↔ `mcp` in `opencode.json`: context7 and github in both
   (different schema); Linear is opencode-only. Secrets come from `.zsh_secrets` via
   `{env:VAR}`; Linear uses OAuth (`opencode mcp auth linear`, once per machine).
+- Bifrost model limits: `pi/.pi/agent/models.json` (`modelOverrides.contextWindow/maxTokens`)
+  ↔ `limit` per model in the opencode `ustp` provider. Keep both in sync. Bifrost's
+  `/models` reports no limits, so without the override pi falls back to 128k/8k.
 
 `herdr-agent-state.{sh,ts,js}` are installed and overwritten by herdr's integration:
 don't edit, add custom hooks beside them. For opencode (`herdr integration install
