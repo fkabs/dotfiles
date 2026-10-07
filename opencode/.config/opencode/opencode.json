@@ -7,7 +7,7 @@
     "./plugins/caveman/plugin.js"
   ],
   "provider": {
-    "ustp": {
+    "ustp-bifrost": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "USTP (Bifrost)",
       "options": {
@@ -23,7 +23,7 @@
           "reasoning": true,
           "limit": {
             "context": 262144,
-            "output": 131072
+            "output": 65536
           }
         },
         "vllm/Qwen3-Coder-Next-FP8": {
@@ -36,8 +36,40 @@
         "vllm/gemma-4-31B-it": {
           "name": "Gemma 4 31B",
           "limit": {
+            "context": 131072,
+            "output": 32768
+          }
+        }
+      }
+    },
+    "ustp-openwebui": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "USTP (Open WebUI)",
+      "options": {
+        "baseURL": "{env:OPENWEBUI_URL}",
+        "apiKey": "{env:OPENWEBUI_API_KEY}"
+      },
+      "models": {
+        "vllm/Qwen3.8-27B-FP8": {
+          "name": "Qwen3.8 27B",
+          "reasoning": true,
+          "limit": {
             "context": 262144,
-            "output": 131072
+            "output": 65536
+          }
+        },
+        "vllm/Qwen3-Coder-Next-FP8": {
+          "name": "Qwen3 Coder Next",
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          }
+        },
+        "vllm/gemma-4-31B-it": {
+          "name": "Gemma 4 31B",
+          "limit": {
+            "context": 131072,
+            "output": 32768
           }
         }
       }

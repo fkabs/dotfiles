@@ -124,9 +124,13 @@ Kept in sync by hand, no automation:
 - `pi/.pi/agent/mcp.json` ↔ `mcp` in `opencode.json`: context7 and github in both
   (different schema); Linear is opencode-only. Secrets come from `.zsh_secrets` via
   `{env:VAR}`; Linear uses OAuth (`opencode mcp auth linear`, once per machine).
-- Bifrost model limits: `pi/.pi/agent/models.json` (`modelOverrides.contextWindow/maxTokens`)
-  ↔ `limit` per model in the opencode `ustp` provider. Keep both in sync. Bifrost's
-  `/models` reports no limits, so without the override pi falls back to 128k/8k.
+- USTP model limits live in four places, keep them in sync: `pi/.pi/agent/models.json`
+  (`modelOverrides` for the `bifrost` provider), `pi/.pi/agent/extensions/ustp-openwebui.ts`,
+  and `limit` per model in the opencode `ustp-bifrost` and `ustp-openwebui` providers.
+  Neither Bifrost nor Open WebUI report limits, so without them pi falls back to 128k/8k. Values are the
+  served `max_model_len` (read from vLLM's rejection of an oversized `max_tokens`, not
+  the model cards: Gemma 4 serves 131072, the Qwens 262144) with output capped lower,
+  because a request fails when prompt + `max_tokens` exceeds the window.
 
 `herdr-agent-state.{sh,ts,js}` are installed and overwritten by herdr's integration:
 don't edit, add custom hooks beside them. For opencode (`herdr integration install
@@ -139,12 +143,16 @@ formats/runtimes.
 
 ### opencode specifics
 
-- `ustp` provider = the Bifrost backend pi uses (`BIFROST_URL`, `BIFROST_API_KEY`,
+- `ustp-bifrost` provider = the Bifrost backend pi uses (there it keeps the plugin's fixed
+  id `bifrost`; `pi-bifrost-provider` hardcodes it) (`BIFROST_URL`, `BIFROST_API_KEY`,
   `BIFROST_VIRTUAL_KEY` from `.zsh_secrets`, key sent as `Authorization` plus
   `x-bf-vk`). The model list is static: opencode does not auto-discover from `/models`
   like `pi-bifrost-provider`, so add new Bifrost models to `opencode.json` by hand.
-  `limit.context`/`limit.output` are the vendor-documented values; the served
-  `--max-model-len` may be lower.
+- `ustp-openwebui` provider = the same models through Open WebUI (`OPENWEBUI_URL` incl. `/api`,
+  `OPENWEBUI_API_KEY` from `.zsh_secrets`; key under Settings > Account), reachable
+  worldwide while Bifrost only works inside the USTP network. Model IDs are identical.
+  pi gets it from the `ustp-openwebui.ts` extension (`models.json` can't read the URL from an
+  env var); pi's default stays `bifrost`, switch with `/model` when off the USTP network.
 - The caveman installer owns the `<!-- caveman-begin -->…<!-- caveman-end -->` block in
   `AGENTS.md`, plus untracked `plugins/caveman/`, `commands/`, `agents/cavecrew-*`,
   `skills/cave*`. A caveman update shows up as a diff in the tracked `AGENTS.md`.
