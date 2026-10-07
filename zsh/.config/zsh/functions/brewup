@@ -29,6 +29,10 @@ nvim --headless "+Lazy! sync" "+MasonToolsUpdateSync" "+qa"
 echo "\n# Updating claude code"
 claude update
 
+# opencode
+echo "\n# Updating opencode"
+opencode upgrade
+
 # pi
 echo "\n# Updating pi coding agent and extensions"
 pi update --all

@@ -55,7 +55,7 @@ Linux equivalent at all:
 - `zsh/.config/zsh/.zprofile`: loads Homebrew by probing all three prefixes (macOS
   arm64/Intel, Linuxbrew). It's an `eval`, so login shells only.
 - `functions/{brewup,brewzap,backup}`: `(( $+commands[mas] ))`,
-  `(( $+commands[defaults] ))` guard macOS-only APIs; `brew`/`nvim`/`claude`/`pi`
+  `(( $+commands[defaults] ))` guard macOS-only APIs; `brew`/`nvim`/`claude`/`opencode`/`pi`
   calls are unconditional.
 - `.zsh_aliases`: `localip`/`ips` key off `ipconfig`; `pbcopy`/`pbpaste` shim to
   `wl-copy`/`xclip` on Linux.
@@ -122,8 +122,7 @@ Kept in sync by hand, no automation:
 - `pi/.pi/agent/agents/*.md` ↔ `opencode/.../agents/*.md`: same body, opencode adds
   `mode: subagent`.
 - `pi/.pi/agent/mcp.json` ↔ `mcp` in `opencode.json`: context7 and github in both
-  (different schema); Linear is opencode-only. Secrets come from `.zsh_secrets` via
-  `{env:VAR}`; Linear uses OAuth (`opencode mcp auth linear`, once per machine).
+  (different schema). Secrets come from `.zsh_secrets` via `{env:VAR}`; no OAuth needed.
 - USTP model limits live in four places, keep them in sync: `pi/.pi/agent/models.json`
   (`modelOverrides` for the `bifrost` provider), `pi/.pi/agent/extensions/ustp-openwebui.ts`,
   and `limit` per model in the opencode `ustp-bifrost` and `ustp-openwebui` providers.
