@@ -1,15 +1,16 @@
 {
-  "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5.4",
+  "defaultProvider": "bifrost",
+  "defaultModel": "vllm/Qwen3.8-27B-FP8",
   "defaultThinkingLevel": "high",
   "theme": "rose-pine-moon",
-  "lastChangelogVersion": "1.0.3",
+  "lastChangelogVersion": "1.0.4",
   "packages": [
     "npm:pi-subagents",
     "git:github.com/DietrichGebert/ponytail",
     "git:github.com/obra/superpowers",
     "npm:pi-rules",
-    "git:github.com/jonjonrankin/pi-caveman"
+    "git:github.com/jonjonrankin/pi-caveman",
+    "npm:pi-bifrost-provider"
   ],
   "enabledModels": [
     "github-copilot/gpt-5.4",
@@ -19,7 +20,9 @@
     "github-copilot/gpt-5.3-codex",
     "github-copilot/kimi-k3",
     "github-copilot/claude-haiku-4.5",
-    "github-copilot/kimi-k2.7-code",
-    "github-copilot/gpt-5.4-mini"
+    "github-copilot/gpt-5.4-mini",
+    "bifrost/vllm/Qwen3-Coder-Next-FP8",
+    "bifrost/vllm/Qwen3.8-27B-FP8",
+    "bifrost/vllm/gemma-4-31B-it"
   ]
 }
