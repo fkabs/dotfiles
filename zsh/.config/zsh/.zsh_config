@@ -42,6 +42,11 @@ fi
 # mole shell completion
 if output="$(mole completion zsh 2>/dev/null)"; then eval "$output"; fi
 
+# opencode
+if [[ -d "$HOME/.opencode/bin" ]]; then
+    path+=("$HOME/.opencode/bin")
+fi
+
 # starship (prompt)
 eval "$(starship init zsh)"
 

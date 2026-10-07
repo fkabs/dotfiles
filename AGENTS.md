@@ -1,7 +1,7 @@
 # AGENTS.md
 
-Agent guidance for this repo (Claude Code, pi). pi reads `AGENTS.md` directly; Claude
-Code reads `CLAUDE.md`, a one-line `@AGENTS.md` import. Edit this file only.
+Agent guidance for this repo (Claude Code, pi, opencode). pi and opencode read `AGENTS.md`
+directly; Claude Code reads `CLAUDE.md`, a one-line `@AGENTS.md` import. Edit this file only.
 
 ## Overview
 
@@ -10,8 +10,8 @@ with [GNU Stow](https://www.gnu.org/software/stow/). Each top-level dir is a sto
 package mirroring `$HOME` (`zsh/.config/zsh/.zshrc` → `~/.config/zsh/.zshrc`).
 Config-only: tools are installed separately, see [README.md](README.md).
 
-Packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `herdr`, `nvim`, `pi`,
-`starship`, `tmux`, `zsh`. `via/` is not a package (see [VIA](#via)).
+Packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `herdr`, `nvim`, `opencode`,
+`pi`, `starship`, `tmux`, `zsh`. `via/` is not a package (see [VIA](#via)).
 
 ## Commands
 
@@ -31,16 +31,17 @@ pre-commit (`.pre-commit-config.yaml`). Never bypass it.
 - **Default: folded.** Stow links a whole dir when it can (`~/.config/nvim` → repo).
   New repo files show up instantly, but anything the app writes there lands in the
   repo. Intended for `btop` (it rewrites `btop.conf`, expect a dirty `git status`).
-- **`herdr` and `claude`: `--no-folding`** (the `case` in `justfile`). Their apps write
-  runtime state next to tracked config, so only tracked files are linked into real
-  dirs. Cost: a new tracked file needs `just restow <pkg>`, and a file the app creates
-  in `$HOME` (e.g. a skill made inside Claude Code) must be moved into the repo and
-  restowed.
+- **`herdr`, `claude` and `opencode`: `--no-folding`** (the `case` in `justfile`). Their
+  apps (and, for opencode, the caveman/ponytail/superpowers installers) write runtime
+  state next to tracked config, so only tracked files are linked into real dirs. Cost: a
+  new tracked file needs `just restow <pkg>`, and a file the app creates in `$HOME`
+  (e.g. a skill made inside Claude Code) must be moved into the repo and restowed.
 - Stow ignores `.gitignore`: any untracked file physically inside a package dir gets
   linked too. Keep app state out of package dirs.
 - **Symlink replaced by a regular file.** Some writers swap the link for a real file
   (Claude Code/supacode → `~/.claude/settings.json`, `herdr config reset-keys` →
-  `~/.config/herdr/config.toml`, herdr integration updates → `herdr-agent-state.*`).
+  `~/.config/herdr/config.toml`, herdr integration updates → `herdr-agent-state.*`,
+  `herdr-tui-session.js`).
   Fix: `cp` the file back into the repo, `rm` the target (stow won't link over a
   regular file), `just install <pkg>`.
 
@@ -92,33 +93,64 @@ in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new fi
 - **herdr**: after edits `herdr config check`, then `herdr server reload-config`.
 - **btop**: config format 1.4.7+ (GPU keys).
 - **Theme**: rose-pine-moon everywhere (ghostty, tmux, starship, btop, nvim, pi, claude
-  theme and statusline). bat uses `--theme=ansi` to inherit the terminal palette.
+  theme and statusline, opencode). bat uses `--theme=ansi` to inherit the terminal palette.
 
-## Claude Code & pi (`claude/`, `pi/`)
+## Claude Code, pi & opencode (`claude/`, `pi/`, `opencode/`)
 
-| | Claude Code (`claude/.claude/`) | pi (`pi/.pi/`) |
-|---|---|---|
-| Settings | `settings.json` | `agent/settings.json`, `agent/mcp.json` |
-| Global instructions | `CLAUDE.md` | `agent/AGENTS.md` |
-| Rules | `rules/` | `rules/` |
-| Skills | `skills/` | `agent/skills/` |
-| Hooks / extensions | `hooks/` (shell) | `agent/extensions/` (TypeScript) |
-| Agents | — | `agent/agents/` |
-| Themes | `themes/` | — |
-| Statusline | `claude-powerline.json` ([claude-powerline](https://github.com/Owloops/claude-powerline), TUI style) | — |
+| | Claude Code (`claude/.claude/`) | pi (`pi/.pi/`) | opencode (`opencode/.config/opencode/`) |
+|---|---|---|---|
+| Settings | `settings.json` | `agent/settings.json`, `agent/mcp.json` | `opencode.json` (plugins, provider, mcp), `cli.json` (theme) |
+| Global instructions | `CLAUDE.md` | `agent/AGENTS.md` | `AGENTS.md` (+ rules inlined, caveman block) |
+| Rules | `rules/` | `rules/` | inlined in `AGENTS.md` |
+| Skills | `skills/` | `agent/skills/` | reads `~/.claude/skills`; no tracked skills |
+| Hooks / extensions | `hooks/` (shell) | `agent/extensions/` (TypeScript) | plugins via `plugins` in `opencode.json` |
+| Agents | — | `agent/agents/` | `agents/` |
+| Themes | `themes/` | — | `themes/` |
+| Statusline | `claude-powerline.json` ([claude-powerline](https://github.com/Owloops/claude-powerline), TUI style) | — | — |
 
 Kept in sync by hand, no automation:
 
-- `claude/.claude/CLAUDE.md` ↔ `pi/.pi/agent/AGENTS.md`: same body, only the H1 differs.
+- `claude/.claude/CLAUDE.md` ↔ `pi/.pi/agent/AGENTS.md` ↔ `opencode/.config/opencode/AGENTS.md`:
+  same body, only the H1 differs.
 - `claude/.claude/rules/*.md` ↔ `pi/.pi/rules/*.md`: same body, pi copies add
   `pi-rules` frontmatter (`description`, `tools`, `dedupe`).
-- Skills present in both (`herdr`, `supacode-*`): byte-identical copies.
+- Rules in opencode are **appended to its `AGENTS.md`** (each under a
+  `<!-- rule: <name> -->` comment, verbatim). The `instructions` key in `opencode.json`
+  did not load them (tested v2.0.24, glob and explicit paths, `~` and `{env:HOME}`).
+- Skills present in both claude and pi (`herdr`, `supacode-*`): byte-identical copies. opencode
+  reads those from `~/.claude/skills`, so it has no copy.
+- `pi/.pi/agent/agents/*.md` ↔ `opencode/.../agents/*.md`: same body, opencode adds
+  `mode: subagent`.
+- `pi/.pi/agent/mcp.json` ↔ `mcp` in `opencode.json`: context7 and github in both
+  (different schema); Linear is opencode-only. Secrets come from `.zsh_secrets` via
+  `{env:VAR}`; Linear uses OAuth (`opencode mcp auth linear`, once per machine).
 
-`herdr-agent-state.{sh,ts}` are installed and overwritten by herdr's integration:
-don't edit, add custom hooks beside them.
+`herdr-agent-state.{sh,ts,js}` are installed and overwritten by herdr's integration:
+don't edit, add custom hooks beside them. For opencode (`herdr integration install
+opencode`) that is `plugins/herdr-agent-state.js`, `herdr-tui-session.js`,
+`herdr-opencode/tui.js`, `tui.jsonc`, plus the `plugins` entry in `cli.json`; all are
+tracked in `opencode/`.
 
-Only skills are portable between the two; commands, plugins and hooks use different
+Only skills are portable between the three; commands, plugins and hooks use different
 formats/runtimes.
+
+### opencode specifics
+
+- `ustp` provider = the Bifrost backend pi uses (`BIFROST_URL`, `BIFROST_API_KEY`,
+  `BIFROST_VIRTUAL_KEY` from `.zsh_secrets`, key sent as `Authorization` plus
+  `x-bf-vk`). The model list is static: opencode does not auto-discover from `/models`
+  like `pi-bifrost-provider`, so add new Bifrost models to `opencode.json` by hand.
+  `limit.context`/`limit.output` are the vendor-documented values; the served
+  `--max-model-len` may be lower.
+- The caveman installer owns the `<!-- caveman-begin -->…<!-- caveman-end -->` block in
+  `AGENTS.md`, plus untracked `plugins/caveman/`, `commands/`, `agents/cavecrew-*`,
+  `skills/cave*`. A caveman update shows up as a diff in the tracked `AGENTS.md`.
+  On a new machine run the caveman installer; ponytail and superpowers install from
+  `plugins`.
+- Never track `service.json` (password), `opencode.json.bak` or
+  `.caveman-opencode-ownership.json`.
+- opencode runs a background service that caches config and its own env: after edits run
+  `opencode service restart` (from a shell with `.zsh_secrets` loaded).
 
 ## VIA
 

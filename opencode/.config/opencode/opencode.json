@@ -1,0 +1,68 @@
+{
+  "plugins": [
+    "@dietrichgebert/ponytail",
+    "superpowers@git+https://github.com/obra/superpowers.git"
+  ],
+  "plugin": [
+    "./plugins/caveman/plugin.js"
+  ],
+  "provider": {
+    "ustp": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "USTP (Bifrost)",
+      "options": {
+        "baseURL": "{env:BIFROST_URL}",
+        "apiKey": "{env:BIFROST_API_KEY}",
+        "headers": {
+          "x-bf-vk": "{env:BIFROST_VIRTUAL_KEY}"
+        }
+      },
+      "models": {
+        "vllm/Qwen3.8-27B-FP8": {
+          "name": "Qwen3.8 27B",
+          "reasoning": true,
+          "limit": {
+            "context": 262144,
+            "output": 131072
+          }
+        },
+        "vllm/Qwen3-Coder-Next-FP8": {
+          "name": "Qwen3 Coder Next",
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          }
+        },
+        "vllm/gemma-4-31B-it": {
+          "name": "Gemma 4 31B",
+          "limit": {
+            "context": 262144,
+            "output": 131072
+          }
+        }
+      }
+    }
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "oauth": false,
+      "headers": {
+        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+      }
+    },
+    "github": {
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp",
+      "oauth": false,
+      "headers": {
+        "Authorization": "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "linear": {
+      "type": "remote",
+      "url": "https://mcp.linear.app/mcp"
+    }
+  }
+}
