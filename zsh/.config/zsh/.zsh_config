@@ -21,6 +21,15 @@ if type "fzf" > /dev/null; then
     source <(fzf --zsh)
 fi
 
+# ----------------------------------------------------------------
+
+# Named directories
+hash -d dt=~/Desktop
+hash -d dl=~/Downloads
+hash -d w=~/work/
+
+# ----------------------------------------------------------------
+
 # History config
 export HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/zsh/.zsh_history
 export HISTSIZE=1000000

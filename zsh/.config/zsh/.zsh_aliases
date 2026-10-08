@@ -9,14 +9,10 @@ alias la="ls -lah --color=auto"
 alias ll="ls -lh --color=auto"
 
 # Shortcuts for easier navigation
-alias ~="cd ~"
-alias -- -="cd -"
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias dl="cd ~/Downloads"
-alias dt="cd ~/Desktop"
+alias -- -='cd -'
+alias -g ...='../..'           # global aliases also work inside arguments,
+alias -g ....='../../..'       # e.g. `cp file ...` or `ls ....`
+alias -g .....='../../../..'
 
 # Use bat (https://github.com/sharkdp/bat) instead of cat
 alias cat="bat"
