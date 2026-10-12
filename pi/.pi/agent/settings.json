@@ -3,7 +3,7 @@
   "defaultModel": "vllm/Qwen3.8-27B-FP8",
   "defaultThinkingLevel": "high",
   "theme": "rose-pine-moon",
-  "lastChangelogVersion": "1.0.4",
+  "lastChangelogVersion": "1.1.0",
   "packages": [
     "npm:pi-subagents",
     "git:github.com/DietrichGebert/ponytail",
