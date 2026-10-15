@@ -1,106 +1,106 @@
 {
-  "advisorModel" : "fable",
-  "agentPushNotifEnabled" : true,
-  "attribution" : {
-    "commit" : "",
-    "pr" : ""
+  "env": {
+    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "1",
+    "EDITOR": "vim",
+    "ENABLE_TOOL_SEARCH": "true"
   },
-  "effortLevel" : "high",
-  "enabledPlugins" : {
-    "caveman@caveman" : true,
-    "claude-md-management@claude-plugins-official" : true,
-    "claude-powerline@claude-powerline" : true,
-    "cloudflare@cloudflare" : true,
-    "code-review@claude-plugins-official" : true,
-    "code-simplifier@claude-plugins-official" : true,
-    "context7@claude-plugins-official" : true,
-    "frontend-design@claude-plugins-official" : true,
-    "github@claude-plugins-official" : true,
-    "gitlab@claude-plugins-official" : true,
-    "linear@claude-plugins-official" : true,
-    "ponytail@ponytail" : true,
-    "skill-creator@claude-plugins-official" : true,
-    "superpowers@claude-plugins-official" : true
+  "attribution": {
+    "commit": "",
+    "pr": ""
   },
-  "env" : {
-    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING" : "1",
-    "EDITOR" : "vim",
-    "ENABLE_TOOL_SEARCH" : "true"
-  },
-  "extraKnownMarketplaces" : {
-    "caveman" : {
-      "source" : {
-        "repo" : "JuliusBrussee\/caveman",
-        "source" : "github"
-      }
-    },
-    "claude-plugins-official" : {
-      "source" : {
-        "repo" : "anthropics\/claude-plugins-official",
-        "source" : "github"
-      }
-    },
-    "claude-powerline" : {
-      "source" : {
-        "repo" : "Owloops\/claude-powerline",
-        "source" : "github"
-      }
-    },
-    "cloudflare" : {
-      "source" : {
-        "repo" : "cloudflare\/skills",
-        "source" : "github"
-      }
-    },
-    "ponytail" : {
-      "source" : {
-        "repo" : "DietrichGebert\/ponytail",
-        "source" : "github"
-      }
-    }
-  },
-  "hooks" : {
-    "SessionStart" : [
-      {
-        "hooks" : [
-          {
-            "command" : "bash ~\/.claude\/hooks\/herdr-agent-state.sh session",
-            "timeout" : 10,
-            "type" : "command"
-          }
-        ],
-        "matcher" : "^(startup|resume|clear|compact|fork)$"
-      }
-    ]
-  },
-  "inputNeededNotifEnabled" : true,
-  "model" : "opusplan[1m]",
-  "modelSettings" : {
-    "claude-opus-5-5" : {
-      "effortLevel" : "high"
-    },
-    "claude-sonnet-5-5" : {
-      "effortLevel" : "high"
-    }
-  },
-  "permissions" : {
-    "allow" : [
-      "Read(~\/.claude)",
+  "permissions": {
+    "allow": [
+      "Read(~/.claude)",
       "Read(.claude)",
-      "Read(\/tmp\/**)",
+      "Read(/tmp/**)",
       "Bash(npx ctx7 *)",
       "Bash(gh *)"
     ],
-    "defaultMode" : "plan"
+    "defaultMode": "plan"
   },
-  "skipDangerousModePermissionPrompt" : true,
-  "spinnerTipsEnabled" : false,
-  "statusLine" : {
-    "command" : "npx -y @owloops\/claude-powerline@latest",
-    "padding" : 0,
-    "refreshInterval" : 10,
-    "type" : "command"
+  "model": "opusplan",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "^(startup|resume|clear|compact|fork)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/herdr-agent-state.sh session",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   },
-  "theme" : "custom:rose-pine-moon",
-  "tui" : "fullscreen"
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y @owloops/claude-powerline@latest",
+    "padding": 0,
+    "refreshInterval": 10
+  },
+  "enabledPlugins": {
+    "caveman@caveman": true,
+    "claude-md-management@claude-plugins-official": true,
+    "claude-powerline@claude-powerline": true,
+    "cloudflare@cloudflare": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "gitlab@claude-plugins-official": true,
+    "linear@claude-plugins-official": true,
+    "ponytail@ponytail": true,
+    "skill-creator@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    },
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    },
+    "claude-powerline": {
+      "source": {
+        "source": "github",
+        "repo": "Owloops/claude-powerline"
+      }
+    },
+    "cloudflare": {
+      "source": {
+        "source": "github",
+        "repo": "cloudflare/skills"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    }
+  },
+  "spinnerTipsEnabled": false,
+  "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "high"
+    }
+  },
+  "advisorModel": "fable",
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "custom:rose-pine-moon",
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true
 }

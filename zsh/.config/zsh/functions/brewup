@@ -29,6 +29,10 @@ nvim --headless "+Lazy! sync" "+MasonToolsUpdateSync" "+qa"
 echo "\n# Updating claude code"
 claude update
 
+# herdr
+echo "\n# Updating herdr"
+herdr update
+
 # opencode
 echo "\n# Updating opencode"
 opencode upgrade
