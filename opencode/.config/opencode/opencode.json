@@ -1,4 +1,5 @@
 {
+  "model": "ustp-bifrost/vllm/GLM-5.3-Flash-NVFP4",
   "plugins": [
     "@dietrichgebert/ponytail",
     "superpowers@git+https://github.com/obra/superpowers.git"
@@ -18,6 +19,22 @@
         }
       },
       "models": {
+        "vllm/GLM-5.3-Flash-NVFP4": {
+          "name": "GLM 5.3 Flash",
+          "reasoning": true,
+          "limit": {
+            "context": 1048576,
+            "output": 262144
+          }
+        },
+        "vllm/Qwen3.8-Flash-Next-NVFP4": {
+          "name": "Qwen3.8 Flash Next",
+          "reasoning": true,
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          }
+        },
         "vllm/Qwen3.8-27B-FP8": {
           "name": "Qwen3.8 27B",
           "reasoning": true,
@@ -50,6 +67,22 @@
         "apiKey": "{env:OPENWEBUI_API_KEY}"
       },
       "models": {
+        "vllm/GLM-5.3-Flash-NVFP4": {
+          "name": "GLM 5.3 Flash",
+          "reasoning": true,
+          "limit": {
+            "context": 1048576,
+            "output": 262144
+          }
+        },
+        "vllm/Qwen3.8-Flash-Next-NVFP4": {
+          "name": "Qwen3.8 Flash Next",
+          "reasoning": true,
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          }
+        },
         "vllm/Qwen3.8-27B-FP8": {
           "name": "Qwen3.8 27B",
           "reasoning": true,
