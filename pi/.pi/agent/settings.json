@@ -3,7 +3,7 @@
   "defaultModel": "vllm/GLM-5.3-Flash-NVFP4",
   "defaultThinkingLevel": "high",
   "theme": "rose-pine-moon",
-  "lastChangelogVersion": "1.2.0",
+  "lastChangelogVersion": "1.3.0",
   "packages": [
     "npm:pi-subagents",
     "git:github.com/DietrichGebert/ponytail",
