@@ -53,7 +53,8 @@
     "linear@claude-plugins-official": true,
     "ponytail@ponytail": true,
     "skill-creator@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true
+    "superpowers@claude-plugins-official": true,
+    "postman@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
