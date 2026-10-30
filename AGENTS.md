@@ -128,9 +128,9 @@ Kept in sync by hand, no automation:
   and `limit` per model in the opencode `ustp-bifrost` and `ustp-openwebui` providers.
   Neither Bifrost nor Open WebUI report limits, so without them pi falls back to 128k/8k. Values are the
   served `max_model_len` (read from vLLM's rejection of an oversized `max_tokens`, not
-  the model cards: Gemma 4 serves 131072, the Qwens 262144, GLM 5.3 Flash 1048576) with
-  output capped at a quarter of that, because a request fails when prompt + `max_tokens`
-  exceeds the window.
+  the model cards: Gemma 4 and Mistral Large 4 serve 131072, the Qwens 262144, GLM 5.3
+  Flash 1048576) with output capped at a quarter of that, because a request fails when
+  prompt + `max_tokens` exceeds the window.
 
 `herdr-agent-state.{sh,ts,js}` are installed and overwritten by herdr's integration:
 don't edit, add custom hooks beside them. For opencode (`herdr integration install

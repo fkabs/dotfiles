@@ -13,6 +13,7 @@ const cost = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
 
 const models = [
 	{ id: "vllm/GLM-5.3-Flash-NVFP4", name: "GLM 5.3 Flash", contextWindow: 1048576, maxTokens: 262144 },
+	{ id: "vllm/Mistral-Large-4-1T-A52B-NVFP4", name: "Mistral Large 4", contextWindow: 131072, maxTokens: 32768 },
 	{ id: "vllm/Qwen3.8-Flash-Next-NVFP4", name: "Qwen3.8 Flash Next", contextWindow: 262144, maxTokens: 65536 },
 	{ id: "vllm/Qwen3.8-27B-FP8", name: "Qwen3.8 27B", contextWindow: 262144, maxTokens: 65536 },
 	{ id: "vllm/Qwen3-Coder-Next-FP8", name: "Qwen3 Coder Next", contextWindow: 262144, maxTokens: 65536 },

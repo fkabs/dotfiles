@@ -3,6 +3,7 @@
     "bifrost": {
       "modelOverrides": {
         "vllm/GLM-5.3-Flash-NVFP4": { "contextWindow": 1048576, "maxTokens": 262144 },
+        "vllm/Mistral-Large-4-1T-A52B-NVFP4": { "contextWindow": 131072, "maxTokens": 32768 },
         "vllm/Qwen3.8-Flash-Next-NVFP4": { "contextWindow": 262144, "maxTokens": 65536 },
         "vllm/Qwen3.8-27B-FP8": { "contextWindow": 262144, "maxTokens": 65536 },
         "vllm/Qwen3-Coder-Next-FP8": { "contextWindow": 262144, "maxTokens": 65536 },
