@@ -54,7 +54,8 @@
     "ponytail@ponytail": true,
     "skill-creator@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
-    "postman@claude-plugins-official": true
+    "postman@claude-plugins-official": true,
+    "diagram-design@diagram-design": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -85,6 +86,12 @@
       "source": {
         "source": "github",
         "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "diagram-design": {
+      "source": {
+        "source": "github",
+        "repo": "cathrynlavery/diagram-design"
       }
     }
   },
