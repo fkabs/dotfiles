@@ -3,7 +3,7 @@
   "defaultModel": "vllm/GLM-5.3-Flash-NVFP4",
   "defaultThinkingLevel": "high",
   "theme": "rose-pine-moon",
-  "lastChangelogVersion": "1.4.0",
+  "lastChangelogVersion": "1.5.0",
   "packages": [
     "npm:pi-subagents",
     "git:github.com/DietrichGebert/ponytail",
@@ -26,5 +26,8 @@
     "ustp-openwebui/vllm/Qwen3.8-27B-FP8",
     "ustp-openwebui/vllm/Qwen3.8-Flash-Next-NVFP4",
     "ustp-openwebui/vllm/gemma-4-31B-it"
-  ]
+  ],
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:pi-subagents\",\"scope\":\"user\"}": "0.84.0"
+  }
 }
