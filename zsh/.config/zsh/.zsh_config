@@ -70,12 +70,14 @@ fi
 _uv_comp="${ZSH_COMPDUMP:h}/uv-comp.zsh"
 _uv_comp_ver="${ZSH_COMPDUMP:h}/uv-comp.version"
 _uv_ver="$(uv --version 2>/dev/null)"
-if [[ ! -f "$_uv_comp" || ! -f "$_uv_comp_ver" || "$(cat "$_uv_comp_ver")" != "$_uv_ver" ]]; then
-    uv generate-shell-completion zsh > "$_uv_comp"
-    uvx --generate-shell-completion zsh >> "$_uv_comp"
-    echo "$_uv_ver" > "$_uv_comp_ver"
+if [[ ! -f "$_uv_comp" || ! -f "$_uv_comp_ver" || "$(<"$_uv_comp_ver")" != "$_uv_ver" ]]; then
+    # write to temp file + atomic mv: concurrent shells must not interleave output
+    { uv generate-shell-completion zsh && uvx --generate-shell-completion zsh } > "$_uv_comp.$$" &&
+        mv -f "$_uv_comp.$$" "$_uv_comp" &&
+        echo "$_uv_ver" > "$_uv_comp_ver" ||
+        rm -f "$_uv_comp.$$"
 fi
-source "$_uv_comp"
+[[ -f "$_uv_comp" ]] && source "$_uv_comp"
 
 # ----------------------------------------------------------------
 
