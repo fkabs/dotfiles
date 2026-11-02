@@ -13,6 +13,10 @@
       "headers": {
         "Authorization": "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}"
       }
+    },
+    "claude-historian-mcp": {
+      "command": "npx",
+      "args": ["claude-historian-mcp"]
     }
   }
 }

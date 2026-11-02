@@ -140,6 +140,11 @@
       "headers": {
         "Authorization": "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}"
       }
+    },
+    "claude-historian-mcp": {
+      "type": "local",
+      "command": ["npx", "claude-historian-mcp"],
+      "enabled": true
     }
   }
 }
