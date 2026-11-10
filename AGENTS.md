@@ -104,6 +104,27 @@ in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new fi
   live; check with `herdr-app status` and `herdr-app check` (run it on the linked
   `~/.config/herdr-app/mods/...` copy: on the repo path it writes `gpui-kit.d.ts` and
   `jsconfig.json` into the repo).
+  Also tracked, my own mods and layout: `mods/auto-title-tabs/`, `mods/auto-title-spaces/` (each
+  `main.js`, `mod.json`) and `layouts/home.json`, the only layout.
+  - `auto-title-tabs`: the tab bar. A tab is named after what runs in it: the first pane with a
+    useful terminal title (a coding agent's conversation title), else a program's name, else a
+    shell's folder. A name typed by hand stays until cleared. Spaces keep their own names. Names
+    are 280px wide.
+  - `auto-title-spaces`: the spaces sidebar. A git space always shows its branch in grey after its
+    name (the shipped one hides `main`/`master`).
+  - Both are modified copies of Herdr's shipped `tabs` and `spaces` mods (Apache-2.0); each file's
+    header says so. A single `main.js` each: a mod with relative imports can't be stow-linked
+    (`herdr-app check` rejects an import resolving into `~/.dotfiles`, and the SVG loader ignores
+    symlinks, so `auto-title-tabs` keeps its clone's `win-*.svg` as real untracked files, Windows only).
+  - **Reload:** the app doesn't notice edits made through a stow symlink. After changing a stowed
+    mod, `touch -h ~/.config/herdr-app/mods/<mod>/main.js`, else it keeps running the old code
+    while `herdr-app check` passes on the new. (Layout edits are noticed.)
+  - The layout is `main` cloned (`herdr-app do layout.clone`), with `"mod": "tabs"` and
+    `"mod": "spaces"` swapped for the two mods above. It stops following Herdr's updates to
+    `main`; `ctrl-shift-l` switches back. The agents slot uses `"auto-agents"`, a third-party,
+    untracked mod (`universal-auto-tabs` from benjaminsicard/herdr-mods; agent rows show the tab
+    name only); without it, set that slot back to `"agents"`. New machine: `just restow herdr-app`,
+    then `herdr-app do layout.switch '{"name":"home"}'`.
 - **btop**: config format 1.4.7+ (GPU keys).
 - **Theme**: rose-pine-moon everywhere (ghostty, herdr-app, tmux, starship, btop, nvim,
   pi, claude theme and statusline, opencode). bat uses `--theme=ansi` to inherit the terminal palette.
