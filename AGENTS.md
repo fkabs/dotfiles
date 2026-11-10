@@ -173,6 +173,9 @@ Kept in sync by hand, no automation:
   block (name, description) plus the verbatim output of `hc --skill`; it goes stale when
   herdr-core updates. Refresh: regenerate the claude copy (same frontmatter, then
   `hc --skill`), `cp` it over the pi and opencode copies.
+- `herdr-app` (the app's window, layouts, keys and mods): same shape as `hc`, built from `herdr-app --skill`;
+  identical copies in all three, refreshed the same way. The app also writes a longer guide to
+  `~/.config/herdr-app/AGENTS.md` on every start, which the skill tells an agent to read first.
 - `anatomy` ([wheresryan22/anatomy](https://github.com/wheresryan22/anatomy), repo root
   is the skill): identical copies in all three. Trimmed to 2 MB: no `.github`, `tests`,
   `evals`, community docs, README, nor the built `examples/*.html`/`*.pdf` (25 MB,
