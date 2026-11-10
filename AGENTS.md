@@ -10,8 +10,8 @@ with [GNU Stow](https://www.gnu.org/software/stow/). Each top-level dir is a sto
 package mirroring `$HOME` (`zsh/.config/zsh/.zshrc` → `~/.config/zsh/.zshrc`).
 Config-only: tools are installed separately, see [README.md](README.md).
 
-Packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `herdr`, `nvim`, `opencode`,
-`pi`, `starship`, `tmux`, `zsh`. `via/` is not a package (see [VIA](#via)).
+Packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `herdr`, `herdr-app`, `nvim`,
+`opencode`, `pi`, `starship`, `tmux`, `zsh`. `via/` is not a package (see [VIA](#via)).
 
 ## Commands
 
@@ -31,8 +31,8 @@ pre-commit (`.pre-commit-config.yaml`). Never bypass it.
 - **Default: folded.** Stow links a whole dir when it can (`~/.config/nvim` → repo).
   New repo files show up instantly, but anything the app writes there lands in the
   repo. Intended for `btop` (it rewrites `btop.conf`, expect a dirty `git status`).
-- **`herdr`, `claude` and `opencode`: `--no-folding`** (the `case` in `justfile`). Their
-  apps (and, for opencode, the caveman/ponytail/superpowers installers) write runtime
+- **`herdr`, `herdr-app`, `claude` and `opencode`: `--no-folding`** (the `case` in
+  `justfile`). Their apps (and, for opencode, the caveman/ponytail/superpowers installers) write runtime
   state next to tracked config, so only tracked files are linked into real dirs. Cost: a
   new tracked file needs `just restow <pkg>`, and a file the app creates in `$HOME`
   (e.g. a skill made inside Claude Code) must be moved into the repo and restowed.
@@ -41,7 +41,8 @@ pre-commit (`.pre-commit-config.yaml`). Never bypass it.
 - **Symlink replaced by a regular file.** Some writers swap the link for a real file
   (Claude Code → `~/.claude/settings.json`, `herdr config reset-keys` →
   `~/.config/herdr/config.toml`, herdr integration updates → `herdr-agent-state.*`,
-  `herdr-tui-session.js`).
+  `herdr-tui-session.js`; possibly herdr-app's `settings.json`/`keys.json` when saved from
+  its Settings UI or after `app.reset`, not verified).
   Fix: `cp` the file back into the repo, `rm` the target (stow won't link over a
   regular file), `just install <pkg>`.
 
@@ -91,9 +92,21 @@ in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new fi
 - **tmux**: prefix `C-Space`, TPM at `~/.tmux/plugins/tpm/tpm`, plugins cached in
   `$XDG_CACHE_HOME/tmux/plugins`.
 - **herdr**: after edits `herdr config check`, then `herdr server reload-config`.
+- **herdr-app** (desktop app, home `~/.config/herdr-app`, JSON instead of TOML): tracked
+  are only `keys.json`, `settings.json`, `themes/rose-pine-moon.json` and
+  `mods/tmux-prefix/`; the app owns the rest of the dir (layouts, shipped mods, `.d.ts`,
+  `AGENTS.md`), keep it out of the repo. `keys.json` is the app defaults plus
+  `ctrl-space` → `tmux-prefix` mod (old herdr prefix); once edited it no longer receives
+  new default keys, add them by hand. The mod is
+  [herdrdev/herdr-layout-examples](https://github.com/herdrdev/herdr-layout-examples/tree/main/tmux-prefix)
+  with prefix Ctrl+Space instead of Ctrl+B and extra keys (`v - b s w N W D T X g e o`; `o` opens a VS Code window on the focused pane's folder)
+  in `BINDINGS` in `main.js`; it runs `hc keys` to send the literal prefix. Edits are
+  live; check with `herdr-app status` and `herdr-app check` (run it on the linked
+  `~/.config/herdr-app/mods/...` copy: on the repo path it writes `gpui-kit.d.ts` and
+  `jsconfig.json` into the repo).
 - **btop**: config format 1.4.7+ (GPU keys).
-- **Theme**: rose-pine-moon everywhere (ghostty, tmux, starship, btop, nvim, pi, claude
-  theme and statusline, opencode). bat uses `--theme=ansi` to inherit the terminal palette.
+- **Theme**: rose-pine-moon everywhere (ghostty, herdr-app, tmux, starship, btop, nvim,
+  pi, claude theme and statusline, opencode). bat uses `--theme=ansi` to inherit the terminal palette.
 
 ## Claude Code, pi & opencode (`claude/`, `pi/`, `opencode/`)
 

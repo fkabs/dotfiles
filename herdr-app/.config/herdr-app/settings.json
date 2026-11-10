@@ -1,0 +1,11 @@
+{
+  "zoom": 1.0,
+  "sounds": {
+    "enabled": true
+  },
+  "font_ligatures": false,
+  "minimum_contrast": 1.0,
+  "theme": "rose-pine-moon",
+  "font": "FiraCode Nerd Font Mono",
+  "font_size": 14
+}
