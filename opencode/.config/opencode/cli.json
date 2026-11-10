@@ -3,6 +3,5 @@
   "theme": {
     "name": "rose-pine-moon",
     "mode": "dark"
-  },
-  "plugins": ["./herdr-opencode"]
+  }
 }

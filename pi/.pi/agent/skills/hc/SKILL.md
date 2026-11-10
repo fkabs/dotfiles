@@ -1,6 +1,6 @@
 ---
 name: hc
-description: "Run and orchestrate programs and agents in persistent terminals with hc (herdr-core): delegate a task to another agent, message/read/wait on other terminals, run background servers or long jobs and wait for them, and run commands or edit files on other machines. Use when the user mentions hc or herdr-core, or asks to spawn, delegate to, or talk to another agent or terminal through it. Not for arranging windows (that is herdr-app) and not the older herdr multiplexer (that is the herdr skill)."
+description: "Run and orchestrate programs and agents in persistent terminals with hc (herdr-core): delegate a task to another agent, message/read/wait on other terminals, run background servers or long jobs and wait for them, and run commands or edit files on other machines. Use when the user mentions hc or herdr-core, or asks to spawn, delegate to, or talk to another agent or terminal through it. Not for arranging windows (that is herdr-app)."
 ---
 
 # hc manual (herdr-core)
