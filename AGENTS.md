@@ -135,6 +135,10 @@ Kept in sync by hand, no automation:
   its `skills/security-audit/`; refresh by replacing all copies): byte-identical copies.
   `security-audit` also has an identical copy in opencode (like `diagram-design`);
   opencode reads `herdr` from `~/.claude/skills`, so it has no copy of that one.
+- `hc` (herdr-core manual): identical copies in all three. `SKILL.md` is a frontmatter
+  block (name, description) plus the verbatim output of `hc --skill`; it goes stale when
+  herdr-core updates. Refresh: regenerate the claude copy (same frontmatter, then
+  `hc --skill`), `cp` it over the pi and opencode copies.
 - `anatomy` ([wheresryan22/anatomy](https://github.com/wheresryan22/anatomy), repo root
   is the skill): identical copies in all three. Trimmed to 2 MB: no `.github`, `tests`,
   `evals`, community docs, README, nor the built `examples/*.html`/`*.pdf` (25 MB,
