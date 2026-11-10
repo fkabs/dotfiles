@@ -108,9 +108,12 @@ in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new fi
     shell's folder. A name typed by hand stays until cleared. Spaces keep their own names. Names
     are 280px wide.
   - `auto-title-spaces`: the spaces sidebar. A git space always shows its branch in grey after its
-    name, with a branch icon (the shipped one hides `main`/`master`). The name shortens before the branch does. It also groups spaces: named, colored, foldable
+    name, with a branch icon (the shipped one hides `main`/`master`). The icons are one Codicons set (outline): open `U+EAF7` / closed `U+EA83` folder, new group `U+EA80`,
+    remove from group `U+EBAC` (export) and branch `U+EC6F`, all in the `ICONS` constant
+    icons are Nerd Font glyphs in the Propo variant of the terminal font (one `replace()` in the `nerd()` helper;
+    the Mono variant squeezes icons into one cell, Propo draws them proportionally), not SVGs. The name shortens before the branch does. It also groups spaces: named, colored, foldable
     groups, with the spaces that are in no group left **loose** above them (no header, no indent; nothing
-    is stored for a loose space, so spaces made by cmd-n or a worktree are loose by default). One hairline separates them from the first group (none between groups), and a group's
+    is stored for a loose space, so spaces made by cmd-n or a worktree are loose by default). A small gap (no line) separates them from the first group (none between groups), and a group's
     members hang off a rail in the group's color. The folder-plus button next to the Spaces `+`
     makes a group; right-click a space → *Move to <group>* / *New group…* / *Remove from group*, or drag
     it onto a header (onto the fixed "Spaces" title bar or a loose row to take it out, onto a space to

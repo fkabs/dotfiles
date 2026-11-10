@@ -11,7 +11,7 @@
 
 import { View, div, svg } from "gpui-kit";
 import { v_flex, h_flex, InputState, Input } from "gpui-base";
-import { spaces, machines, panes, run, openOverlay, exec, hc, theme, shared, setShared, watchFolder, window, layout, nextCommand, props, closeOverlay } from "herdr";
+import { spaces, machines, panes, run, openOverlay, exec, hc, theme, shared, setShared, watchFolder, window, layout, nextCommand, props, closeOverlay, settings } from "herdr";
 
 function find(node, id) {
   if (node?.id === id) return node;
@@ -103,6 +103,16 @@ function inkOn(fill) {
   const n = parseInt(m[1], 16);
   return 0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255) > 150 ? "#232136" : "#ffffff";
 }
+// The sidebar's icons, one family (Codicons) in outline style so they match each other and the SVG icons beside
+// them: a folder for a group (open / closed to match its chevron), new-folder to add one, export (an arrow leaving
+// a box) to take a space out of its group, git-branch for the branch. All verified in FiraCode Nerd Font Propo.
+const ICONS = { open: "\ueaf7", closed: "\uea83", add: "\uea80", remove: "\uebac", branch: "\uec6f" };
+// A Nerd Font glyph (in the terminal font) in a fixed square, so it lines up the way the SVG icons did. Without
+// a color it inherits the parent's text color (so hover colors still apply). It uses the Propo variant (picked in the
+// replace() below): "Mono" squeezes every icon into one character cell, "Propo" draws them proportionally.
+const nerd = (glyph, size, color, box = size + 3) =>
+  h_flex().size(box).flex_none().items_center().justify_center()
+    .child(div().font_family((settings().font_family ?? "FiraCode Nerd Font").replace(/( Mono| Propo)?$/, " Propo")).text_size(size).when(Boolean(color), (el) => el.text_color(color)).child(glyph));
 
 // A space's section: its group when that exists on the space's own machine, else Home.
 function sectionOf(st, w) {
@@ -542,7 +552,7 @@ export default class Spaces extends View {
       // "repo · [branch icon] branch": the icon belongs to the branch name only.
       .when(Boolean(repo), (el) => el.child(div().min_w(0).truncate().child(repo)))
       .when(Boolean(repo && branch), (el) => el.child(div().flex_none().child("\u00b7")))
-      .when(Boolean(branch), (el) => el.child(svg("mods/workspace-chrome/git-branch.svg").size(11).flex_none().text_color(t.dim)))
+      .when(Boolean(branch), (el) => el.child(nerd(ICONS.branch, 11.5)))
       .when(Boolean(branch), (el) => el.child(div().min_w(0).truncate().child(branch)))
       .when(g.ahead > 0, (el) => el.child(div().flex_none().text_color(t.ansi2).child(`\u2191${g.ahead}`)))
       .when(g.behind > 0, (el) => el.child(div().flex_none().text_color(t.ansi1).child(`\u2193${g.behind}`)));
@@ -683,7 +693,7 @@ export default class Spaces extends View {
     const over = this.pressed !== null && this.over === key;
     const needs = sec.folded && (status === "blocked" || status === "done");
     const tile = h_flex().size(18).flex_none().rounded(5).items_center().justify_center().bg(fillOf(t, sec.color))
-      .child(svg("mods/workspace-chrome/folder.svg").size(11).text_color(inkOn(fillOf(t, sec.color))));
+      .child(nerd(sec.folded ? ICONS.closed : ICONS.open, 11, inkOn(fillOf(t, sec.color)), 14));
     return h_flex().id(`section-${m ?? "local"}-${sec.id}`).h(28).flex_none().px(8).gap(7).items_center().rounded(7)
       .text_size(12.5).text_color(t.foreground).cursor_pointer()
       .when(over, (el) => el.bg(t.hover).border_1().border_color(t.accent))
@@ -735,8 +745,8 @@ export default class Spaces extends View {
     for (const g of mine) {
       const rs = by.get(g.id);
       const needs = ["blocked", "done"].find((k) => rs.some((r) => r.w.status === k)) ?? null;
-      // One hairline, with a little air, between the loose spaces and the first group; none between groups.
-      if (loose.length && g === mine[0]) out.push(div().flex_none().h(1).mx(8).my(5).bg(t.border));
+      // A little air (no line) between the loose spaces and the first group; none between groups.
+      if (loose.length && g === mine[0]) out.push(div().flex_none().h(12));
       out.push(this.header({ id: g.id, name: g.name, color: g.color, folded: g.folded }, t, m, rs.length, needs, rs.some((r) => r.w.active)));
       // The members hang off a rail in the group's color, like a tree guide under the header's tile.
       if (!g.folded && rs.length) {
@@ -792,8 +802,8 @@ export default class Spaces extends View {
         if ((g.machine ?? null) !== (w.machine ?? null)) continue;
         items.push({ label: `Move to ${g.name}`, color: g.color, mark: cur === g.id, run: () => assign(w.id, g.id) });
       }
-      items.push({ label: "New group…", icon: "folder-plus", run: () => openName({ mode: "new", machine: w.machine ?? null, assign: w.id }) });
-      if (cur !== DEFAULT_GROUP) items.push({ label: "Remove from group", icon: "folder", run: () => assign(w.id, DEFAULT_GROUP) });
+      items.push({ label: "New group…", glyph: ICONS.add, run: () => openName({ mode: "new", machine: w.machine ?? null, assign: w.id }) });
+      if (cur !== DEFAULT_GROUP) items.push({ label: "Remove from group", glyph: ICONS.remove, run: () => assign(w.id, DEFAULT_GROUP) });
       items.push({ sep: true });
     }
     items.push({ label: "Rename", icon: "square-pen", run: () => run("space.rename", { id: w.id }) });
@@ -850,8 +860,8 @@ export default class Spaces extends View {
           .hover((s) => s.bg(t.hover))
           .on_click(() => choose(it))
           .child(it.color
-            ? h_flex().size(14).flex_none().rounded(4).bg(fillOf(t, it.color)).items_center().justify_center().child(svg("mods/workspace-chrome/folder.svg").size(9).text_color(inkOn(fillOf(t, it.color))))
-            : svg(`mods/workspace-chrome/${it.icon}.svg`).size(14).flex_none().text_color(t.muted))
+            ? h_flex().size(14).flex_none().rounded(4).bg(fillOf(t, it.color)).items_center().justify_center().child(nerd(ICONS.closed, 9, inkOn(fillOf(t, it.color)), 12))
+            : it.glyph ? nerd(it.glyph, 13, t.muted, 14) : svg(`mods/workspace-chrome/${it.icon}.svg`).size(14).flex_none().text_color(t.muted))
           .child(div().flex_1().min_w(0).truncate().child(it.label))
           .when(it.mark, (el) => el.child(div().text_size(11).text_color(t.dim).child("✓")));
       }));
@@ -936,7 +946,7 @@ export default class Spaces extends View {
         .when(!collapsed, el => el.child(this.pressed !== null && this.over === "ungroup" ? "Remove from group" : "Spaces"))
         .child(h_flex().flex_none().items_center()
           .when(!collapsed, el => el.child(div().id("group-new").size(26).flex_none().flex().items_center().justify_center().rounded(6).hover(s => s.bg(t.hover).text_color(t.foreground))
-            .tooltip("New group").on_click(() => openName({ mode: "new", machine: null })).child(svg("mods/workspace-chrome/folder-plus.svg").size(14))))
+            .tooltip("New group").on_click(() => openName({ mode: "new", machine: null })).child(nerd(ICONS.add, 15, undefined, 16))))
           .child(div().id("space-new").size(26).flex_none().flex().items_center().justify_center().rounded(6).hover(s => s.bg(t.hover).text_color(t.foreground))
             .on_click(() => run("space.new")).child(svg("mods/workspace-chrome/plus.svg").size(14)))))
       .child(v_flex().flex_1().min_h(0).px(collapsed ? 0 : 8).pb(14).overflow_y_scrollbar().mode("always")
