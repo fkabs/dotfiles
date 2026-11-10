@@ -3,7 +3,7 @@
   "defaultModel": "vllm/GLM-5.3-Flash-NVFP4",
   "defaultThinkingLevel": "high",
   "theme": "rose-pine-moon",
-  "lastChangelogVersion": "1.5.0",
+  "lastChangelogVersion": "1.5.1",
   "packages": [
     "npm:pi-subagents",
     "git:github.com/DietrichGebert/ponytail",
@@ -28,6 +28,6 @@
     "ustp-openwebui/vllm/gemma-4-31B-it"
   ],
   "extensionChangelogVersions": {
-    "{\"source\":\"npm:pi-subagents\",\"scope\":\"user\"}": "0.84.0"
+    "{\"source\":\"npm:pi-subagents\",\"scope\":\"user\"}": "0.87.0"
   }
 }
