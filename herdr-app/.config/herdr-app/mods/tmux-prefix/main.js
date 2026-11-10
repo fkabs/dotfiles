@@ -8,6 +8,7 @@ import { closeOverlay, exec, focused, hc, nextCommand, props, run, settings, the
 // Ctrl+Space (was Ctrl+B) and BINDINGS gained the old herdr prefix keys.
 const REPEAT_MS = 500;
 const COLUMNS = 3;
+const tab = (i) => [String(i), `Tab ${i === 0 ? 10 : i}`, "tab.select", { index: i === 0 ? 10 : i }];
 const BINDINGS = [
   ["c", "New tab", "tab.new"],
   ["n", "Next tab", "tab.next"],
@@ -18,19 +19,21 @@ const BINDINGS = [
   ['"', "Split down", "pane.split", { direction: "down" }],
   ["v", "Split right", "pane.split", { direction: "right" }],
   ["-", "Split down", "pane.split", { direction: "down" }],
+  ...[1, 2, 3, 4, 5].map(tab),
   ["J", "Next space", "space.next", {}, true],
   ["K", "Previous space", "space.prev", {}, true],
   ["N", "New space", "space.new"],
   ["W", "Rename space", "space.rename"],
   ["D", "Close space", "space.close"],
+  ["w", "Space picker", "mod.open", { name: "picker" }],
+  ["b", "Toggle sidebar", "layout.toggle", { id: "sidebar" }],
+  ["s", "Settings", "app.settings"],
+  ["d", "Minimize window", "window.minimize"],
+  ...[6, 7, 8, 9, 0].map(tab),
   ["h", "Focus left", "pane.go", { direction: "left" }, true],
   ["j", "Focus down", "pane.go", { direction: "down" }, true],
   ["k", "Focus up", "pane.go", { direction: "up" }, true],
   ["l", "Focus right", "pane.go", { direction: "right" }, true],
-  ["left", "Focus left", "pane.go", { direction: "left" }, true],
-  ["down", "Focus down", "pane.go", { direction: "down" }, true],
-  ["up", "Focus up", "pane.go", { direction: "up" }, true],
-  ["right", "Focus right", "pane.go", { direction: "right" }, true],
   ["x", "Close pane", "pane.close"],
   ["z", "Zoom pane", "pane.zoom"],
   ["g", "Lazygit (new tab)", "terminal.open", { argv: ["lazygit"], name: "lazygit" }],
@@ -38,11 +41,10 @@ const BINDINGS = [
   // A command may be a function instead of a herdr command name.
   // ponytail: local only; a remote space's cwd would open locally, use code --remote ssh-remote+<host> if needed.
   ["o", "VS Code (window)", () => exec("code", focused()?.cwd ? [focused().cwd] : []).catch((e) => console.log(`tmux-prefix: ${e}`))],
-  ["d", "Minimize window", "window.minimize"],
-  ["w", "Space picker", "mod.open", { name: "picker" }],
-  ["b", "Toggle sidebar", "layout.toggle", { id: "sidebar" }],
-  ["s", "Settings", "app.settings"],
-  ...Array.from({ length: 10 }, (_, i) => [String(i), `Tab ${i === 0 ? 10 : i}`, "tab.select", { index: i === 0 ? 10 : i }]),
+  ["left", "Focus left", "pane.go", { direction: "left" }, true],
+  ["down", "Focus down", "pane.go", { direction: "down" }, true],
+  ["up", "Focus up", "pane.go", { direction: "up" }, true],
+  ["right", "Focus right", "pane.go", { direction: "right" }, true],
 ];
 
 function forwardKey(e, key) {
@@ -59,6 +61,7 @@ export default class TmuxPrefix extends View {
     this.handle.focus();
     this.repeat = false;
     this.generation = 0;
+    this.all = false;
     // The mod-specific key binding beats the global opener while we're open.
     cx.spawn(async (cx) => {
       for (;;) {
@@ -96,6 +99,13 @@ export default class TmuxPrefix extends View {
     if (m.control && e.key === "space") return this.sendPrefix(cx);
     const plain = !m.control && !m.alt && !m.platform;
     const key = plain ? (e.key_char ?? (m.shift && e.key.length === 1 ? e.key.toUpperCase() : e.key)) : e.key;
+    if (plain && key === "?") {
+      this.all = !this.all;
+      this.repeat = false;
+      this.generation++;
+      cx.notify();
+      return;
+    }
     const binding = plain && BINDINGS.find((b) => b[0] === key);
     if (!binding) {
       const forwarded = this.repeat && plain && forwardKey(e, key);
@@ -118,9 +128,11 @@ export default class TmuxPrefix extends View {
 
   render() {
     const t = theme();
-    // Fill column by column: BINDINGS is ordered so each column reads as one topic.
-    const per = Math.ceil(BINDINGS.length / COLUMNS);
-    const columns = Array.from({ length: COLUMNS }, (_, i) => BINDINGS.slice(i * per, (i + 1) * per));
+    // The short list hides arrows and digits. Fill column by column: BINDINGS is
+    // ordered so each column reads as one topic in both the short and full list.
+    const rows = this.all ? BINDINGS : BINDINGS.filter(([key]) => !["left", "right", "up", "down"].includes(key) && !/^\d$/.test(key));
+    const per = Math.ceil(rows.length / COLUMNS);
+    const columns = Array.from({ length: COLUMNS }, (_, i) => rows.slice(i * per, (i + 1) * per));
     return v_flex().id("tmux-prefix").track_focus(this.handle)
       .on_key_down((e, cx) => this.key(e, cx))
       .p(14).gap(8).bg(t.popover).text_color(t.foreground)
@@ -129,6 +141,7 @@ export default class TmuxPrefix extends View {
         .child(div().text_color(t.muted).child("Esc cancel · ^Space send prefix")))
       .child(h_flex().gap(24).items_start().children(columns.map((col, i) => v_flex().id(`col-${i}`).flex_1().min_w(0).children(col.map(([key, label, , , repeatable]) =>
         h_flex().h(24).flex_none().items_center().gap(12).child(div().w(44).text_color(t.accent).child(key))
-          .child(div().flex_1().child(label)).child(div().text_color(t.dim).child(repeatable ? "repeat" : "")))))));
+          .child(div().flex_1().child(label)).child(div().text_color(t.dim).child(repeatable ? "repeat" : "")))))))
+      .child(div().text_color(t.muted).child(this.all ? "? short list" : "0–9 tabs (0 = 10) · arrows focus · ? all bindings"));
   }
 }
