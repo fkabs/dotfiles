@@ -111,7 +111,24 @@ in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new fi
     shell's folder. A name typed by hand stays until cleared. Spaces keep their own names. Names
     are 280px wide.
   - `auto-title-spaces`: the spaces sidebar. A git space always shows its branch in grey after its
-    name (the shipped one hides `main`/`master`).
+    name, with a branch icon (the shipped one hides `main`/`master`). The name shortens before the branch does. It also groups spaces: named, colored, foldable
+    groups, with the spaces that are in no group left **loose** above them (no header, no indent; nothing
+    is stored for a loose space, so spaces made by cmd-n or a worktree are loose by default). One hairline separates them from the first group (none between groups), and a group's
+    members hang off a rail in the group's color. The folder-plus button next to the Spaces `+`
+    makes a group; right-click a space → *Move to <group>* / *New group…* / *Remove from group*, or drag
+    it onto a header (onto the fixed "Spaces" title bar or a loose row to take it out, onto a space to
+    take its place); right-click a group header →
+    Rename, color, Delete (folding is the header's chevron/click only); the color row is the six
+    rose-pine-moon theme colors (`ansi1..6` tokens, so they follow the theme) plus a spectrum swatch that
+    opens a hex dialog for a custom `#rrggbb`; each header's `+` makes a space inside it. Order is kept in
+    the real space order, so `space.next/prev`, `ctrl-1..9` and the prefix `J`/`K` follow the list.
+    State is the shared key `space.groups` in `shared.json` (app state, **not** tracked: a new machine
+    starts with no groups; `members` per group are space ids). Scriptable and testable with
+    `herdr-app do 'auto-title-spaces.group.<new:NAME | rename:ID:NAME | color:ID:ansiN\|#hex | delete:ID |
+    fold:ID | assign:SPACE:ID\|none | newspace:ID | open:space:ID\|group:ID\|name:new>'` (the
+    tabs/menus/dialog are this same mod opened with `props().role`; one file, as stow needs). Gotchas:
+    `shared()` returns read-only objects (copy before mutating), and in zsh write `${VAR}` before a
+    `:` in test commands (`$P:P` is a path modifier).
   - Both are modified copies of Herdr's shipped `tabs` and `spaces` mods (Apache-2.0); each file's
     header says so. A single `main.js` each: a mod with relative imports can't be stow-linked
     (`herdr-app check` rejects an import resolving into `~/.dotfiles`, and the SVG loader ignores
