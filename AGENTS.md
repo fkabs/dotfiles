@@ -96,7 +96,7 @@ in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new fi
   `ctrl-space` → `tmux-prefix` mod (old herdr prefix); once edited it no longer receives
   new default keys, add them by hand. The mod is
   [herdrdev/herdr-layout-examples](https://github.com/herdrdev/herdr-layout-examples/tree/main/tmux-prefix)
-  with prefix Ctrl+Space instead of Ctrl+B and extra keys (`v - b s w N W D T X g e o`; `o` opens a VS Code window on the focused pane's folder)
+  with prefix Ctrl+Space instead of Ctrl+B and extra keys (`v - b s w N W D T X g e o t`; `o` opens a VS Code window and `t` a new Ghostty window (macOS only, `--window-save-state=never` or it restores an old window) on the focused pane's folder)
   in `BINDINGS` in `main.js`; it runs `hc keys` to send the literal prefix. Edits are
   live; check with `herdr-app status` and `herdr-app check` (run it on the linked
   `~/.config/herdr-app/mods/...` copy: on the repo path it writes `gpui-kit.d.ts` and

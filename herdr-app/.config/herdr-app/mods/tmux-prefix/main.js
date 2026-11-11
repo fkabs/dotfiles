@@ -41,6 +41,9 @@ const BINDINGS = [
   // A command may be a function instead of a herdr command name.
   // ponytail: local only; a remote space's cwd would open locally, use code --remote ssh-remote+<host> if needed.
   ["o", "VS Code (window)", () => exec("code", focused()?.cwd ? [focused().cwd] : []).catch((e) => console.log(`tmux-prefix: ${e}`))],
+  // ponytail: macOS + local only (open -n); on Linux call `ghostty --working-directory=<cwd>` directly.
+  // --window-save-state=never: else a new instance restores its saved window and ignores the folder.
+  ["t", "Ghostty (window)", () => exec("open", ["-na", "Ghostty", "--args", "--window-save-state=never", ...(focused()?.cwd ? [`--working-directory=${focused().cwd}`] : [])]).catch((e) => console.log(`tmux-prefix: ${e}`))],
   ["left", "Focus left", "pane.go", { direction: "left" }, true],
   ["down", "Focus down", "pane.go", { direction: "down" }, true],
   ["up", "Focus up", "pane.go", { direction: "up" }, true],
