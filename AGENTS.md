@@ -164,7 +164,13 @@ Kept in sync by hand, no automation:
 - `claude/.claude/CLAUDE.md` ↔ `pi/.pi/agent/AGENTS.md` ↔ `opencode/.config/opencode/AGENTS.md`:
   same body, only the H1 differs.
 - `claude/.claude/rules/*.md` ↔ `pi/.pi/rules/*.md`: same body, pi copies add
-  `pi-rules` frontmatter (`description`, `tools`, `dedupe`).
+  `pi-rules` frontmatter (`description`, `tools`, `dedupe`). Exception: `hc-subagents` has
+  the same skeleton but per-agent details in each copy: its own built-in subagent tool and its own
+  `hc run` launch command (Claude Code children run with
+  `--permission-mode auto`). The opencode copy also ends its turn after the launch instead of
+  calling `hc wait`: its TUI queues the child's report until the turn ends, so a waiting turn
+  never sees it. Children get secrets and PATH from herdr-core's environment: after a reboot run
+  `hc server restart --fresh` once from a terminal outside Herdr (with `.zsh_secrets` loaded).
 - Rules in opencode are **appended to its `AGENTS.md`** (each under a
   `<!-- rule: <name> -->` comment, verbatim). The `instructions` key in `opencode.json`
   did not load them (tested v2.0.24, glob and explicit paths, `~` and `{env:HOME}`).
