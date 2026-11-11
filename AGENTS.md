@@ -32,7 +32,7 @@ pre-commit (`.pre-commit-config.yaml`). Never bypass it.
   New repo files show up instantly, but anything the app writes there lands in the
   repo. Intended for `btop` (it rewrites `btop.conf`, expect a dirty `git status`).
 - **`herdr-app`, `claude` and `opencode`: `--no-folding`** (the `case` in
-  `justfile`). Their apps (and, for opencode, the caveman/ponytail/superpowers installers) write runtime
+  `justfile`). Their apps (and, for opencode, the superpowers installer) write runtime
   state next to tracked config, so only tracked files are linked into real dirs. Cost: a
   new tracked file needs `just restow <pkg>`, and a file the app creates in `$HOME`
   (e.g. a skill made inside Claude Code) must be moved into the repo and restowed.
@@ -151,7 +151,7 @@ in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new fi
 | | Claude Code (`claude/.claude/`) | pi (`pi/.pi/`) | opencode (`opencode/.config/opencode/`) |
 |---|---|---|---|
 | Settings | `settings.json` | `agent/settings.json`, `agent/mcp.json` | `opencode.json` (plugins, provider, mcp), `cli.json` (theme) |
-| Global instructions | `CLAUDE.md` | `agent/AGENTS.md` | `AGENTS.md` (+ rules inlined, caveman block) |
+| Global instructions | `CLAUDE.md` | `agent/AGENTS.md` | `AGENTS.md` (+ rules inlined) |
 | Rules | `rules/` | `rules/` | inlined in `AGENTS.md` |
 | Skills | `skills/` | `agent/skills/` | reads `~/.claude/skills`; tracked: `diagram-design`, `security-audit`, `anatomy` |
 | Hooks / extensions | `hooks/` (shell) | `agent/extensions/` (TypeScript) | plugins via `plugins` in `opencode.json` |
@@ -218,13 +218,8 @@ formats/runtimes.
   worldwide while Bifrost only works inside the USTP network. Model IDs are identical.
   pi gets it from the `ustp-openwebui.ts` extension (`models.json` can't read the URL from an
   env var); pi's default stays `bifrost`, switch with `/model` when off the USTP network.
-- The caveman installer owns the `<!-- caveman-begin -->…<!-- caveman-end -->` block in
-  `AGENTS.md`, plus untracked `plugins/caveman/`, `commands/`, `agents/cavecrew-*`,
-  `skills/cave*`. A caveman update shows up as a diff in the tracked `AGENTS.md`.
-  On a new machine run the caveman installer; ponytail and superpowers install from
-  `plugins`.
-- Never track `service.json` (password), `opencode.json.bak` or
-  `.caveman-opencode-ownership.json`.
+- superpowers installs from `plugins` in `opencode.json`.
+- Never track `service.json` (password) or `opencode.json.bak`.
 - opencode runs a background service that caches config and its own env: after edits run
   `opencode service restart` (from a shell with `.zsh_secrets` loaded).
 

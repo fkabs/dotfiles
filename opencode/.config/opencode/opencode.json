@@ -1,11 +1,7 @@
 {
   "model": "ustp-bifrost/vllm/GLM-5.3-Flash-NVFP4",
   "plugins": [
-    "@dietrichgebert/ponytail",
     "superpowers@git+https://github.com/obra/superpowers.git"
-  ],
-  "plugin": [
-    "./plugins/caveman/plugin.js"
   ],
   "provider": {
     "ustp-bifrost": {
