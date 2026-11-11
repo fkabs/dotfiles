@@ -178,9 +178,10 @@ Before you start any subagent (your built-in subagent tool, shown as "General Su
 
    Keep the full path: opencode is not on hc's PATH.
 2. Write `<task>` so it states the exact scope. If a skill or command fits the work (for example
-   `security-audit`), name it so the child loads it. If a skill supplies the subagent's prompt or
-   template, pass it unchanged. End `<task>` with: "No subagents. Report with hc send
-   $HC_TERMINAL_ID when done or stuck."
+   `security-audit`), name it so the child loads it. Tell the child to put its findings in the
+   `hc send` report, or in a file outside the project if they are long, never in the project folder.
+   If a skill supplies the subagent's prompt or template, pass it unchanged. End `<task>` with:
+   "No subagents. Report with hc send $HC_TERMINAL_ID when done or stuck."
 3. Do not call `hc wait`, sleep or poll. Say that the child is running and end your turn right after
    the launch: the child's report arrives as your next input, and hc tells you if the child gets
    stuck. Read the child's actual result before you summarize it. If it stops without reporting,

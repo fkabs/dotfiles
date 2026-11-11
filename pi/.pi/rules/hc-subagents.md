@@ -19,9 +19,10 @@ Before you start any subagent (the `subagent` tool from pi-subagents in any work
    - if an hc template fits (`hc templates`): `hc run --bg --name <name> --cwd <dir> <template> "<task>"`
    - otherwise: `hc run --bg --name <name> --cwd <dir> pi "<task>"`
 2. Write `<task>` so it states the exact scope. If a skill or command fits the work (for example
-   `security-audit`), name it so the child loads it. If a skill supplies the subagent's prompt or
-   template, pass it unchanged. End `<task>` with: "No subagents. Report with hc send
-   $HC_TERMINAL_ID when done or stuck."
+   `security-audit`), name it so the child loads it. Tell the child to put its findings in the
+   `hc send` report, or in a file outside the project if they are long, never in the project folder.
+   If a skill supplies the subagent's prompt or template, pass it unchanged. End `<task>` with:
+   "No subagents. Report with hc send $HC_TERMINAL_ID when done or stuck."
 3. Wait with `hc wait --children any`, never sleep or poll. When it returns `reason: message`, the
    child's report is arriving as your next input: do not wait again. Read the report there, and end
    your turn if it is not visible yet. Read the child's actual result before you summarize it. If it
