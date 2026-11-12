@@ -181,7 +181,7 @@ Before you start any subagent (your built-in subagent tool, shown as "General Su
    `security-audit`), name it so the child loads it. Tell the child to put its findings in the
    `hc send` report, or in a file outside the project if they are long, never in the project folder.
    If a skill supplies the subagent's prompt or template, pass it unchanged. End `<task>` with:
-   "No subagents. Report with hc send $HC_TERMINAL_ID when done or stuck."
+   "Report with hc send $HC_TERMINAL_ID when done or stuck."
 3. Do not call `hc wait`, sleep or poll. Say that the child is running and end your turn right after
    the launch: the child's report arrives as your next input, and hc tells you if the child gets
    stuck. Read the child's actual result before you summarize it. If it stops without reporting,
@@ -190,5 +190,5 @@ Before you start any subagent (your built-in subagent tool, shown as "General Su
 Use another CLI only if the user asks for it: `claude --permission-mode auto "<task>"` or `pi "<task>"`, with the
 same `hc run` options.
 
-If your task tells you to report with `hc send`, you are an hc child: start no agents unless the task
-says so.
+An hc child follows this same rule: it may start its own hc children for delegated work. Add
+"No subagents" to `<task>` only if the user asks for that.

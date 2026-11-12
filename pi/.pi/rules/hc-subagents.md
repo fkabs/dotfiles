@@ -22,7 +22,7 @@ Before you start any subagent (the `subagent` tool from pi-subagents in any work
    `security-audit`), name it so the child loads it. Tell the child to put its findings in the
    `hc send` report, or in a file outside the project if they are long, never in the project folder.
    If a skill supplies the subagent's prompt or template, pass it unchanged. End `<task>` with:
-   "No subagents. Report with hc send $HC_TERMINAL_ID when done or stuck."
+   "Report with hc send $HC_TERMINAL_ID when done or stuck."
 3. Wait with `hc wait --children any`, never sleep or poll. When it returns `reason: message`, the
    child's report is arriving as your next input: do not wait again. Read the report there, and end
    your turn if it is not visible yet. Read the child's actual result before you summarize it. If it
@@ -32,5 +32,5 @@ Use another CLI only if the user asks for it: `claude --permission-mode auto "<t
 `"$HOME/.opencode/bin/opencode" --prompt "<task>"` (opencode is not on hc's PATH), with the
 same `hc run` options.
 
-If your task tells you to report with `hc send`, you are an hc child: start no agents unless the task
-says so.
+An hc child follows this same rule: it may start its own hc children for delegated work. Add
+"No subagents" to `<task>` only if the user asks for that.
