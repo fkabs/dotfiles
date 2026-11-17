@@ -93,18 +93,18 @@
     }
   },
   "advisorModel": "fable",
-  "tui": "fullscreen",
-  "autoMemoryEnabled": true,
-  "showThinkingSummaries": true,
-  "skipDangerousModePermissionPrompt": true,
-  "theme": "custom:rose-pine-moon",
-  "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": true,
   "pluginConfigs": {
     "cc-plugin-agents-md@builtin": {
       "options": {
         "instructionFiles": "claude-md-or-agents-md"
       }
     }
-  }
+  },
+  "tui": "fullscreen",
+  "autoMemoryEnabled": true,
+  "showThinkingSummaries": true,
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "custom:rose-pine-moon",
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true
 }
