@@ -1,0 +1,11 @@
+{
+  "colors": {
+    "model": "accent",
+    "path": "#9ccfd8",
+    "gitClean": "success",
+    "gitDirty": "warning",
+    "context": "muted",
+    "contextWarn": "warning",
+    "contextError": "error"
+  }
+}

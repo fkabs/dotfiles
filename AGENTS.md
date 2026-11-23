@@ -219,6 +219,12 @@ formats/runtimes.
   worldwide while Bifrost only works inside the USTP network. Model IDs are identical.
   pi gets it from the `ustp-openwebui.ts` extension (`models.json` can't read the URL from an
   env var); pi's default stays `bifrost`, switch with `/model` when off the USTP network.
+- `pi-powerline-footer` draws pi's footer (model/path/git + context, below the editor, no cost
+  segments — the USTP models report no pricing). Config lives in the `powerline` block in
+  `pi/.pi/agent/settings.json`; segment colors are pinned in
+  `pi/.pi/agent/extensions/powerline-footer/theme.json` (agent-dir theme override). The npm
+  package is in `packages` (auto-installed at startup); the theme-dir symlink needs nothing on
+  a new machine (`just install pi` fold-links the tracked dir).
 - superpowers installs from `plugins` in `opencode.json`.
 - Never track `service.json` (password) or `opencode.json.bak`.
 - opencode runs a background service that caches config and its own env: after edits run

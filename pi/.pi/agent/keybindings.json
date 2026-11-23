@@ -1,0 +1,5 @@
+{
+  "$schema": "https://pi.dev/schemas/keybindings.schema.json",
+  "app.thinking.toggle": "ctrl+o",
+  "app.tools.expand": "ctrl+t"
+}
