@@ -191,11 +191,10 @@ Kept in sync by hand, no automation:
   then `just restow opencode`).
 - `pi/.pi/agent/agents/*.md` ↔ `opencode/.../agents/*.md`: same body, opencode adds
   `mode: subagent`.
-- `pi/.pi/agent/mcp.json` ↔ `mcp` in `opencode.json`: context7, github and
-  claude-historian-mcp in both (different schema). Secrets come from `.zsh_secrets` via
-  `{env:VAR}`; no OAuth needed.
-- Claude Code MCP servers are user scope in untracked `~/.claude.json`, not tracked here.
-  On a new machine: `claude mcp add claude-historian-mcp -s user -- npx claude-historian-mcp`.
+- `pi/.pi/agent/mcp.json` ↔ `mcp` in `opencode.json`: context7 and github in both
+  (different schema). Secrets come from `.zsh_secrets` via `{env:VAR}`; no OAuth needed.
+- Claude Code MCP servers (none at user scope now; context7 and github come from plugins)
+  would live in untracked `~/.claude.json`, not tracked here.
 - USTP model limits live in four places, keep them in sync: `pi/.pi/agent/models.json`
   (`modelOverrides` for the `bifrost` provider), `pi/.pi/agent/extensions/ustp-openwebui.ts`,
   and `limit` per model in the opencode `ustp-bifrost` and `ustp-openwebui` providers.
