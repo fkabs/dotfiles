@@ -67,4 +67,5 @@ copy each mod's folder into `~/.config/herdr-app/mods/` (copy, don't symlink), t
   Code and Codex limits in the status bar of the `home` layout
 - [`git-good`](https://github.com/CodeyPacker/herdr-mods/tree/main/git-good)
   (`mods/git-good`): git dialog (stage, commit, pull, push, stash, branches), on
-  Ctrl+Space `g`
+  Ctrl+Space `g`. One local change after copying: in its `main.js`, `DIALOG` has
+  `width: "85%"` instead of `1040`, so the dialog is as wide as it is tall
