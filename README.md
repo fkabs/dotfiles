@@ -54,3 +54,17 @@ Only used on demand, or genuinely macOS-only regardless of what's installed:
 - `mas`: Mac App Store CLI, only used by `brewup` (macOS only, no Linux equivalent)
 - `vim`: used as `$SUDO_EDITOR` for `sudoedit`; needs a real `vim` on `PATH` since the
   `vim`/`nvim` alias doesn't apply under sudo's non-interactive shell
+
+### Herdr mods
+
+Third-party mods the [Herdr](https://herdr.dev) config uses. They are not in this repo:
+copy each mod's folder into `~/.config/herdr-app/mods/` (copy, don't symlink), then
+`herdr-app check ~/.config/herdr-app/mods/<name>`.
+
+- [`auto-agents`](https://github.com/benjaminsicard/herdr-mods/tree/main/universal-auto-tabs)
+  (`mods/auto-agents`): the agents list of the `home` layout, rows show the tab name only
+- [`usage-limits`](https://github.com/nozikov/herdr-usage-limits) (`mods/usage-limits`): Claude
+  Code and Codex limits in the status bar of the `home` layout
+- [`git-good`](https://github.com/CodeyPacker/herdr-mods/tree/main/git-good)
+  (`mods/git-good`): git dialog (stage, commit, pull, push, stash, branches), on
+  Ctrl+Space `g`

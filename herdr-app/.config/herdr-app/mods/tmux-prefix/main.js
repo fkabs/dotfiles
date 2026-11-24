@@ -36,7 +36,8 @@ const BINDINGS = [
   ["l", "Focus right", "pane.go", { direction: "right" }, true],
   ["x", "Close pane", "pane.close"],
   ["z", "Zoom pane", "pane.zoom"],
-  ["g", "Lazygit (new tab)", "terminal.open", { argv: ["lazygit"], name: "lazygit" }],
+  // A third-party dialog (listed in the README). Its own key, ctrl-a g, is not bound: ctrl-a belongs to the shell.
+  ["g", "Git Good", "mod.open", { name: "git-good" }],
   ["e", "Neovim (new tab)", "terminal.open", { argv: ["nvim", "."], name: "nvim" }],
   // A command may be a function instead of a herdr command name.
   // ponytail: local only; a remote space's cwd would open locally, use code --remote ssh-remote+<host> if needed.
