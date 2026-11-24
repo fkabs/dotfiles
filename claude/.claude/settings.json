@@ -56,12 +56,6 @@
         "repo": "Owloops/claude-powerline"
       }
     },
-    "cloudflare": {
-      "source": {
-        "source": "github",
-        "repo": "cloudflare/skills"
-      }
-    },
     "superpowers-marketplace": {
       "source": {
         "source": "github",
