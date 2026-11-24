@@ -158,6 +158,9 @@
 [difftool "exiftool"]
     cmd = exiftool -G1 -a -u "$LOCAL" "$REMOTE" | less
 
+[difftool "vscode"]
+    cmd = code --wait --diff "$LOCAL" "$REMOTE"
+
 [gpg]
     format = ssh
 
@@ -172,6 +175,9 @@
 
 [mergetool "bc"]
 	trustExitCode = true
+
+[mergetool "vscode"]
+    cmd = code --wait --merge "$REMOTE" "$LOCAL" "$BASE" "$MERGED"
 
 [pager]
     difftool = true
