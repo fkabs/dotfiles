@@ -31,7 +31,7 @@ elif (( $+commands[xclip] )); then
 fi
 
 # IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 if (( $+commands[ipconfig] )); then
     alias localip="ipconfig getifaddr en0"
 else

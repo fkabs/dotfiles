@@ -17,9 +17,7 @@ typeset -gxTU INFOPATH infopath
 # ----------------------------------------------------------------
 
 # Fuzzy matching (fzf)
-if type "fzf" > /dev/null; then
-    source <(fzf --zsh)
-fi
+source <(fzf --zsh)
 
 # ----------------------------------------------------------------
 
