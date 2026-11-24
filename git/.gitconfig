@@ -8,10 +8,9 @@
 
     # tweak defaults
     ai = add --interactive
-    branch = branch -ra
-    diff = diff --word-diff
+    br = branch -ra
     f = "!git ls-files | grep -i"
-    grep = grep -Ii
+    gr = grep -Ii
 
     # commit
     amend = commit --amend
