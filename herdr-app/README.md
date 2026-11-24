@@ -160,9 +160,7 @@ picks up a re-copied mod after switching layouts away and back.
   Code and Codex limits in the status bar of the `home` layout
 - [`git-good`](https://github.com/CodeyPacker/herdr-mods/tree/main/git-good)
   (`mods/git-good`): git dialog (changed files with diff, staging by file or hunk, commit,
-  pull, push, stash, switching and creating branches), on Ctrl+Space `g`. One local change
-  after copying: in its `main.js`, `DIALOG` has `width: "85%"` instead of `1040`, so the
-  dialog is as wide as it is tall
+  pull, push, stash, switching and creating branches), on Ctrl+Space `g`
 
 Without `auto-agents` or `usage-limits`, set its slot in `layouts/home.json` back:
 `"agents"` for the agents list, the plain `status` block (`"size": {"px": 28}`) for the
