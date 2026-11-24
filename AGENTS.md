@@ -11,7 +11,7 @@ package mirroring `$HOME` (`zsh/.config/zsh/.zshrc` → `~/.config/zsh/.zshrc`).
 Config-only: tools are installed separately, see [README.md](README.md).
 
 Packages: `bat`, `btop`, `claude`, `ghostty`, `git`, `herdr-app`, `nvim`,
-`opencode`, `pi`, `starship`, `tmux`, `zsh`. `via/` is not a package (see [VIA](#via)).
+`opencode`, `pi`, `starship`, `stow`, `tmux`, `zsh`. `via/` is not a package (see [VIA](#via)).
 
 ## Commands
 
@@ -23,8 +23,15 @@ just restow [pkgs]        # re-link (after adding/removing files in a package)
 stow -n -v -R -t "$HOME" <pkg>   # dry run, check before touching $HOME
 ```
 
+Checks after an edit: `zsh -n <file>` for zsh, `jq empty <file>` for JSON, the dry run
+above for anything that adds, moves or removes a file.
+
 Commits run a [betterleaks](https://github.com/betterleaks/betterleaks) secret scan via
-pre-commit (`.pre-commit-config.yaml`). Never bypass it.
+pre-commit (`.pre-commit-config.yaml`). Never bypass it. The hook is per clone
+(`pre-commit install`) and calls the `betterleaks` binary on `PATH`.
+
+Commit scope is usually the package name (`feat(herdr-app):`), comma-separated for several
+(`feat(claude,pi,opencode):`).
 
 ## Stow Folding
 
@@ -36,8 +43,21 @@ pre-commit (`.pre-commit-config.yaml`). Never bypass it.
   state next to tracked config, so only tracked files are linked into real dirs. Cost: a
   new tracked file needs `just restow <pkg>`, and a file the app creates in `$HOME`
   (e.g. a skill made inside Claude Code) must be moved into the repo and restowed.
+- **A missing target dir is folded whole.** On a machine without `~/.pi`, `just install`
+  links `~/.pi` itself into the repo, and pi then writes `auth.json`, sessions and caches
+  into `pi/.pi/agent/` (untracked, not ignored). Same for `~/.config` when every installed
+  package reaches it through one package (`just install zsh git` on a fresh server). So:
+  `mkdir -p ~/.config ~/.pi/agent` before the first install (README, step 2). `~/.pi/rules`
+  and, below `~/.pi/agent`, `skills`, `agents`, `themes` and `extensions` are still dir
+  links: what pi writes there lands in the repo.
 - Stow ignores `.gitignore`: any untracked file physically inside a package dir gets
   linked too. Keep app state out of package dirs.
+- The ignore list is tracked: `stow/.stow-global-ignore` → `~/.stow-global-ignore`, stow's
+  built-in list plus `.DS_Store` (a global file replaces the built-in list, so keep the
+  defaults in it).
+- Docs inside a package: only `<pkg>/README.md` at the package root is safe (the
+  ignore list has `^/README.*`). An `AGENTS.md` there, or a README deeper down, is linked
+  into `$HOME`.
 - **Symlink replaced by a regular file.** Some writers swap the link for a real file
   (Claude Code → `~/.claude/settings.json`; possibly herdr-app's `settings.json`/`keys.json`
   when saved from its Settings UI or after `app.reset`, not verified).
@@ -46,17 +66,18 @@ pre-commit (`.pre-commit-config.yaml`). Never bypass it.
 
 ## Cross-Platform: OS Gates, Not Tool Checks
 
-Tools are assumed installed; never guard on "is X on PATH". Guard only what has no
-Linux equivalent at all:
+Tools the README lists as required are assumed installed; never guard those on "is X on
+PATH". Guard only what has no Linux equivalent at all, and optional tools (`.zsh_config`:
+`docker`, `mole`, `~/.elan/bin`, `~/.opencode/bin`):
 
 - `zsh/.zshenv`: `[[ $(uname) == Darwin/Linux ]]` for `$BROWSER`, `$SSH_AUTH_SOCK`,
   TeX Live. `.zshenv` stays exports-only.
 - `zsh/.config/zsh/.zprofile`: loads Homebrew by probing all three prefixes (macOS
   arm64/Intel, Linuxbrew). It's an `eval`, so login shells only.
 - `functions/{brewup,brewzap,backup}`: `(( $+commands[mas] ))`,
-  `(( $+commands[defaults] ))` guard macOS-only APIs; `brew`/`nvim`/`claude`/`opencode`/`pi`
-  calls are unconditional.
-- `.zsh_aliases`: `localip`/`ips` key off `ipconfig`; `pbcopy`/`pbpaste` shim to
+  `(( $+commands[defaults] ))` guard macOS-only APIs; `antidote`/`brew`/`nvim`/`claude`/`hc`/
+  `opencode`/`pi` calls are unconditional.
+- `.zsh_aliases`: `localip` keys off `ipconfig`; `pbcopy`/`pbpaste` shim to
   `wl-copy`/`xclip` on Linux.
 - `git/.gitconfig`: credential helper is PATH-resolved `gh`; Beyond Compare (`bc`)
   stays default difftool/mergetool (soft failure on Linux, `-t difft` works anywhere).
@@ -73,8 +94,14 @@ Linux equivalent at all:
 - `functions/` autoloaded; matching completions in `completions/_<name>`.
 - Plugins: antidote, list in `plugins/.zsh_plugins.txt` (self-clones to `~/.antidote`).
 - `PIP_REQUIRE_VIRTUALENV=true` (bypass: `gpip`/`nopip`). `sudo`/`please` expand to
-  `sudo -E HOME=$HOME ` so root tools read user config. `SUDO_EDITOR=vim` (real
-  binary; the `vim`→`nvim` alias doesn't apply under sudo).
+  `sudo -E HOME=$HOME ` so root tools read user config. `EDITOR`, `VISUAL` and
+  `SUDO_EDITOR` are `vim` (real binary; the `vim`→`nvim` alias doesn't apply under sudo
+  or when git opens an editor).
+- Names that don't mean the usual thing in an interactive shell: `cat` is `bat`,
+  `fzf` adds a preview, `cd` is a function
+  that also activates/deactivates `./.venv`, `pi` is a wrapper that filters one stderr
+  warning. In a function or alias that needs the real one, write `command <name>`
+  (`builtin cd`).
 
 ## Neovim (`nvim/`)
 
@@ -82,106 +109,29 @@ Linux equivalent at all:
 `fkabs.lazy` (lazy.nvim bootstrap). One file per plugin in `lua/fkabs/plugins/`, LSP
 in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new file.
 `lazy-lock.json` is tracked (pinned plugin versions across machines): commit it after
-`:Lazy update`.
+`:Lazy update` or `brewup` (which runs `Lazy! sync`). Python tools are not Mason's: `ruff`
+and `debugpy` come from `uv tool install`, and `dap-python.lua` hardcodes
+`~/.local/share/uv/tools/debugpy/bin/python`.
 
 ## Other Packages
 
-- **git**: SSH-signed commits (`~/.ssh/keys/id_ed25519.pub`), rerere, aliases.
+- **git**: SSH signing is set up (key `~/.ssh/keys/id_ed25519.pub`,
+  `~/.ssh/allowed_signers`, neither in the repo) but not switched on: there is no
+  `commit.gpgsign`, sign with `-S`. Rerere, aliases, four difftools (`bc` default,
+  `vscode`, `difft`, `exiftool`).
 - **tmux**: prefix `C-Space`, TPM at `~/.tmux/plugins/tpm/tpm`, plugins cached in
   `$XDG_CACHE_HOME/tmux/plugins`.
-- **herdr-app** (desktop app, home `~/.config/herdr-app`, JSON instead of TOML): tracked
-  are only `keys.json`, `settings.json`, `themes/rose-pine-moon.json` and
-  `mods/tmux-prefix/`; the app owns the rest of the dir (layouts, shipped mods, `.d.ts`,
-  `AGENTS.md`), keep it out of the repo. `keys.json` is the app defaults plus
-  `ctrl-space` → `tmux-prefix` mod (old herdr prefix); once edited it no longer receives
-  new default keys, add them by hand. The mod is
-  [herdrdev/herdr-layout-examples](https://github.com/herdrdev/herdr-layout-examples/tree/main/tmux-prefix)
-  with prefix Ctrl+Space instead of Ctrl+B and extra keys (`v - b s w N W D T X g e o t f`; `g` opens the Git Good dialog (a third-party mod, below; lazygit moved to the Changes panel's header menu), `o` opens a VS Code window, `t` a new Ghostty window (macOS only, `--window-save-state=never` or it restores an old window) and `f` Finder (`xdg-open` on Linux) on the focused pane's folder)
-  in `BINDINGS` in `main.js`; it runs `hc keys` to send the literal prefix. Edits are
-  live; check with `herdr-app status` and `herdr-app check` (run it on the linked
-  `~/.config/herdr-app/mods/...` copy: on the repo path it writes `gpui-kit.d.ts` and
-  `jsconfig.json` into the repo).
-  Also tracked, my own mods and layout: `mods/auto-title-tabs/`, `mods/auto-title-spaces/`,
-  `mods/home-files/`, `mods/home-changes/` (each `main.js`, `mod.json`) and `layouts/home.json`,
-  the only layout.
-  - `auto-title-tabs`: the tab bar. A tab is named after what runs in it: the first pane with a
-    useful terminal title (a coding agent's conversation title), else a program's name, else a
-    shell's folder. A name typed by hand stays until cleared. Spaces keep their own names. Names
-    are 280px wide.
-  - `auto-title-spaces`: the spaces sidebar. A git space always shows its branch in grey after its
-    name, with a branch icon (the shipped one hides `main`/`master`). The icons are one Codicons set (outline): open `U+EAF7` / closed `U+EA83` folder, new group `U+EA80`,
-    remove from group `U+EBAC` (export) and branch `U+EC6F`, all in the `ICONS` constant
-    icons are Nerd Font glyphs in the Propo variant of the terminal font (one `replace()` in the `nerd()` helper;
-    the Mono variant squeezes icons into one cell, Propo draws them proportionally), not SVGs. The name shortens before the branch does. It also groups spaces: named, colored, foldable
-    groups, with the spaces that are in no group left **loose** above them (no header, no indent; nothing
-    is stored for a loose space, so spaces made by cmd-n or a worktree are loose by default). A small gap (no line) separates them from the first group (none between groups), and a group's
-    members hang off a rail in the group's color. The folder-plus button next to the Spaces `+`
-    makes a group; right-click a space → *Move to <group>* / *New group…* / *Remove from group*, or drag
-    it onto a header (onto the fixed "Spaces" title bar or a loose row to take it out, onto a space to
-    take its place); right-click a group header →
-    Rename, color, Delete (folding is the header's chevron/click only); the color row is the six
-    rose-pine-moon theme colors (`ansi1..6` tokens, so they follow the theme) plus a spectrum swatch that
-    opens a hex dialog for a custom `#rrggbb`; each header's `+` makes a space inside it. Order is kept in
-    the real space order, so `space.next/prev`, `ctrl-1..9` and the prefix `J`/`K` follow the list.
-    State is the shared key `space.groups` in `shared.json` (app state, **not** tracked: a new machine
-    starts with no groups; `members` per group are space ids). Scriptable and testable with
-    `herdr-app do 'auto-title-spaces.group.<new:NAME | rename:ID:NAME | color:ID:ansiN\|#hex | delete:ID |
-    fold:ID | assign:SPACE:ID\|none | newspace:ID | open:space:ID\|group:ID\|name:new>'` (the
-    tabs/menus/dialog are this same mod opened with `props().role`; one file, as stow needs). Gotchas:
-    `shared()` returns read-only objects (copy before mutating), and in zsh write `${VAR}` before a
-    `:` in test commands (`$P:P` is a path modifier).
-  - `home-files`: the Files panel. A click on a file previews it in the panel, as the shipped
-    mod does, but drawn like the diff in `home-changes` with syntax colors from `bat` (same
-    flags and fallbacks) instead of Herdr's editor, so its text can't be selected. Right-click a
-    file → *Open in Neovim (split)* (right of the focused pane), *Open in Neovim (tab)*, *Open in
-    Visual Studio Code* (`code <folder> <file>`: the pane's folder gets a window, or its open
-    window is reused; if `code` doesn't start, an nvim tab), *Show in Finder*, *Copy relative
-    path* (relative to the pane's folder), *Copy absolute path*; a folder gets Finder and the two
-    copies. VS Code and Finder are hidden on a remote space. Testable with
-    `herdr-app do 'home-files.<show | menu | code | nvim | nvim-tab | finder | copy-rel |
-    copy-full>:<path>'` (a folder ends in `/`; `show:` alone goes back to the tree).
-  - `home-changes`: the Changes panel. The diff has syntax colors from `bat`, run once per diff
-    and side (the file, and `git show HEAD:<path>`) with my bat config: theme `ansi` and italics
-    apply, only `--style=plain --tabs=4` is forced, and bat's 16 colors map to the theme's
-    `ansi0..15`. A line bat prints differently (cut at 4000 characters, file changed since) and a
-    machine without bat stay plain. Right-click a changed file → *Difftool:* Beyond Compare, VS
-    Code, difftastic, exiftool, the four tools of `git/.gitconfig` (`git difftool -y -t <tool> HEAD
-    -- <path>`; an untracked file is compared with `/dev/null` by `--no-index`). `bc` and `vscode`
-    start in the background (local spaces only), `difft` and `exiftool` in a new tab. Right-click
-    the panel's header ("Changes · N files") → *Open in Visual Studio Code* (`code <repo>`, local
-    spaces only), *Open in Lazygit* (a new tab in the repo). Testable with
-    `herdr-app do 'home-changes.<menu | bc | vscode | difft | exiftool>:<path>'` and
-    `'home-changes.<repo-menu | code | lazygit>'`; the panel only
-    refreshes while the window is focused, so switch tabs to make it reload during a test.
-  - All four are modified copies of Herdr's shipped `tabs`, `spaces`, `files` and `changes` mods
-    (Apache-2.0); each file's header says so. A single `main.js` each: a mod with relative imports
-    can't be stow-linked (`herdr-app check` rejects an import resolving into `~/.dotfiles`, and the
-    SVG loader ignores symlinks, so `auto-title-tabs` keeps its clone's `win-*.svg` as real
-    untracked files, Windows only, and `home-files` uses the shipped `mods/files/*.svg`). The menus
-    are the same mod opened as a popup with `props().role`.
-  - **Reload:** the app doesn't notice edits made through a stow symlink. After changing a stowed
-    mod, `touch -h ~/.config/herdr-app/mods/<mod>/main.js`, else it keeps running the old code
-    while `herdr-app check` passes on the new. (Layout edits are noticed.)
-  - The layout is `main` cloned (`herdr-app do layout.clone`), with `"mod": "tabs"`,
-    `"mod": "spaces"`, `"mod": "files"` and `"mod": "changes"` swapped for the four mods above (the
-    block ids stay `files`/`changes`: the tab bar's panel buttons use them). It stops following Herdr's updates to
-    `main`; `ctrl-shift-l` switches back. The agents slot uses the third-party `"auto-agents"`
-    (agent rows show the tab name only), and the bottom bar is a row, `status-row`:
-    `workspace-status` (weight 1) and the third-party `usage-limits` (weight 2.2; Claude
-    Code/Codex limits and OpenCode/Pi tokens, more on hover).
-  - **Third-party mods** are not in the repo; [README.md](README.md) lists them with their
-    sources. They have relative imports, helper scripts and icons, so they can't be stowed: each
-    mod's folder is copied to `~/.config/herdr-app/mods/<name>` by hand. `auto-agents` and
-    `usage-limits` are in the layout; `git-good` is a dialog on prefix `g` (changed files with
-    diff, staging by file or hunk, commit, pull, push, stash, switching and creating branches).
-    Without one of the first two, set its slot back: `"agents"`
-    for the agents list, the plain `status` block (`"size": {"px": 28}`) for the bottom row. When
-    adding one, read its code first (mods run programs and reach the network unchecked) and add
-    it to the README list. A running window only picks up a re-copied mod after switching
-    layouts away and back.
-  - **New machine:** `just install`, copy the third-party mods (README), start Herdr, then
-    `herdr-app do layout.switch '{"name":"home"}'`. Not carried over: `shared.json` (space groups,
-    panel choices and the mods' own settings are app state).
+- **herdr-app**: config for the Herdr desktop app (`~/.config/herdr-app`, `--no-folding`):
+  `keys.json`, `settings.json`, the theme, the `home` layout, the `tmux-prefix` mod and
+  four mods of my own. **Read [herdr-app/README.md](herdr-app/README.md) before changing
+  anything in it**; it is not loaded automatically. It has what each mod does, the test
+  commands, the third-party mods and the new-machine steps. The rules that bite most:
+  - After editing a stowed mod, `touch -h ~/.config/herdr-app/mods/<mod>/main.js`: the app
+    doesn't notice edits made through a symlink and keeps running the old code.
+  - Run `herdr-app check` on the linked `~/.config/herdr-app/mods/<mod>` copy, never on the
+    repo path (there it writes `gpui-kit.d.ts` and `jsconfig.json` into the repo).
+  - One `main.js` per mod, no relative imports (they can't be stow-linked). Third-party
+    mods are copied by hand and stay out of the repo.
 - **btop**: config format 1.4.7+ (GPU keys).
 - **Theme**: rose-pine-moon everywhere (ghostty, herdr-app, tmux, starship, btop, nvim,
   pi, claude theme and statusline, opencode). bat uses `--theme=ansi` to inherit the terminal palette.
@@ -190,13 +140,13 @@ in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new fi
 
 | | Claude Code (`claude/.claude/`) | pi (`pi/.pi/`) | opencode (`opencode/.config/opencode/`) |
 |---|---|---|---|
-| Settings | `settings.json` | `agent/settings.json`, `agent/mcp.json` | `opencode.json` (plugins, provider, mcp), `cli.json` (theme) |
+| Settings | `settings.json` | `agent/settings.json`, `agent/mcp.json`, `agent/models.json`, `agent/keybindings.json` | `opencode.json` (plugins, provider, mcp), `cli.json` (theme) |
 | Global instructions | `CLAUDE.md` | `agent/AGENTS.md` | `AGENTS.md` (+ rules inlined) |
 | Rules | `rules/` | `rules/` | inlined in `AGENTS.md` |
-| Skills | `skills/` | `agent/skills/` | reads `~/.claude/skills`; tracked: `diagram-design`, `security-audit`, `anatomy` |
-| Hooks / extensions | `hooks/` (shell) | `agent/extensions/` (TypeScript) | plugins via `plugins` in `opencode.json` |
+| Skills | `skills/` | `agent/skills/` | reads `~/.claude/skills`; tracked: `anatomy`, `diagram-design`, `hc`, `herdr-app`, `security-audit` |
+| Hooks / extensions | none tracked; plugins via `enabledPlugins` in `settings.json` | `agent/extensions/` (TypeScript) | plugins via `plugins` in `opencode.json` |
 | Agents | — | `agent/agents/` | `agents/` |
-| Themes | `themes/` | — | `themes/` |
+| Themes | `themes/` | `agent/themes/` | `themes/` |
 | Statusline | `claude-powerline.json` ([claude-powerline](https://github.com/Owloops/claude-powerline), TUI style) | — | — |
 
 Kept in sync by hand, no automation:
@@ -247,7 +197,7 @@ Kept in sync by hand, no automation:
 Only skills are portable between the three; commands, plugins and hooks use different
 formats/runtimes.
 
-### opencode specifics
+### USTP providers
 
 - `ustp-bifrost` provider = the Bifrost backend pi uses (there it keeps the plugin's fixed
   id `bifrost`; `pi-bifrost-provider` hardcodes it) (`BIFROST_URL`, `BIFROST_API_KEY`,
@@ -259,12 +209,25 @@ formats/runtimes.
   worldwide while Bifrost only works inside the USTP network. Model IDs are identical.
   pi gets it from the `ustp-openwebui.ts` extension (`models.json` can't read the URL from an
   env var); pi's default stays `bifrost`, switch with `/model` when off the USTP network.
+
+### pi specifics
+
+- Packages (`packages` in `settings.json`, installed at startup): `pi-subagents`,
+  superpowers, `pi-rules`, `pi-bifrost-provider`, diagram-design, `@narumitw/pi-herdr`,
+  `pi-powerline-footer`.
+- Keep `pi` out of the `--no-folding` case: `pi-rules` skips a rule file whose real path
+  is outside the rules dir ("symlink escape"). `~/.pi/rules` is one dir link, so pi's
+  rules load; as per-file links they would not. It also scans `~/.claude/rules`, where the
+  files are per-file links: those are the skips the `pi` wrapper in `.zsh_aliases` hides.
 - `pi-powerline-footer` draws pi's footer (model/path/git + context, below the editor, no cost
   segments — the USTP models report no pricing). Config lives in the `powerline` block in
   `pi/.pi/agent/settings.json`; segment colors are pinned in
   `pi/.pi/agent/extensions/powerline-footer/theme.json` (agent-dir theme override). The npm
   package is in `packages` (auto-installed at startup); the theme-dir symlink needs nothing on
   a new machine (`just install pi` fold-links the tracked dir).
+
+### opencode specifics
+
 - superpowers installs from `plugins` in `opencode.json`.
 - Never track `service.json` (password) or `opencode.json.bak`.
 - opencode runs a background service that caches config and its own env: after edits run
@@ -273,7 +236,9 @@ formats/runtimes.
 ## VIA
 
 `via/` holds Monsgeek M1V5 (ISO) layout JSON, imported manually in the VIA app. It is
-excluded from `packages` in `justfile`; `just install via` would still stow it, don't.
+excluded from `packages` in `justfile`; `just install via` would still stow it, don't
+(its empty `.stow-local-ignore` replaces stow's default ignore list, so the JSON files
+would be linked into `$HOME`).
 
 ## Adding a Package
 
@@ -281,3 +246,4 @@ excluded from `packages` in `justfile`; `just install via` would still stow it, 
 2. Add it to `packages` in `justfile`; if the app writes runtime files next to its
    config, also add it to the `--no-folding` `case`.
 3. Dry-run, then `just install <pkg>`.
+4. Add it to the package table and, if it needs a tool, the tool lists in `README.md`.
