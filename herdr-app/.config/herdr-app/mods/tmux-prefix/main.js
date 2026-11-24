@@ -1,6 +1,6 @@
 import { View, div } from "gpui-kit";
 import { v_flex, h_flex } from "gpui-base";
-import { closeOverlay, exec, focused, hc, nextCommand, props, run, settings, theme } from "herdr";
+import { closeOverlay, exec, focused, hc, nextCommand, props, run, settings, theme, window } from "herdr";
 
 // Edit these two things to make the example yours. Only repeatable actions
 // start a timer: the first key after Ctrl+Space can take as long as you like.
@@ -44,6 +44,8 @@ const BINDINGS = [
   // ponytail: macOS + local only (open -n); on Linux call `ghostty --working-directory=<cwd>` directly.
   // --window-save-state=never: else a new instance restores its saved window and ignores the folder.
   ["t", "Ghostty (window)", () => exec("open", ["-na", "Ghostty", "--args", "--window-save-state=never", ...(focused()?.cwd ? [`--working-directory=${focused().cwd}`] : [])]).catch((e) => console.log(`tmux-prefix: ${e}`))],
+  // ponytail: local only; a remote space's folder does not exist on this computer.
+  ["f", "Finder (folder)", () => exec(window()?.platform === "macos" ? "open" : "xdg-open", focused()?.cwd ? [focused().cwd] : []).catch((e) => console.log(`tmux-prefix: ${e}`))],
   ["left", "Focus left", "pane.go", { direction: "left" }, true],
   ["down", "Focus down", "pane.go", { direction: "down" }, true],
   ["up", "Focus up", "pane.go", { direction: "up" }, true],

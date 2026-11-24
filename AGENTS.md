@@ -96,13 +96,14 @@ in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new fi
   `ctrl-space` → `tmux-prefix` mod (old herdr prefix); once edited it no longer receives
   new default keys, add them by hand. The mod is
   [herdrdev/herdr-layout-examples](https://github.com/herdrdev/herdr-layout-examples/tree/main/tmux-prefix)
-  with prefix Ctrl+Space instead of Ctrl+B and extra keys (`v - b s w N W D T X g e o t`; `o` opens a VS Code window and `t` a new Ghostty window (macOS only, `--window-save-state=never` or it restores an old window) on the focused pane's folder)
+  with prefix Ctrl+Space instead of Ctrl+B and extra keys (`v - b s w N W D T X g e o t f`; `o` opens a VS Code window, `t` a new Ghostty window (macOS only, `--window-save-state=never` or it restores an old window) and `f` Finder (`xdg-open` on Linux) on the focused pane's folder)
   in `BINDINGS` in `main.js`; it runs `hc keys` to send the literal prefix. Edits are
   live; check with `herdr-app status` and `herdr-app check` (run it on the linked
   `~/.config/herdr-app/mods/...` copy: on the repo path it writes `gpui-kit.d.ts` and
   `jsconfig.json` into the repo).
-  Also tracked, my own mods and layout: `mods/auto-title-tabs/`, `mods/auto-title-spaces/` (each
-  `main.js`, `mod.json`) and `layouts/home.json`, the only layout.
+  Also tracked, my own mods and layout: `mods/auto-title-tabs/`, `mods/auto-title-spaces/`,
+  `mods/home-files/`, `mods/home-changes/` (each `main.js`, `mod.json`) and `layouts/home.json`,
+  the only layout.
   - `auto-title-tabs`: the tab bar. A tab is named after what runs in it: the first pane with a
     useful terminal title (a coding agent's conversation title), else a program's name, else a
     shell's folder. A name typed by hand stays until cleared. Spaces keep their own names. Names
@@ -129,15 +130,36 @@ in `plugins/lsp/`; both dirs are auto-imported, so a new plugin is just a new fi
     tabs/menus/dialog are this same mod opened with `props().role`; one file, as stow needs). Gotchas:
     `shared()` returns read-only objects (copy before mutating), and in zsh write `${VAR}` before a
     `:` in test commands (`$P:P` is a path modifier).
-  - Both are modified copies of Herdr's shipped `tabs` and `spaces` mods (Apache-2.0); each file's
-    header says so. A single `main.js` each: a mod with relative imports can't be stow-linked
-    (`herdr-app check` rejects an import resolving into `~/.dotfiles`, and the SVG loader ignores
-    symlinks, so `auto-title-tabs` keeps its clone's `win-*.svg` as real untracked files, Windows only).
+  - `home-files`: the Files panel. A click on a file opens it in VS Code (`code <folder> <file>`:
+    the pane's folder gets a window, or its open window is reused); on a remote space, or if `code`
+    doesn't start, it opens an nvim tab. There is no preview in the panel. Right-click a file →
+    *Open (nvim)* (a split right of the focused pane), *Open in new tab (nvim)*, *Open in VS Code*,
+    *Show in Finder*, *Copy relative path* (relative to the pane's folder), *Copy full path*; a
+    folder gets Finder and the two copies. VS Code and Finder are hidden on a remote space.
+    Testable with `herdr-app do 'home-files.<menu | code | nvim | nvim-tab | finder | copy-rel |
+    copy-full>:<path>'` (a folder ends in `/`).
+  - `home-changes`: the Changes panel. The diff has syntax colors from `bat`, run once per diff
+    and side (the file, and `git show HEAD:<path>`) with my bat config: theme `ansi` and italics
+    apply, only `--style=plain --tabs=4` is forced, and bat's 16 colors map to the theme's
+    `ansi0..15`. A line bat prints differently (cut at 4000 characters, file changed since) and a
+    machine without bat stay plain. Right-click a changed file → *Difftool:* Beyond Compare, VS
+    Code, difftastic, exiftool, the four tools of `git/.gitconfig` (`git difftool -y -t <tool> HEAD
+    -- <path>`; an untracked file is compared with `/dev/null` by `--no-index`). `bc` and `vscode`
+    start in the background (local spaces only), `difft` and `exiftool` in a new tab. Testable with
+    `herdr-app do 'home-changes.<menu | bc | vscode | difft | exiftool>:<path>'`; the panel only
+    refreshes while the window is focused, so switch tabs to make it reload during a test.
+  - All four are modified copies of Herdr's shipped `tabs`, `spaces`, `files` and `changes` mods
+    (Apache-2.0); each file's header says so. A single `main.js` each: a mod with relative imports
+    can't be stow-linked (`herdr-app check` rejects an import resolving into `~/.dotfiles`, and the
+    SVG loader ignores symlinks, so `auto-title-tabs` keeps its clone's `win-*.svg` as real
+    untracked files, Windows only, and `home-files` uses the shipped `mods/files/*.svg`). The menus
+    are the same mod opened as a popup with `props().role`.
   - **Reload:** the app doesn't notice edits made through a stow symlink. After changing a stowed
     mod, `touch -h ~/.config/herdr-app/mods/<mod>/main.js`, else it keeps running the old code
     while `herdr-app check` passes on the new. (Layout edits are noticed.)
-  - The layout is `main` cloned (`herdr-app do layout.clone`), with `"mod": "tabs"` and
-    `"mod": "spaces"` swapped for the two mods above. It stops following Herdr's updates to
+  - The layout is `main` cloned (`herdr-app do layout.clone`), with `"mod": "tabs"`,
+    `"mod": "spaces"`, `"mod": "files"` and `"mod": "changes"` swapped for the four mods above (the
+    block ids stay `files`/`changes`: the tab bar's panel buttons use them). It stops following Herdr's updates to
     `main`; `ctrl-shift-l` switches back. The agents slot uses `"auto-agents"`, a third-party,
     untracked mod (`universal-auto-tabs` from benjaminsicard/herdr-mods; agent rows show the tab
     name only); without it, set that slot back to `"agents"`. New machine: `just restow herdr-app`,
