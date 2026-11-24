@@ -1,6 +1,7 @@
 // Modified from Herdr's shipped `changes` mod (Apache-2.0, github.com/herdrdev/herdr-app):
 // the diff has syntax colors, taken from bat (see BAT below), and a right-click on a changed
-// file opens a menu that hands it to one of git's difftools (see TOOLS below).
+// file opens a menu that hands it to one of git's difftools (see TOOLS below). A right-click
+// on the panel's header opens the repo in VS Code or lazygit (see REPO below).
 
 import { View, div } from "gpui-kit";
 import { v_flex, h_flex, InputState, Input, Scrollbar, v_virtual_list } from "gpui-base";
@@ -147,14 +148,25 @@ async function batLines(root, on, path, rev, first, last) {
 // (`fresh`: git has no version to compare with, so it is compared with nothing).
 // bc and vscode open a window and wait for it: they are started in the background, on this
 // computer only. difft and exiftool print to a pager: they get a tab.
-const TOOLS = [["bc", "Beyond Compare"], ["vscode", "VS Code"], ["difft", "difftastic"], ["exiftool", "exiftool"]];
+const TOOLS = [["bc", "Beyond Compare"], ["vscode", "Visual Studio Code"], ["difft", "Difftastic"], ["exiftool", "ExifTool"]];
 const windowed = (tool) => tool === "bc" || tool === "vscode";
 function difftool(tool, t) {
   const args = ["difftool", "-y", "-t", tool, ...(t.fresh ? ["--no-index", "--", "/dev/null", t.path] : ["HEAD", "--", t.path])];
   if (windowed(tool)) exec("sh", ["-c", 'git "$@" >/dev/null 2>&1 &', "sh", ...args], { cwd: t.root }).catch((e) => console.log(`home-changes: ${e}`));
   else run("tab.new", { name: `${tool} ${t.path.split("/").pop()}`, folder: t.root, argv: ["git", ...args] });
 }
-const menuItems = (t) => TOOLS.filter(([tool]) => !t.on || !windowed(tool));
+// The header's menu hands the whole repo to another program: a target without a path.
+// ponytail: VS Code is on this computer only; lazygit gets a tab on the space's machine.
+const REPO = [["code", "Open in Visual Studio Code"], ["lazygit", "Open in Lazygit"]];
+function openRepo(app, t) {
+  if (app === "code") exec("code", [t.root]).catch((e) => console.log(`home-changes: ${e}`));
+  else run("terminal.open", { argv: ["lazygit"], folder: t.root, name: "lazygit" });
+}
+// A menu's [id, label] rows, and what choosing one does.
+const menuItems = (t) => t.path === undefined
+  ? REPO.filter(([app]) => !t.on || app !== "code")
+  : TOOLS.filter(([tool]) => !t.on || !windowed(tool)).map(([tool, label]) => [tool, `Difftool: ${label}`]);
+const choose = (id, t) => t.path === undefined ? openRepo(id, t) : difftool(id, t);
 // The menu is this mod again, opened as a popup with props().role === "menu".
 const openMenu = (target) => openOverlay({ mod: "home-changes", kind: "popup", width: 230, height: 10 + 31 * menuItems(target).length, props: { role: "menu", target } });
 
@@ -162,14 +174,16 @@ export default class Changes extends View {
   init(_props, cx) {
     this.role = props()?.role ?? "panel";
     if (this.role === "menu") { this.at = 0; this.handle = cx.focus_handle(); this.handle.focus(); return; }
-    // `herdr-app do 'home-changes.<menu | bc | vscode | difft | exiftool>:<path>'` does what the menu would.
+    // `herdr-app do 'home-changes.<menu | bc | vscode | difft | exiftool>:<path>'` does what a file's
+    // menu would, and `home-changes.<repo-menu | code | lazygit>` what the header's would.
     cx.spawn(async () => {
       for (;;) {
-        const command = await nextCommand(), at = command.indexOf(":");
-        const file = this.files.find((f) => f.path === command.slice(at + 1));
-        if (!file) continue;
-        if (command.startsWith("menu:")) openMenu(this.target(file));
-        else if (TOOLS.some(([tool]) => tool === command.slice(0, at))) difftool(command.slice(0, at), this.target(file));
+        const command = await nextCommand(), at = command.indexOf(":"), id = at < 0 ? command : command.slice(0, at);
+        const file = at < 0 ? null : this.files.find((f) => f.path === command.slice(at + 1));
+        const target = file ? this.target(file) : at < 0 && this.root ? this.repo() : null;
+        if (!target) continue;
+        if (id === "menu" || id === "repo-menu") openMenu(target);
+        else if (menuItems(target).some(([item]) => item === id)) choose(id, target);
       }
     });
     this.files = []; this.rows = []; this.longest = 0; this.gutterChars = 4; this.message = ""; this.handle = cx.focus_handle();
@@ -309,6 +323,10 @@ export default class Changes extends View {
     });
   }
 
+  repo() {
+    return { root: this.root, on: this.on ?? null };
+  }
+
   target(file) {
     return { root: this.root, on: this.on ?? null, path: file.path, fresh: file.fresh || !this.hasHead };
   }
@@ -412,19 +430,19 @@ export default class Changes extends View {
 
   renderMenu() {
     const t = theme(), { target, overlay } = props(), list = menuItems(target);
-    const choose = (tool) => { closeOverlay(overlay); difftool(tool, target); };
+    const pick = (id) => { closeOverlay(overlay); choose(id, target); };
     return v_flex().id("changes-menu").track_focus(this.handle).w_full().min_h(0).p(5).bg(t.popover).text_color(t.foreground).text_size(12.8)
       .on_key_down((e, cx) => {
         if (e.key === "down") this.at = (this.at + 1) % list.length;
         else if (e.key === "up") this.at = (this.at + list.length - 1) % list.length;
-        else if (e.key === "enter") choose(list[this.at][0]);
+        else if (e.key === "enter") pick(list[this.at][0]);
         else if (e.key === "escape") closeOverlay(overlay);
         else return;
         cx.notify();
       })
-      .children(list.map(([tool, label], i) => h_flex().id(`mi-${tool}`).h(31).flex_none().px(8).rounded(7).items_center().cursor_pointer()
+      .children(list.map(([id, label], i) => h_flex().id(`mi-${id}`).h(31).flex_none().px(8).rounded(7).items_center().cursor_pointer()
         .when(i === this.at, (el) => el.bg(t.selected)).hover((s) => s.bg(t.hover))
-        .on_click(() => choose(tool)).child(`Difftool: ${label}`)));
+        .on_click(() => pick(id)).child(label)));
   }
 
   render(cx) {
@@ -437,7 +455,8 @@ export default class Changes extends View {
       .on_key_down((e, cx) => {
         if (e.key === "escape" && this.typing) { this.typing = false; this.handle.focus(); cx.stop_propagation(); cx.notify(); }
       })
-      .child(h_flex().h(42).flex_none().px(14).gap(8).items_center().border_b(1).border_color(t.border)
+      .child(h_flex().id("changes-header").h(42).flex_none().px(14).gap(8).items_center().border_b(1).border_color(t.border)
+        .on_mouse_down("right", (_e, cx) => { cx.stop_propagation(); if (this.root) openMenu(this.repo()); })
         .child(div().font_semibold().child("Changes"))
         .child(div().px(5).py(1).rounded(4).border_1().border_color(t.border).text_size(10).text_color(t.muted).child(`${this.files.length} files`))
         .child(div().flex_1()).child(div().text_size(11).text_color(t.ansi2).child(`+${add}`)).child(div().text_size(11).text_color(t.ansi1).child(`−${del}`)))
