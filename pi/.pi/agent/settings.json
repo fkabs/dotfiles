@@ -5,7 +5,7 @@
   "enableInstallTelemetry": false,
   "hideThinkingBlock": true,
   "theme": "rose-pine-moon",
-  "lastChangelogVersion": "1.6.0",
+  "lastChangelogVersion": "1.6.1",
   "packages": [
     "npm:pi-subagents",
     "git:github.com/obra/superpowers",
